@@ -5,7 +5,7 @@ AWS Workshop tutorial for building a photo gallery web app using AWS Amplify and
 
 This sample code is made available under a modified MIT license. See the LICENSE file.
 
-### Setup:
+## Setup
 
 #### Install Hugo:
 On a mac:
