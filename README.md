@@ -1,4 +1,4 @@
-# Amplify Photo Album Workshop
+# Amplify Photo Gallery Workshop
 AWS Workshop tutorial for building a photo gallery web app using AWS Amplify and AWS AppSync.
 
 ## License Summary
