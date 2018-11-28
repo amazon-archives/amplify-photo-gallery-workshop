@@ -5,7 +5,12 @@ AWS Workshop tutorial for building a photo gallery web app using AWS Amplify and
 
 This sample code is made available under a modified MIT license. See the LICENSE file.
 
-## Setup
+## Viewing the Workshop
+This workshop is deployed at https://amplify-workshop.go-aws.com -- if you would like to run through the workshop, please visit this URL.
+
+If you'd like to make edits to the workshop to suggest a change, see the build instructions below.
+
+## Building the workshop static site with Hugo
 
 #### Install Hugo:
 On a mac:
