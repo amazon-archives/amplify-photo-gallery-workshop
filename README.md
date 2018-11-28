@@ -1,10 +1,6 @@
 # Amplify Photo Gallery Workshop
 AWS Workshop tutorial for building a photo gallery web app using AWS Amplify and AWS AppSync.
 
-## License Summary
-
-This sample code is made available under a modified MIT license. See the LICENSE file.
-
 ## Viewing the Workshop
 This workshop is deployed at https://amplify-workshop.go-aws.com -- if you would like to run through the workshop, please visit this URL.
 
@@ -46,3 +42,8 @@ Visit http://localhost:1313/ to see the site.
 As you save edits to a page, the site will live-reload to show your changes.
 
 note: shift-reload may be necessary in your browser to reflect the latest changes.
+
+## License Summary
+
+This sample code is made available under a modified MIT license. See the LICENSE file.
+
