@@ -28,14 +28,14 @@ These commands will take a few minutes to finish.
 
 ### Configuring a default region 
 
-In this workshop, to keep things consistent, we'll do everything in the *ap-southeast-1* region.
+In this workshop, to keep things consistent, we'll do everything in the *us-east-1* region.
 
 **Create an AWS config file**, run:
 
 ```bash
 cat <<END > ~/.aws/config
 [default]
-region=ap-southeast-1
+region=us-east-1
 END
 ```
 

@@ -14,7 +14,7 @@ Amplify can do a pretty good job of removing most of the cloud resources we've p
 
 ### A small bit of manual cleanup
 
-At this point, if you open the [CloudFormation stacks console](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks) and click on the various stacks that show a status of 'DELETE FAILED', you can see what failed to delete and why.
+At this point, if you open the [CloudFormation stacks console](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks) and click on the various stacks that show a status of 'DELETE FAILED', you can see what failed to delete and why.
 
 The Authenticated users IAM role failed to delete because it won't delete while there were still policies associated with it when CloudFormation tried to delete it.  However, at this point, all the policies should now be deleted, so another attempt at deleting the stack should succeed.
 
@@ -30,7 +30,7 @@ The Authenticated users IAM role failed to delete because it won't delete while 
 
 The S3 Buckets that Amplify created will not be automatically deleted. To delete these buckets:
 
-1. Open the [S3 console](https://s3.console.aws.amazon.com/s3/home?region=ap-southeast-1) 
+1. Open the [S3 console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) 
 
 2. Click the **Date created** column to sort the buckets with the newest ones on top
 
@@ -39,7 +39,7 @@ The S3 Buckets that Amplify created will not be automatically deleted. To delete
 
 ### Deleting the Cloud9 Workspace
 
-1. Go to your [Cloud9 Environment](https://ap-southeast-1.console.aws.amazon.com/cloud9/home?region=ap-southeast-1)
+1. Go to your [Cloud9 Environment](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
 
 2. Select the environment named **workshop** and pick **Delete**
 

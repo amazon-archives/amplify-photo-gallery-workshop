@@ -17,7 +17,7 @@ one now](https://aws.amazon.com/getting-started/)
 
 1. Once you have an AWS account, ensure you are following the remaining workshop steps
 as an **IAM user** with administrator access to the AWS account:
-[Create a new IAM user to use for the workshop](https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/users$new)
+[Create a new IAM user to use for the workshop](https://console.aws.amazon.com/iam/home?region=us-east-1#/users$new)
 
 1. Enter the user details:
 ![Create User](/images/iam-1-create-user.png)
