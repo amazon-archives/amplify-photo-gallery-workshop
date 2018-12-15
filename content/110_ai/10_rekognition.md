@@ -25,10 +25,10 @@ For each object, scene, and concept the API returns one or more labels. Each lab
 
 Let's add Amazon Rekognition integration in to our photo_processor lambda function.
 
-**Replace amplify/backend/function/workshop-photoprocessor/src/index.js** with the following version:
+**Replace amplify/backend/function/workshopphotoprocessor/src/index.js** with the following version:
 
 {{< highlight js "hl_lines=5 24-38 116 121">}}
-// photo-albums/amplify/backend/function/workshop-photoprocessor/src/index.js
+// photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js
 
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3({ signatureVersion: 'v4' });
