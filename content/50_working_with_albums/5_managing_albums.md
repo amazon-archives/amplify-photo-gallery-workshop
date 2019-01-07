@@ -1,5 +1,5 @@
 +++
-title = "Manging Albums"
+title = "Managing Albums"
 chapter = false
 weight = 5
 +++
