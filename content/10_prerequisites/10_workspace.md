@@ -22,7 +22,7 @@ the cloud9 domain, otherwise connecting to the workspace might be impacted.
 1. Go to the [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
 1. Select **Create environment**
 1. Name it **workshop**, and go to the **Next step**
-1. Select **Other instance type** and pick **t2.medium**
+1. Select **Create a new instance for environment (EC2)** and pick **t2.medium**
 2. Leave all of the environment settings as they are, and go to the **Next step**
 3. Click **Create environment**
 
