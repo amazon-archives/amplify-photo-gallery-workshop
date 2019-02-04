@@ -7,7 +7,7 @@ weight = 5
 At this point, we have a web app that authenticates users and a secure GraphQL API endpoint that lets us create and read Album data. It's time to connect the two together!
 
 {{% notice info %}}
-As we saw above, [AWS Amplify](https://aws.github.io/aws-amplify/) is an open source JavaScript library that makes it very easy to integrate a number of cloud services into your web or React Native apps. We'll start by using its [Connect React component](https://aws.github.io/aws-amplify/media/api_guide#connect) to take care of automatically querying our GraphQL API and providing data for our React components to use when rendering.
+As we saw above, [AWS Amplify](https://aws.github.io/aws-amplify/) is an open source JavaScript library that makes it very easy to integrate a number of cloud services into your web or React Native apps. We'll start by using its [Connect React component](https://aws-amplify.github.io/docs/js/api#connect) to take care of automatically querying our GraphQL API and providing data for our React components to use when rendering.
 <br/><br/>
 The Amplify CLI has already taken care of making sure that our *src/aws-exports.js* file contains all of the configuration we'll need to pass to the Amplify JS library in order to talk to the AppSync API. All we'll need to do is add some new code to interact with the API.
 {{% /notice %}}
@@ -274,7 +274,7 @@ Check out the app now and try out the new features:
 - When viewing an Album, click 'Back to Albums list' to go home
 
 {{% notice tip %}}
-The loading magic here comes from [AWS Amplify's *Connect* component](https://aws.github.io/aws-amplify/media/api_guide#connect) (which we imported from the *aws-amplify-react* package). All we need to do is pass this component a GraphQL query operation in its query prop. It takes care of running that query when the component mounts, and it passes information down to a child function via the data, loading, and errors arguments. We use those values to render appropriately, either showing some loading text or passing the successfully fetched data to our *AlbumsList* component.
+The loading magic here comes from [AWS Amplify's *Connect* component](https://aws-amplify.github.io/docs/js/api#connect) (which we imported from the *aws-amplify-react* package). All we need to do is pass this component a GraphQL query operation in its query prop. It takes care of running that query when the component mounts, and it passes information down to a child function via the data, loading, and errors arguments. We use those values to render appropriately, either showing some loading text or passing the successfully fetched data to our *AlbumsList* component.
 {{% /notice %}}
 
 {{% notice info %}}

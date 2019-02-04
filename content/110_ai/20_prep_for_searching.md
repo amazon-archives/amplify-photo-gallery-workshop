@@ -42,7 +42,7 @@ type PhotoS3Info {
 3. Wait for the update to finish. Creating a new Amazon Elasticsearch Service endpoint can take several minutes. **This step usually takes 8 to 12 minutes to complete.**
 
 {{% notice tip %}}
-You can learn more about Amplify's *@searchable* GraphQL directive in [Amplify's GraphQL Transform documentation](https://github.com/aws-amplify/amplify-cli/blob/master/graphql-transform-tutorial.md#searchable).
+You can learn more about Amplify's *@searchable* GraphQL directive in [Amplify's GraphQL Transform documentation](https://aws-amplify.github.io/docs/cli/graphql?sdk=js).
 {{% /notice %}}
 
 ### What we changed
