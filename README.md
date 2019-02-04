@@ -22,15 +22,19 @@ From wherever you checkout repos:
 `git clone git@github.com:aws-samples/amplify-photo-gallery-workshop.git`
 
 #### Clone the theme submodule:
-`cd amplify-photo-gallery-workshop`
 
-`git submodule init`
-`git submodule update --checkout --recursive`
+```sh
+cd amplify-photo-gallery-workshop
+git submodule init
+git submodule update --checkout --recursive
+```
 
 #### Install node packages:
+
 `npm install`
 
 #### Run Hugo locally:
+
 `npm run server`
 or
 `npm run test` to see stubbed in draft pages.
