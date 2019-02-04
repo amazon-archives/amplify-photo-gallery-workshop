@@ -17,6 +17,8 @@ Here's what the sign-in screen will look like:
 
 **On the command line, in the photo-albums directory**:
 
+1. **Be sure to be in photo-albums directory** `cd photo-albums`
+
 1. **Run** `amplify init`
 
 1. **Select 'None'** for the default editor (we're using Cloud9)
