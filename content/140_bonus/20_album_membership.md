@@ -52,7 +52,7 @@ type PhotoS3Info {
 2. **Run `amplify push`** to regenerate a new GraphQL schema and update our AppSync API. 
 
 {{% notice tip %}}
-You can learn more about adding multiple ownership rules to a model in [the GraphQL Transform documentation](https://aws-amplify.github.io/docs/cli/graphql#usage-1).
+You can learn more about adding multiple ownership rules to a model in [the GraphQL Transform documentation](https://aws-amplify.github.io/docs/cli/graphql?sdk=js).
 {{% /notice %}}
 
 

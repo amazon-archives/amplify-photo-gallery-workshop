@@ -26,7 +26,12 @@
       <link href="{{(printf "css/theme-%s.css" .) | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
     {{end}}
 
+    <link href="{{"css/jquery-ui.min.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
+    <link href="{{"css/jquery-ui.structure.min.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
+    <link href="{{"css/jquery-ui.theme.min.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
     <script src="{{"js/jquery-2.x.min.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
+    <script src="{{"js/jquery-ui.min.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
+    <script src="{{"js/tabs.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
