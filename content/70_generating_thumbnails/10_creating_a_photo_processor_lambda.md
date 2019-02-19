@@ -212,11 +212,14 @@ exports.handler = async (event, context, callback) => {
 
 8.  **Replace photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** with the following:
 <div style="height: 550px; overflow-y: scroll;">
-{{< highlight json "hl_lines=4-11 26-31 100-183">}}
+{{< highlight json "hl_lines=4-14 29-36 100-183">}}
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
+		"env": {
+            "Type": "String"
+        },
 		"S3UserfilesBucketName": {
 			"Type": "String"
 		},
@@ -240,6 +243,7 @@ exports.handler = async (event, context, callback) => {
 				"Timeout": "25",
 				"Environment": {
 					"Variables": {
+						"ENV": {"Ref": "env"},
 						"THUMBNAIL_WIDTH": "80",
 						"THUMBNAIL_HEIGHT": "80",
 						"DYNAMODB_PHOTOS_TABLE_ARN": { "Ref": "DynamoDBPhotosTableArn" }
@@ -427,9 +431,9 @@ exports.handler = async (event, context, callback) => {
 ### What we changed
 - Created a *parameters.json* file to pass some values into the Photo Processor function's CloudFormation template
 
-- Added parameters *S3UserfilesBucketName* and *DynamoDBPhotosTableArn* to the Photo Processor function's CloudFormation template
+- Added parameters *env*, *S3UserfilesBucketName*, and *DynamoDBPhotosTableArn* to the Photo Processor function's CloudFormation template
 
-- Added environment variables to the Photo Processor function's configuration: *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN*
+- Added environment variables to the Photo Processor function's configuration: *ENV*, *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN*
 
 - Added an *AllPrivsForPhotoAlbums* IAM policy to grant the function's role read and write access to the S3 bucket containing our photos
 

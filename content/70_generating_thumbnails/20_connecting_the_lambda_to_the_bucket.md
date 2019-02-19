@@ -9,7 +9,7 @@ Now that we've created our Photo Processor function, we need to set up a trigger
 
 1. **Replace photo-albums/amplify/backend/storage/photoalbumsstorage/s3-cloudformation-template.json** with the following:
 <div style="height: 550px; overflow-y: scroll;">
-{{< highlight json "hl_lines=78-87 121-144 147-163">}}
+{{< highlight json "hl_lines=26-28 90-99 152-175 178-195">}}
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "S3 resource stack creation using Amplify CLI",
@@ -34,9 +34,21 @@ Now that we've created our Photo Processor function, we need to set up a trigger
 		},
 		"authPermissions": {
 			"Type": "String"
-		}
+		},
+		"env": {
+            "Type": "String"
+        }
+
 	},
 	"Conditions": {
+		"ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        },
 		"EnableUnauthReadWrite": {
 			"Fn::Equals": [
 				{
@@ -102,8 +114,27 @@ Now that we've created our Photo Processor function, we need to set up a trigger
 			"DeletionPolicy" : "Retain",
 			"Properties": {
 				"BucketName": {
-					"Ref": "bucketName"
-				},
+                    "Fn::If": [
+                        "ShouldNotCreateEnvResources",
+                        {
+                            "Ref": "bucketName"
+                        },
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "bucketName"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "env"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
 				"CorsConfiguration": {
 					"CorsRules": [
 						{
@@ -825,9 +856,12 @@ You can find this value in **photo-albums/src/aws-exports.js** under the **aws_u
 4. Wait for the update to complete. This step usually only takes a minute or two.
 
 ### What we changed in amplify/.../s3-cloudformation-template.json
-- Added a *NotificationConfiguration* property to the S3Bucket resource, configuring the bucket to invoke our PhotoProcessor lambda function when new photos are added to the 'uploads/' prefix
+- Added a *env* parameter, allowing Amplify to pass in the current Amplify environment name to the template
 
 - Added a *InvokePhotoProcessorLambda* resource, giving the S3Bucket permission to invoke the PhotoProcessor lambda function.
+
+- Added a *NotificationConfiguration* property to the S3Bucket resource, configuring the bucket to invoke our PhotoProcessor lambda function when new photos are added to the 'uploads/' prefix
+
 
 - Added a *DenyListS3Buckets* IAM policy, preventing authenticated users from listing the contents of any buckets on S3
 

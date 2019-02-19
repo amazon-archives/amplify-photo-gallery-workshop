@@ -21,6 +21,10 @@ Here's what the sign-in screen will look like:
 
 1. **Run** `amplify init`
 
+1. **Press _Enter_** to accept the default project name 'photo-albums'
+
+1. **Enter 'dev'** for the environment name
+
 1. **Select 'None'** for the default editor (we're using Cloud9)
 
 1. **Choose JavaScript and React** when prompted
