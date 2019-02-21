@@ -13,7 +13,7 @@ When following the instructions below, **you must name your lambda function _wor
 Later, we'll edit some CloudFormation templates, and the function name **workshopphotoprocessor** is hard coded to make it easier for this workshop (less edits that you'll have to do).
 {{% /notice %}}
 
-1. **From the photo-albums directory, run:** `amplify function add` and respond to the prompts the same way as shown below:
+1. **From the photo-albums directory, run:** `amplify function add` and respond to the prompts the same way as shown below. Make sure you press Enter before continuing to step 2:
 	```text
 	$ amplify function add
 	Using service: Lambda, provided by: awscloudformation
