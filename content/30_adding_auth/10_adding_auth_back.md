@@ -23,7 +23,7 @@ Here's what the sign-in screen will look like:
 
 1. **Press _Enter_** to accept the default project name 'photo-albums'
 
-1. **Enter 'dev'** for the environment name
+1. **Enter 'master'** for the environment name
 
 1. **Select 'None'** for the default editor (we're using Cloud9)
 
