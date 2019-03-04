@@ -123,7 +123,7 @@ class Search extends React.Component {
       let photos = [];
       let label = '';
       let hasResults = false;
-      if (result.data.searchPhotos) {
+      if (result.data.searchPhotos.items.length !== 0) {
           hasResults = true;
           photos = result.data.searchPhotos.items;
           label = this.state.label;
