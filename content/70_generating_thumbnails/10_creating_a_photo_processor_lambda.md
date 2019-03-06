@@ -60,9 +60,7 @@ const uuidv4 = require('uuid/v4');
 Note: Sharp requires native extensions to be installed in a way that is compatible
 with Amazon Linux (in order to run successfully in a Lambda execution environment).
 
-If you're not working in Cloud9, you can use a docker image
-built to mimic AWS Lamda's execution environment to install the module's native dependencies: 
-docker run -v "$PWD":/var/task lambci/lambda:build-nodejs8.10 npm install
+If you're not working in Cloud9, you can follow the instructions on http://sharp.pixelplumbing.com/en/stable/install/#aws-lambda how to install the module and native dependencies.
 */
 const Sharp = require('sharp');
 
