@@ -2,7 +2,7 @@
 AWS Workshop tutorial for building a photo gallery web app using AWS Amplify and AWS AppSync.
 
 ## Viewing the Workshop
-This workshop is deployed at https://amplify-workshop.go-aws.com -- if you would like to run through the workshop, please visit this URL.
+This workshop is deployed at https://awskrug.github.io/amplify-photo-gallery-workshop/ -- if you would like to run through the workshop, please visit this URL.
 
 If you'd like to make edits to the workshop to suggest a change, see the build instructions below.
 
@@ -19,7 +19,7 @@ On Linux:
 
 #### Clone this repo:
 From wherever you checkout repos:
-`git clone git@github.com:aws-samples/amplify-photo-gallery-workshop.git`
+`git clone git@github.com:awskrug/amplify-photo-gallery-workshop.git`
 
 #### Clone the theme submodule:
 
