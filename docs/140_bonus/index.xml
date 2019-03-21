@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bonus Content on Amplify / AppSync / React Workshop</title>
+    <link>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus.html</link>
+    <description>Recent content in Bonus Content on Amplify / AppSync / React Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    
+	<atom:link href="https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Making a Lightbox for Viewing Fullsize Photos</title>
+      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus/10_lightbox_photos.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus/10_lightbox_photos.html</guid>
+      <description>One thing we haven&amp;rsquo;t yet addressed in our app is adding the ability for users to click on a photo thumbnail to see a larger version of the photo. Since we already have the fullsize and the thumbnail data available to query from our API, all we need to do is update our front end application with a few more lines of code.
+Updating the front end Replace photo-albums/src/App.js with the following updated version: // photo-albums/src/App.</description>
+    </item>
+    
+    <item>
+      <title>Allowing Other Users To Collaborate In Albums</title>
+      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus/20_album_membership.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus/20_album_membership.html</guid>
+      <description>We can take advantage of the fact that multiple users can sign in to our app and add the ability for other people view and upload to our albums on a case-by-case basis.
+The simplest way to do this is to have each album contain a set of usernames that are allowed to view and upload photos to it. Let&amp;rsquo;s see how we can make this work.
+Updating the backend Amplify supports multiple authorization declarations on the @model types in our GraphQL Schema.</description>
+    </item>
+    
+  </channel>
+</rss>

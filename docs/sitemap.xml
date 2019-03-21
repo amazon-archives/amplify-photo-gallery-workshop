@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/1_account.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/50_working_with_albums/5_managing_albums.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/130_wrapping_up/10_what_we_built.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/70_generating_thumbnails/10_creating_a_photo_processor_lambda.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/110_ai/10_rekognition.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus/10_lightbox_photos.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/40_graphql/10_setting_up_appsync.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/30_adding_auth/10_adding_auth_back.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/20_getting_started/10_what_we_will_build.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus/20_album_membership.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/20_getting_started/20_bootstrapping_the_app.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/130_wrapping_up/20_cleanup.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/70_generating_thumbnails/20_connecting_the_lambda_to_the_bucket.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/20_getting_started.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/20_software.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/110_ai/20_prep_for_searching.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/30_adding_auth/20_adding_auth_front.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/40_graphql/20_trying_out_queries.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/30_adding_auth.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/60_managing_photos/30_adding_storage.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/40_graphql.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/60_managing_photos/40_upload_photos_consolidated.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/110_ai/40_searching_for_labels.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/50_working_with_albums.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/60_managing_photos.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/70_generating_thumbnails.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/110_ai.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/120_deploying/10_deploying.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/120_deploying.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/130_wrapping_up.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/140_bonus.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/categories.html</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/tags.html</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

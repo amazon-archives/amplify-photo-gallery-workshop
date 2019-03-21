@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Amplify / AppSync / React Workshop</title>
+    <link>https://awskrug.github.io/amplify-photo-gallery-workshop/categories.html</link>
+    <description>Recent content in Categories on Amplify / AppSync / React Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    
+	<atom:link href="https://awskrug.github.io/amplify-photo-gallery-workshop/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

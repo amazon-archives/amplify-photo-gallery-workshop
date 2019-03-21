@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Amplify + AppSync Workshop" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://amplify-workshop.go-aws.com" />
+    <meta property="og:image" content="https://amplify-workshop.go-aws.com/images/architecture.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.54.0" />
+    <meta name="description" content="Amplify / AppSync / React Workshop">
+<meta name="author" content="Gabe Hollombe">
+
+    <link rel="shortcut icon" href="/amplify-photo-gallery-workshop/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/amplify-photo-gallery-workshop/images/favicon.png" type="image/x-icon" />
+    <title>Managing Albums :: Amplify / AppSync / React Workshop</title>
+
+    
+    <link href="/amplify-photo-gallery-workshop/css/nucleus.css?1553171233" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="/amplify-photo-gallery-workshop/css/hybrid.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/featherlight.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/perfect-scrollbar.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/auto-complete.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/theme.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/hugo-theme.css?1553171233" rel="stylesheet">
+    
+      <link href="/amplify-photo-gallery-workshop/css/theme-mine.css?1553171233" rel="stylesheet">
+    
+
+    <link href="/amplify-photo-gallery-workshop/css/jquery-ui.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/jquery-ui.structure.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/jquery-ui.theme.min.css?1553171233" rel="stylesheet">
+    <script src="/amplify-photo-gallery-workshop/js/jquery-2.x.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/jquery-ui.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/tabs.js?1553171233"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/amplify-photo-gallery-workshop/50_working_with_albums/5_managing_albums.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/" title="Go home"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" width="60%" style="padding:20px 0px;"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg></a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/amplify-photo-gallery-workshop/js/lunr.min.js?1553171233"></script>
+<script type="text/javascript" src="/amplify-photo-gallery-workshop/js/auto-complete.js?1553171233"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/amplify-photo-gallery-workshop\/';
+    
+</script>
+<script type="text/javascript" src="/amplify-photo-gallery-workshop/js/search.js?1553171233"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites.html" title="Prerequisites" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/10_prerequisites.html">
+          Prerequisites
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites/1_account.html" title="Create an AWS account" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/10_prerequisites/1_account.html">
+        Create an AWS account
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html" title="Create a Cloud9 Workspace" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html">
+        Create a Cloud9 Workspace
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites/20_software.html" title="Installs &amp; Configs" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/10_prerequisites/20_software.html">
+        Installs &amp; Configs
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/20_getting_started.html" title="Getting Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/20_getting_started.html">
+          Getting Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/20_getting_started/10_what_we_will_build.html" title="What We&#39;ll Build" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/20_getting_started/10_what_we_will_build.html">
+        What We&#39;ll Build
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/20_getting_started/20_bootstrapping_the_app.html" title="Bootstrapping the App" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/20_getting_started/20_bootstrapping_the_app.html">
+        Bootstrapping the App
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/30_adding_auth.html" title="Adding Authentication" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/30_adding_auth.html">
+          Adding Authentication
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/30_adding_auth/10_adding_auth_back.html" title="Setting Up the Back End" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/30_adding_auth/10_adding_auth_back.html">
+        Setting Up the Back End
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/30_adding_auth/20_adding_auth_front.html" title="Rendering the Front End" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/30_adding_auth/20_adding_auth_front.html">
+        Rendering the Front End
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/40_graphql.html" title="Creating a GraphQL API" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/40_graphql.html">
+          Creating a GraphQL API
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/40_graphql/10_setting_up_appsync.html" title="Setting Up AppSync" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/40_graphql/10_setting_up_appsync.html">
+        Setting Up AppSync
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/40_graphql/20_trying_out_queries.html" title="Trying Out Some Queries" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/40_graphql/20_trying_out_queries.html">
+        Trying Out Some Queries
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/50_working_with_albums.html" title="Working With Albums" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/50_working_with_albums.html">
+          Working With Albums
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/50_working_with_albums/5_managing_albums.html" title="Managing Albums" class="dd-item active">
+        <a href="/amplify-photo-gallery-workshop/50_working_with_albums/5_managing_albums.html">
+        Managing Albums
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/60_managing_photos.html" title="Managing Photos" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/60_managing_photos.html">
+          Managing Photos
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/60_managing_photos/30_adding_storage.html" title="Adding Cloud Storage" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/60_managing_photos/30_adding_storage.html">
+        Adding Cloud Storage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/60_managing_photos/40_upload_photos_consolidated.html" title="Managing Photos" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/60_managing_photos/40_upload_photos_consolidated.html">
+        Managing Photos
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/70_generating_thumbnails.html" title="Generating Thumbnails" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/70_generating_thumbnails.html">
+          Generating Thumbnails
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/70_generating_thumbnails/10_creating_a_photo_processor_lambda.html" title="Creating a Photo Processor Lambda function" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/70_generating_thumbnails/10_creating_a_photo_processor_lambda.html">
+        Creating a Photo Processor Lambda function
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/70_generating_thumbnails/20_connecting_the_lambda_to_the_bucket.html" title="Connecting the photos bucket to the processor function" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/70_generating_thumbnails/20_connecting_the_lambda_to_the_bucket.html">
+        Connecting the photos bucket to the processor function
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/110_ai.html" title="Adding AI" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/110_ai.html">
+          Adding AI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/110_ai/10_rekognition.html" title="Integrating Amazon Rekognition" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/110_ai/10_rekognition.html">
+        Integrating Amazon Rekognition
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/110_ai/20_prep_for_searching.html" title="Making Photos Searchable" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/110_ai/20_prep_for_searching.html">
+        Making Photos Searchable
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/110_ai/40_searching_for_labels.html" title="Searching Photos By Label" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/110_ai/40_searching_for_labels.html">
+        Searching Photos By Label
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/120_deploying.html" title="Publishing Our App" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/120_deploying.html">
+          Publishing Our App
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/120_deploying/10_deploying.html" title="Deploying our app to S3" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/120_deploying/10_deploying.html">
+        Deploying our app to S3
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/130_wrapping_up.html" title="Wrapping Up" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/130_wrapping_up.html">
+          Wrapping Up
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/130_wrapping_up/10_what_we_built.html" title="Congratulations!" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/130_wrapping_up/10_what_we_built.html">
+        Congratulations!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/130_wrapping_up/20_cleanup.html" title="Cleaning Up" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/130_wrapping_up/20_cleanup.html">
+        Cleaning Up
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/140_bonus.html" title="Bonus Content" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/140_bonus.html">
+          Bonus Content
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/140_bonus/10_lightbox_photos.html" title="Making a Lightbox for Viewing Fullsize Photos" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/140_bonus/10_lightbox_photos.html">
+        Making a Lightbox for Viewing Fullsize Photos
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/140_bonus/20_album_membership.html" title="Allowing Other Users To Collaborate In Albums" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/140_bonus/20_album_membership.html">
+        Allowing Other Users To Collaborate In Albums
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://twitter.com/intent/user?screen_name=gabehollombe"><i class='fab fa-twitter fa-lg'></i> @gabehollombe</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <left>
+
+    <h2 class="github-title">Github Repos</h2>
+
+    <h3 class="github-title">Amplify Photo Gallery Workshop</h3>
+    <a class="github-button" href="https://github.com/aws-samples/amplify-photo-gallery-workshop" data-icon="octicon-star" data-show-count="true" aria-label="Star on GitHub">Star</a>
+    &nbsp;<a class="github-button" href="https://github.com/aws-samples/amplify-photo-gallery-workshop/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork on GitHub">Fork</a><br />
+
+    <h5 class="copyright">&copy; 2018 Amazon Web Services, Inc. or its Affiliates. All rights reserved.<h5>
+
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script> 
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/amplify-photo-gallery-workshop/'>Amplify Web App Workshop</a> > <a href='/amplify-photo-gallery-workshop/50_working_with_albums.html'>Working With Albums</a> > Managing Albums
+          
+        
+          
+        
+          
+        
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#updating-our-app">Updating our App</a></li>
+<li><a href="#what-we-changed-in-src-app-js">What we changed in src/App.js</a></li>
+<li><a href="#try-out-the-app">Try out the app</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Managing Albums</h1>
+          
+
+        
+
+
+
+
+<p>At this point, we have a web app that authenticates users and a secure GraphQL API endpoint that lets us create and read Album data. It&rsquo;s time to connect the two together!</p>
+
+<div class="notices info" ><p>As we saw above, <a href="https://aws.github.io/aws-amplify/" target="_blank">AWS Amplify</a> is an open source JavaScript library that makes it very easy to integrate a number of cloud services into your web or React Native apps. We&rsquo;ll start by using its <a href="https://aws-amplify.github.io/docs/js/api#connect" target="_blank">Connect React component</a> to take care of automatically querying our GraphQL API and providing data for our React components to use when rendering.
+<br/><br/>
+The Amplify CLI has already taken care of making sure that our <em>src/aws-exports.js</em> file contains all of the configuration we&rsquo;ll need to pass to the Amplify JS library in order to talk to the AppSync API. All we&rsquo;ll need to do is add some new code to interact with the API.</p>
+</div>
+
+
+<p>Here&rsquo;s what it will look like when we render our list of Albums:</p>
+
+<p><img src="/images/app-albums-screen.png?classes=border" alt="Rendering a list of albums in our app" /></p>
+
+<h3 id="updating-our-app">Updating our App</h3>
+
+<p>Let&rsquo;s update our front-end to:
+- allow users to create albums
+- show a list of albums
+- allow users to click into an album to view its details</p>
+
+<p><strong>From the photo-albums directory, run</strong> <code>npm install --save react-router-dom</code> to <strong>add a new dependency</strong> for routing.</p>
+
+<div class="notices note" ><p>Usually, we&rsquo;d create separate files for each of our components, but here we&rsquo;ll just keep everything together so we can see all of the front end code in one place.</p>
+</div>
+
+
+<p><strong>Replace photo-albums/src/App.js</strong> with the following updated version:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// src/App.js
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">Component</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Grid</span>, <span style="color:#a6e22e">Header</span>, <span style="color:#a6e22e">Input</span>, <span style="color:#a6e22e">List</span>, <span style="color:#a6e22e">Segment</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;semantic-ui-react&#39;</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">BrowserRouter</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">Router</span>, <span style="color:#a6e22e">Route</span>, <span style="color:#a6e22e">NavLink</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-router-dom&#39;</span>;
+</span>
+<span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Amplify</span>, { <span style="color:#a6e22e">API</span>, <span style="color:#a6e22e">graphqlOperation</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;aws-amplify&#39;</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Connect</span>, <span style="color:#a6e22e">withAuthenticator</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;aws-amplify-react&#39;</span>;
+</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">aws_exports</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./aws-exports&#39;</span>;
+<span style="color:#a6e22e">Amplify</span>.<span style="color:#a6e22e">configure</span>(<span style="color:#a6e22e">aws_exports</span>);
+
+<span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">makeComparator</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">order</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;asc&#39;</span>) {
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) =&gt; {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#a6e22e">key</span>) <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#a6e22e">key</span>)) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>; 
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aVal</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">toUpperCase</span>() <span style="color:#f92672">:</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">key</span>];
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bVal</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">b</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">b</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">toUpperCase</span>() <span style="color:#f92672">:</span> <span style="color:#a6e22e">b</span>[<span style="color:#a6e22e">key</span>];
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">comparison</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">aVal</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">bVal</span>) <span style="color:#a6e22e">comparison</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">aVal</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">bVal</span>) <span style="color:#a6e22e">comparison</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">order</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;desc&#39;</span> <span style="color:#f92672">?</span> (<span style="color:#a6e22e">comparison</span> <span style="color:#f92672">*</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">comparison</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">  };
+</span><span style="display:block;width:100%;background-color:#3c3d38">}
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ListAlbums</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`query ListAlbums {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">    listAlbums(limit: 9999) {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">        items {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">            id
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">            name
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">        }
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">    }
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">}`</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">SubscribeToNewAlbums</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">  subscription OnCreateAlbum {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">    onCreateAlbum {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">      id
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">      name
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">    }
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">  }
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">`</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GetAlbum</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`query GetAlbum($id: ID!) {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">  getAlbum(id: $id) {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">    id
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">    name
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">  }
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">}
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">`</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NewAlbum</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Component</span> {
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
+</span><span style="display:block;width:100%;background-color:#3c3d38">      <span style="color:#a6e22e">albumName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">      };
+</span><span style="display:block;width:100%;background-color:#3c3d38">    }
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">handleChange</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">event</span>) =&gt; {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">change</span> <span style="color:#f92672">=</span> {};
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#a6e22e">change</span>[<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">name</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">change</span>);
+</span><span style="display:block;width:100%;background-color:#3c3d38">  }
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">handleSubmit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">event</span>) =&gt; {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">preventDefault</span>();
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NewAlbum</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`mutation NewAlbum($name: String!) {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">      createAlbum(input: {name: $name}) {
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">        id
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">        name
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">      }
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#e6db74">    }`</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">API</span>.<span style="color:#a6e22e">graphql</span>(<span style="color:#a6e22e">graphqlOperation</span>(<span style="color:#a6e22e">NewAlbum</span>, { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">albumName</span> }));
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">info</span>(<span style="color:#e6db74">`Created album with id </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">createAlbum</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({ <span style="color:#a6e22e">albumName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span> })
+</span><span style="display:block;width:100%;background-color:#3c3d38">  }
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">render</span>() {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">return</span> (
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;<span style="color:#f92672">Segment</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">Header</span> <span style="color:#a6e22e">as</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h3&#39;</span>&gt;<span style="color:#a6e22e">Add</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">album</span>&lt;/<span style="color:#f92672">Header</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">          &lt;<span style="color:#f92672">Input</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;text&#39;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;New Album Name&#39;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">icon</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;plus&#39;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">iconPosition</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;left&#39;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#a6e22e">content</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">Create</span><span style="color:#960050;background-color:#1e0010">&#39;,</span> <span style="color:#a6e22e">onClick</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">this.handleSubmit</span> }}
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;albumName&#39;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.state.albumName}</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.handleChange}</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          /&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;/<span style="color:#f92672">Segment</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">      )
+</span><span style="display:block;width:100%;background-color:#3c3d38">    }
+</span><span style="display:block;width:100%;background-color:#3c3d38">}
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AlbumsList</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">albumItems</span>() {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">albums</span>.<span style="color:#a6e22e">sort</span>(<span style="color:#a6e22e">makeComparator</span>(<span style="color:#e6db74">&#39;name&#39;</span>)).<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">album</span> =&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;<span style="color:#f92672">List</span><span style="color:#a6e22e">.Item</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">{album.id}</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">NavLink</span> <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">{`/albums/${album.id}`}</span>&gt;{<span style="color:#a6e22e">album</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">NavLink</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/List.Item&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">    );
+</span><span style="display:block;width:100%;background-color:#3c3d38">  }
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">render</span>() {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">return</span> (
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;<span style="color:#f92672">Segment</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">Header</span> <span style="color:#a6e22e">as</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h3&#39;</span>&gt;<span style="color:#a6e22e">My</span> <span style="color:#a6e22e">Albums</span>&lt;/<span style="color:#f92672">Header</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">List</span> <span style="color:#a6e22e">divided</span> <span style="color:#a6e22e">relaxed</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">          {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">albumItems</span>()}
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;/<span style="color:#f92672">List</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;/<span style="color:#f92672">Segment</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    );
+</span><span style="display:block;width:100%;background-color:#3c3d38">  }
+</span><span style="display:block;width:100%;background-color:#3c3d38">}
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AlbumDetailsLoader</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">render</span>() {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">return</span> (
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;<span style="color:#f92672">Connect</span> <span style="color:#a6e22e">query</span><span style="color:#f92672">=</span><span style="color:#e6db74">{graphqlOperation(GetAlbum,</span> { <span style="color:#a6e22e">id</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">this.props.id</span> }<span style="color:#960050;background-color:#1e0010">)</span>}&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        {({ <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">loading</span> }) =&gt; {
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">loading</span>) { <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">div</span>&gt;; }
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">getAlbum</span>) <span style="color:#66d9ef">return</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">AlbumDetails</span> <span style="color:#a6e22e">album</span><span style="color:#f92672">=</span><span style="color:#e6db74">{data.getAlbum}</span> /&gt;;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        }}
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;/<span style="color:#f92672">Connect</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    );
+</span><span style="display:block;width:100%;background-color:#3c3d38">  }
+</span><span style="display:block;width:100%;background-color:#3c3d38">}
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AlbumDetails</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Component</span> {
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">render</span>() {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">return</span> (
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;<span style="color:#f92672">Segment</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">Header</span> <span style="color:#a6e22e">as</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h3&#39;</span>&gt;{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">album</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">Header</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">TODO</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Allow</span> <span style="color:#a6e22e">photo</span> <span style="color:#a6e22e">uploads</span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">TODO</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Show</span> <span style="color:#a6e22e">photos</span> <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">this</span> <span style="color:#a6e22e">album</span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;/<span style="color:#f92672">Segment</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    )
+</span><span style="display:block;width:100%;background-color:#3c3d38">  }
+</span><span style="display:block;width:100%;background-color:#3c3d38">}
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AlbumsListLoader</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#a6e22e">onNewAlbum</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">prevQuery</span>, <span style="color:#a6e22e">newData</span>) =&gt; {
+</span><span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#75715e">// When we get data about a new album, we need to put in into an object 
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#75715e"></span>        <span style="color:#75715e">// with the same shape as the original query results, but with the new data added as well
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">updatedQuery</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">assign</span>({}, <span style="color:#a6e22e">prevQuery</span>);
+</span><span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#a6e22e">updatedQuery</span>.<span style="color:#a6e22e">listAlbums</span>.<span style="color:#a6e22e">items</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prevQuery</span>.<span style="color:#a6e22e">listAlbums</span>.<span style="color:#a6e22e">items</span>.<span style="color:#a6e22e">concat</span>([<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">onCreateAlbum</span>]);
+</span><span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">updatedQuery</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    }
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#a6e22e">render</span>() {
+</span><span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#66d9ef">return</span> (
+</span><span style="display:block;width:100%;background-color:#3c3d38">            &lt;<span style="color:#f92672">Connect</span> 
+</span><span style="display:block;width:100%;background-color:#3c3d38">                <span style="color:#a6e22e">query</span><span style="color:#f92672">=</span><span style="color:#e6db74">{graphqlOperation(ListAlbums)}</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">                <span style="color:#a6e22e">subscription</span><span style="color:#f92672">=</span><span style="color:#e6db74">{graphqlOperation(SubscribeToNewAlbums)}</span> 
+</span><span style="display:block;width:100%;background-color:#3c3d38">                <span style="color:#a6e22e">onSubscriptionMsg</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.onNewAlbum}</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">            &gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">                {({ <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">loading</span> }) =&gt; {
+</span><span style="display:block;width:100%;background-color:#3c3d38">                    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">loading</span>) { <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">div</span>&gt;; }
+</span><span style="display:block;width:100%;background-color:#3c3d38">                    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">listAlbums</span>) <span style="color:#66d9ef">return</span>;
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">                <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">AlbumsList</span> <span style="color:#a6e22e">albums</span><span style="color:#f92672">=</span><span style="color:#e6db74">{data.listAlbums.items}</span> /&gt;;
+</span><span style="display:block;width:100%;background-color:#3c3d38">                }}
+</span><span style="display:block;width:100%;background-color:#3c3d38">            &lt;/<span style="color:#f92672">Connect</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        );
+</span><span style="display:block;width:100%;background-color:#3c3d38">    }
+</span><span style="display:block;width:100%;background-color:#3c3d38">}
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">App</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Component</span> {
+</span><span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">render</span>() {
+</span><span style="display:block;width:100%;background-color:#3c3d38">    <span style="color:#66d9ef">return</span> (
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;<span style="color:#f92672">Router</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;<span style="color:#f92672">Grid</span> <span style="color:#a6e22e">padded</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">          &lt;<span style="color:#f92672">Grid</span><span style="color:#a6e22e">.Column</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">            &lt;<span style="color:#f92672">Route</span> <span style="color:#a6e22e">path</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#a6e22e">exact</span> <span style="color:#a6e22e">component</span><span style="color:#f92672">=</span><span style="color:#e6db74">{NewAlbum}/</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">            &lt;<span style="color:#f92672">Route</span> <span style="color:#a6e22e">path</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#a6e22e">exact</span> <span style="color:#a6e22e">component</span><span style="color:#f92672">=</span><span style="color:#e6db74">{AlbumsListLoader}/</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">
+</span><span style="display:block;width:100%;background-color:#3c3d38">            &lt;<span style="color:#f92672">Route</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">              <span style="color:#a6e22e">path</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/albums/:albumId&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">              <span style="color:#a6e22e">render</span><span style="color:#f92672">=</span><span style="color:#e6db74">{</span> <span style="color:#960050;background-color:#1e0010">()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; &lt;<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">NavLink</span> <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/&#39;</span>&gt;<span style="color:#a6e22e">Back</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">Albums</span> <span style="color:#a6e22e">list</span>&lt;/<span style="color:#f92672">NavLink</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt; }
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">            &lt;<span style="color:#f92672">Route</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">              <span style="color:#a6e22e">path</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/albums/:albumId&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">              <span style="color:#a6e22e">render</span><span style="color:#f92672">=</span><span style="color:#e6db74">{</span> <span style="color:#a6e22e">props </span><span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span> <span style="color:#e6db74">&lt;AlbumDetailsLoader</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">{props.match.params.albumId}/</span>&gt; }
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Grid.Column&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">        &lt;/<span style="color:#f92672">Grid</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">      &lt;/<span style="color:#f92672">Router</span>&gt;
+</span><span style="display:block;width:100%;background-color:#3c3d38">    );
+</span><span style="display:block;width:100%;background-color:#3c3d38">  }
+</span><span style="display:block;width:100%;background-color:#3c3d38">}
+</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">withAuthenticator</span>(<span style="color:#a6e22e">App</span>, {<span style="color:#a6e22e">includeGreetings</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>});</code></pre></div></p>
+
+<h3 id="what-we-changed-in-src-app-js">What we changed in src/App.js</h3>
+
+<ul>
+<li><p>Imported the <em>Connect</em> component from aws-amplify-react</p></li>
+
+<li><p>Imported more presentational components from <em>semantic-ui-react</em></p></li>
+
+<li><p>Imported <em>API</em> and <em>graphqlOperation</em> from <em>aws-amplify</em></p></li>
+
+<li><p>Imported routing components from <em>react-router-dom</em></p></li>
+
+<li><p>Added <em>makeComparator</em> to allow us to sanely sort strings in JS</p></li>
+
+<li><p>Added new components: <em>NewAlbum</em>, <em>AlbumsList</em>, <em>AlbumsDetailsLoader</em>, <em>AlbumDetails</em>, <em>AlbumsListLoader</em></p></li>
+
+<li><p>Added GraphQL queries and mutations: <em>ListAlbums</em>, <em>SubscribeToNewAlbums</em>, <em>GetAlbum</em></p></li>
+
+<li><p>Updated the App component to present different components based on the current URL route</p></li>
+</ul>
+
+<h3 id="try-out-the-app">Try out the app</h3>
+
+<p>Check out the app now and try out the new features:</p>
+
+<ul>
+<li><p>View the list of albums</p></li>
+
+<li><p>Create a new album and see it appear in the albums list</p></li>
+
+<li><p>Click into an album to see the beginnings of our Album details view</p></li>
+
+<li><p>When viewing an Album, click &lsquo;Back to Albums list&rsquo; to go home</p></li>
+</ul>
+
+<div class="notices tip" ><p>The loading magic here comes from <a href="https://aws-amplify.github.io/docs/js/api#connect" target="_blank">AWS Amplify&rsquo;s <em>Connect</em> component</a> (which we imported from the <em>aws-amplify-react</em> package). All we need to do is pass this component a GraphQL query operation in its query prop. It takes care of running that query when the component mounts, and it passes information down to a child function via the data, loading, and errors arguments. We use those values to render appropriately, either showing some loading text or passing the successfully fetched data to our <em>AlbumsList</em> component.</p>
+</div>
+
+
+<div class="notices info" ><p>The <em>listAlbums</em> query we&rsquo;re above using passes in a very high limit argument. This is because we can just load all of the albums in one request and sort the albums alphabetically on the client-side (instead of dealing with paginated DynamoDB responses). This keeps the <em>AlbumsList</em> code pretty simple, so it&rsquo;s probably worth the trade off in terms of performance or network cost.</p>
+</div>
+
+
+<div class="notices info" ><p>Also worth noting is how we&rsquo;re leveraging an AppSync real-time subscription to automatically refresh the list of albums whenever a new album is created.
+<br/>
+<br/>
+Our GraphQL schema contains a <em>Subscription</em> type with a bunch of subscriptions that were auto-generated back when we had AWS AppSync create the resources (like the DynamoDB table and the AWS AppSync resolvers) for our <em>Album</em> type. One of these the <em>onCreateAlbum</em> subscription.
+<br/>
+<br/>
+The <em>subscription</em> and <em>onSubscriptionMsg</em> properties on the <em>Connect</em> component tell it to subscribe to the <em>onCreateAlbum</em> event data and update the data for AlbumsList accordingly.
+<br/>
+<br/>
+The content for the subscription property looks very similar to what we provided for the query property previously; it just contains a query specifying the subscription we want to listen to and what fields we&rsquo;d like back when new data arrives. The only slightly tricky bit is that we also need to define a handler function to react to new data from the subscription, and that function needs to return a new set of data that the <em>Connect</em> component will use to refresh our <em>ListAlbums</em> component. This is what we&rsquo;ve done above.</p>
+</div>
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/amplify-photo-gallery-workshop/50_working_with_albums.html" title="Working With Albums"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/amplify-photo-gallery-workshop/60_managing_photos.html" title="Managing Photos" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/amplify-photo-gallery-workshop/js/clipboard.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/perfect-scrollbar.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/perfect-scrollbar.jquery.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/jquery.sticky.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/featherlight.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/html5shiv-printshiv.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/highlight.pack.js?1553171233"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/amplify-photo-gallery-workshop/js/modernizr.custom.71422.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/learn.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/hugo-learn.js?1553171233"></script>
+
+    <link href="/amplify-photo-gallery-workshop/mermaid/mermaid.css?1553171233" type="text/css" rel="stylesheet" />
+    <script src="/amplify-photo-gallery-workshop/mermaid/mermaid.js?1553171233"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

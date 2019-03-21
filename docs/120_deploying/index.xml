@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publishing Our App on Amplify / AppSync / React Workshop</title>
+    <link>https://awskrug.github.io/amplify-photo-gallery-workshop/120_deploying.html</link>
+    <description>Recent content in Publishing Our App on Amplify / AppSync / React Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    
+	<atom:link href="https://awskrug.github.io/amplify-photo-gallery-workshop/120_deploying/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deploying our app to S3</title>
+      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/120_deploying/10_deploying.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/120_deploying/10_deploying.html</guid>
+      <description>Before we build and publish our app, we should free up some memory on the Cloud9 instance. If you&amp;rsquo;re using a micro Cloud9 instance size, there&amp;rsquo;s a good chance there won&amp;rsquo;t be enough memory available to keep our development web server running and to create a production build.
+ Go to the terminal tab that&amp;rsquo;s running the development webserver (where you ran npm start)
+ Press Control-C to interrupt the development webserver and kill it.</description>
+    </item>
+    
+  </channel>
+</rss>

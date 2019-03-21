@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Amplify + AppSync Workshop" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://amplify-workshop.go-aws.com" />
+    <meta property="og:image" content="https://amplify-workshop.go-aws.com/images/architecture.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.54.0" />
+    <meta name="description" content="Amplify / AppSync / React Workshop">
+<meta name="author" content="Gabe Hollombe">
+
+    <link rel="shortcut icon" href="/amplify-photo-gallery-workshop/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/amplify-photo-gallery-workshop/images/favicon.png" type="image/x-icon" />
+    <title>Creating a Photo Processor Lambda function :: Amplify / AppSync / React Workshop</title>
+
+    
+    <link href="/amplify-photo-gallery-workshop/css/nucleus.css?1553171233" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="/amplify-photo-gallery-workshop/css/hybrid.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/featherlight.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/perfect-scrollbar.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/auto-complete.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/theme.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/hugo-theme.css?1553171233" rel="stylesheet">
+    
+      <link href="/amplify-photo-gallery-workshop/css/theme-mine.css?1553171233" rel="stylesheet">
+    
+
+    <link href="/amplify-photo-gallery-workshop/css/jquery-ui.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/jquery-ui.structure.min.css?1553171233" rel="stylesheet">
+    <link href="/amplify-photo-gallery-workshop/css/jquery-ui.theme.min.css?1553171233" rel="stylesheet">
+    <script src="/amplify-photo-gallery-workshop/js/jquery-2.x.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/jquery-ui.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/tabs.js?1553171233"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/amplify-photo-gallery-workshop/70_generating_thumbnails/10_creating_a_photo_processor_lambda.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/" title="Go home"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" width="60%" style="padding:20px 0px;"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg></a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/amplify-photo-gallery-workshop/js/lunr.min.js?1553171233"></script>
+<script type="text/javascript" src="/amplify-photo-gallery-workshop/js/auto-complete.js?1553171233"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/amplify-photo-gallery-workshop\/';
+    
+</script>
+<script type="text/javascript" src="/amplify-photo-gallery-workshop/js/search.js?1553171233"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites.html" title="Prerequisites" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/10_prerequisites.html">
+          Prerequisites
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites/1_account.html" title="Create an AWS account" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/10_prerequisites/1_account.html">
+        Create an AWS account
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html" title="Create a Cloud9 Workspace" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html">
+        Create a Cloud9 Workspace
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/10_prerequisites/20_software.html" title="Installs &amp; Configs" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/10_prerequisites/20_software.html">
+        Installs &amp; Configs
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/20_getting_started.html" title="Getting Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/20_getting_started.html">
+          Getting Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/20_getting_started/10_what_we_will_build.html" title="What We&#39;ll Build" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/20_getting_started/10_what_we_will_build.html">
+        What We&#39;ll Build
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/20_getting_started/20_bootstrapping_the_app.html" title="Bootstrapping the App" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/20_getting_started/20_bootstrapping_the_app.html">
+        Bootstrapping the App
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/30_adding_auth.html" title="Adding Authentication" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/30_adding_auth.html">
+          Adding Authentication
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/30_adding_auth/10_adding_auth_back.html" title="Setting Up the Back End" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/30_adding_auth/10_adding_auth_back.html">
+        Setting Up the Back End
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/30_adding_auth/20_adding_auth_front.html" title="Rendering the Front End" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/30_adding_auth/20_adding_auth_front.html">
+        Rendering the Front End
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/40_graphql.html" title="Creating a GraphQL API" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/40_graphql.html">
+          Creating a GraphQL API
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/40_graphql/10_setting_up_appsync.html" title="Setting Up AppSync" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/40_graphql/10_setting_up_appsync.html">
+        Setting Up AppSync
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/40_graphql/20_trying_out_queries.html" title="Trying Out Some Queries" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/40_graphql/20_trying_out_queries.html">
+        Trying Out Some Queries
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/50_working_with_albums.html" title="Working With Albums" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/50_working_with_albums.html">
+          Working With Albums
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/50_working_with_albums/5_managing_albums.html" title="Managing Albums" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/50_working_with_albums/5_managing_albums.html">
+        Managing Albums
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/60_managing_photos.html" title="Managing Photos" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/60_managing_photos.html">
+          Managing Photos
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/60_managing_photos/30_adding_storage.html" title="Adding Cloud Storage" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/60_managing_photos/30_adding_storage.html">
+        Adding Cloud Storage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/60_managing_photos/40_upload_photos_consolidated.html" title="Managing Photos" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/60_managing_photos/40_upload_photos_consolidated.html">
+        Managing Photos
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/70_generating_thumbnails.html" title="Generating Thumbnails" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/70_generating_thumbnails.html">
+          Generating Thumbnails
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/70_generating_thumbnails/10_creating_a_photo_processor_lambda.html" title="Creating a Photo Processor Lambda function" class="dd-item active">
+        <a href="/amplify-photo-gallery-workshop/70_generating_thumbnails/10_creating_a_photo_processor_lambda.html">
+        Creating a Photo Processor Lambda function
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/70_generating_thumbnails/20_connecting_the_lambda_to_the_bucket.html" title="Connecting the photos bucket to the processor function" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/70_generating_thumbnails/20_connecting_the_lambda_to_the_bucket.html">
+        Connecting the photos bucket to the processor function
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/110_ai.html" title="Adding AI" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/110_ai.html">
+          Adding AI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/110_ai/10_rekognition.html" title="Integrating Amazon Rekognition" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/110_ai/10_rekognition.html">
+        Integrating Amazon Rekognition
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/110_ai/20_prep_for_searching.html" title="Making Photos Searchable" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/110_ai/20_prep_for_searching.html">
+        Making Photos Searchable
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/110_ai/40_searching_for_labels.html" title="Searching Photos By Label" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/110_ai/40_searching_for_labels.html">
+        Searching Photos By Label
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/120_deploying.html" title="Publishing Our App" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/120_deploying.html">
+          Publishing Our App
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/120_deploying/10_deploying.html" title="Deploying our app to S3" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/120_deploying/10_deploying.html">
+        Deploying our app to S3
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/130_wrapping_up.html" title="Wrapping Up" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/130_wrapping_up.html">
+          Wrapping Up
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/130_wrapping_up/10_what_we_built.html" title="Congratulations!" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/130_wrapping_up/10_what_we_built.html">
+        Congratulations!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/130_wrapping_up/20_cleanup.html" title="Cleaning Up" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/130_wrapping_up/20_cleanup.html">
+        Cleaning Up
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/amplify-photo-gallery-workshop/140_bonus.html" title="Bonus Content" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/amplify-photo-gallery-workshop/140_bonus.html">
+          Bonus Content
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/140_bonus/10_lightbox_photos.html" title="Making a Lightbox for Viewing Fullsize Photos" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/140_bonus/10_lightbox_photos.html">
+        Making a Lightbox for Viewing Fullsize Photos
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/amplify-photo-gallery-workshop/140_bonus/20_album_membership.html" title="Allowing Other Users To Collaborate In Albums" class="dd-item ">
+        <a href="/amplify-photo-gallery-workshop/140_bonus/20_album_membership.html">
+        Allowing Other Users To Collaborate In Albums
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://twitter.com/intent/user?screen_name=gabehollombe"><i class='fab fa-twitter fa-lg'></i> @gabehollombe</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <left>
+
+    <h2 class="github-title">Github Repos</h2>
+
+    <h3 class="github-title">Amplify Photo Gallery Workshop</h3>
+    <a class="github-button" href="https://github.com/aws-samples/amplify-photo-gallery-workshop" data-icon="octicon-star" data-show-count="true" aria-label="Star on GitHub">Star</a>
+    &nbsp;<a class="github-button" href="https://github.com/aws-samples/amplify-photo-gallery-workshop/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork on GitHub">Fork</a><br />
+
+    <h5 class="copyright">&copy; 2018 Amazon Web Services, Inc. or its Affiliates. All rights reserved.<h5>
+
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script> 
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/amplify-photo-gallery-workshop/'>Amplify Web App Workshop</a> > <a href='/amplify-photo-gallery-workshop/70_generating_thumbnails.html'>Generating Thumbnails</a> > Creating a Photo Processor Lambda function
+          
+        
+          
+        
+          
+        
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#what-we-changed">What we changed</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Creating a Photo Processor Lambda function</h1>
+          
+
+        
+
+
+
+
+<p>Let&rsquo;s make a photo processor lambda function so that we can resize our photos.</p>
+
+<div class="notices warning" ><p>When following the instructions below, <strong>you must name your lambda function <em>workshopphotoprocessor</em></strong>.
+<br/>
+<br/>
+Later, we&rsquo;ll edit some CloudFormation templates, and the function name <strong>workshopphotoprocessor</strong> is hard coded to make it easier for this workshop (less edits that you&rsquo;ll have to do).</p>
+</div>
+
+
+<ol>
+<li><p><strong>From the photo-albums directory, run:</strong> <code>amplify function add</code> and respond to the prompts the same way as shown below. Make sure you press Enter before continuing to step 2:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ amplify function add
+Using service: Lambda, provided by: awscloudformation
+
+
+? Provide a friendly name for your resource to be used as a label for this category in the project: 
+
+workshopphotoprocessor
+
+
+? Provide the AWS Lambda function name: 
+
+workshopphotoprocessor
+
+
+? Choose the function template that you want to use: 
+
+Hello world function
+
+
+? Do you want to edit the local lambda function now? 
+Yes
+
+Please manually edit the file created at /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js
+
+? Press enter to continue 
+&lt;Enter&gt;
+
+Successfully added resource workshopphotoprocessor locally.</code></pre></div></li>
+
+<li><p><strong>Replace /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js</strong> with the following:
+<div style="height: 560px; overflow-y: scroll; margin: 0;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// amplify/backend/function/workshopphotoprocessor/src/index.js
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">AWS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;aws-sdk&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">S3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AWS</span>.<span style="color:#a6e22e">S3</span>({ <span style="color:#a6e22e">signatureVersion</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;v4&#39;</span> });
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DynamoDBDocClient</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AWS</span>.<span style="color:#a6e22e">DynamoDB</span>.<span style="color:#a6e22e">DocumentClient</span>({<span style="color:#a6e22e">apiVersion</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;2012-08-10&#39;</span>});
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">uuidv4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;uuid/v4&#39;</span>);
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">Note: Sharp requires native extensions to be installed in a way that is compatible
+</span><span style="color:#75715e">with Amazon Linux (in order to run successfully in a Lambda execution environment).
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">If you&#39;re not working in Cloud9, you can follow the instructions on http://sharp.pixelplumbing.com/en/stable/install/#aws-lambda how to install the module and native dependencies.
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Sharp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;sharp&#39;</span>);
+
+<span style="color:#75715e">// We&#39;ll expect these environment variables to be defined when the Lambda function is deployed
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">THUMBNAIL_WIDTH</span> <span style="color:#f92672">=</span> parseInt(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">env</span>.<span style="color:#a6e22e">THUMBNAIL_WIDTH</span>, <span style="color:#ae81ff">10</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">THUMBNAIL_HEIGHT</span> <span style="color:#f92672">=</span> parseInt(<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">env</span>.<span style="color:#a6e22e">THUMBNAIL_HEIGHT</span>, <span style="color:#ae81ff">10</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DYNAMODB_PHOTOS_TABLE_NAME</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">env</span>.<span style="color:#a6e22e">DYNAMODB_PHOTOS_TABLE_ARN</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;/&#39;</span>)[<span style="color:#ae81ff">1</span>];
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">storePhotoInfo</span>(<span style="color:#a6e22e">item</span>) {
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">params</span> <span style="color:#f92672">=</span> {
+		<span style="color:#a6e22e">Item</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">item</span>,
+		<span style="color:#a6e22e">TableName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DYNAMODB_PHOTOS_TABLE_NAME</span>
+	};
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">DynamoDBDocClient</span>.<span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">params</span>).<span style="color:#a6e22e">promise</span>();
+}
+
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getMetadata</span>(<span style="color:#a6e22e">bucketName</span>, <span style="color:#a6e22e">key</span>) {
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">headResult</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">S3</span>.<span style="color:#a6e22e">headObject</span>({<span style="color:#a6e22e">Bucket</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bucketName</span>, <span style="color:#a6e22e">Key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">key</span> }).<span style="color:#a6e22e">promise</span>();
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">headResult</span>.<span style="color:#a6e22e">Metadata</span>;
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">thumbnailKey</span>(<span style="color:#a6e22e">filename</span>) {
+	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">`public/resized/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">filename</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fullsizeKey</span>(<span style="color:#a6e22e">filename</span>) {
+	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">`public/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">filename</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">makeThumbnail</span>(<span style="color:#a6e22e">photo</span>) {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Sharp</span>(<span style="color:#a6e22e">photo</span>).<span style="color:#a6e22e">resize</span>(<span style="color:#a6e22e">THUMBNAIL_WIDTH</span>, <span style="color:#a6e22e">THUMBNAIL_HEIGHT</span>).<span style="color:#a6e22e">toBuffer</span>();
+}
+
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">resize</span>(<span style="color:#a6e22e">bucketName</span>, <span style="color:#a6e22e">key</span>) {
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">originalPhoto</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">S3</span>.<span style="color:#a6e22e">getObject</span>({ <span style="color:#a6e22e">Bucket</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bucketName</span>, <span style="color:#a6e22e">Key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">key</span> }).<span style="color:#a6e22e">promise</span>()).<span style="color:#a6e22e">Body</span>;
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">originalPhotoName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">key</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#39;uploads/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>);
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">originalPhotoDimensions</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">Sharp</span>(<span style="color:#a6e22e">originalPhoto</span>).<span style="color:#a6e22e">metadata</span>();
+
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">thumbnail</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">makeThumbnail</span>(<span style="color:#a6e22e">originalPhoto</span>);
+
+	<span style="color:#66d9ef">await</span> Promise.<span style="color:#a6e22e">all</span>([
+		<span style="color:#a6e22e">S3</span>.<span style="color:#a6e22e">putObject</span>({
+			<span style="color:#a6e22e">Body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">thumbnail</span>,
+			<span style="color:#a6e22e">Bucket</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bucketName</span>,
+			<span style="color:#a6e22e">Key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">thumbnailKey</span>(<span style="color:#a6e22e">originalPhotoName</span>),
+		}).<span style="color:#a6e22e">promise</span>(),
+
+		<span style="color:#a6e22e">S3</span>.<span style="color:#a6e22e">copyObject</span>({
+			<span style="color:#a6e22e">Bucket</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bucketName</span>,
+			<span style="color:#a6e22e">CopySource</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bucketName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">key</span>,
+			<span style="color:#a6e22e">Key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">fullsizeKey</span>(<span style="color:#a6e22e">originalPhotoName</span>),
+		}).<span style="color:#a6e22e">promise</span>(),
+	]);
+
+	<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">S3</span>.<span style="color:#a6e22e">deleteObject</span>({
+		<span style="color:#a6e22e">Bucket</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bucketName</span>,
+		<span style="color:#a6e22e">Key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">key</span>
+	}).<span style="color:#a6e22e">promise</span>();
+
+	<span style="color:#66d9ef">return</span> {
+		<span style="color:#a6e22e">photoId</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">originalPhotoName</span>,
+		
+		<span style="color:#a6e22e">thumbnail</span><span style="color:#f92672">:</span> {
+			<span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">thumbnailKey</span>(<span style="color:#a6e22e">originalPhotoName</span>),
+			<span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">THUMBNAIL_WIDTH</span>,
+			<span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">THUMBNAIL_HEIGHT</span>
+		},
+
+		<span style="color:#a6e22e">fullsize</span><span style="color:#f92672">:</span> {
+			<span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">fullsizeKey</span>(<span style="color:#a6e22e">originalPhotoName</span>),
+			<span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">originalPhotoDimensions</span>.<span style="color:#a6e22e">width</span>,
+			<span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">originalPhotoDimensions</span>.<span style="color:#a6e22e">height</span>
+		}
+	};
+};
+
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">processRecord</span>(<span style="color:#a6e22e">record</span>) {
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bucketName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">record</span>.<span style="color:#a6e22e">s3</span>.<span style="color:#a6e22e">bucket</span>.<span style="color:#a6e22e">name</span>;
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">record</span>.<span style="color:#a6e22e">s3</span>.<span style="color:#a6e22e">object</span>.<span style="color:#a6e22e">key</span>;
+	
+	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">key</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;uploads&#39;</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span>;
+	
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">metadata</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">getMetadata</span>(<span style="color:#a6e22e">bucketName</span>, <span style="color:#a6e22e">key</span>);
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sizes</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">resize</span>(<span style="color:#a6e22e">bucketName</span>, <span style="color:#a6e22e">key</span>);    
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">uuidv4</span>();
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> {
+		<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">id</span>,
+		<span style="color:#a6e22e">owner</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">metadata</span>.<span style="color:#a6e22e">owner</span>,
+		<span style="color:#a6e22e">photoAlbumId</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">metadata</span>.<span style="color:#a6e22e">albumid</span>,
+		<span style="color:#a6e22e">bucket</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bucketName</span>,
+		<span style="color:#a6e22e">thumbnail</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">sizes</span>.<span style="color:#a6e22e">thumbnail</span>,
+		<span style="color:#a6e22e">fullsize</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">sizes</span>.<span style="color:#a6e22e">fullsize</span>,
+		<span style="color:#a6e22e">createdAt</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">getTime</span>()
+	}
+	<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">storePhotoInfo</span>(<span style="color:#a6e22e">item</span>);
+}
+
+<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">context</span>, <span style="color:#a6e22e">callback</span>) =&gt; {
+	<span style="color:#66d9ef">try</span> {
+		<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">Records</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">processRecord</span>);
+		<span style="color:#a6e22e">callback</span>(<span style="color:#66d9ef">null</span>, { <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Photo Processed&#39;</span> });
+	}
+	<span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) {
+		<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">err</span>);
+		<span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">err</span>);
+	}
+};
+</code></pre></div>
+</div></p></li>
+
+<li><p><strong>Replace /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/package.json</strong> with the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;workshopphotoprocessor&#34;</span>,
+	<span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;1.0.0&#34;</span>,
+	<span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;The photo uploads processor&#34;</span>,
+	<span style="color:#f92672">&#34;main&#34;</span>: <span style="color:#e6db74">&#34;index.js&#34;</span>,
+	<span style="color:#f92672">&#34;dependencies&#34;</span>: {
+		<span style="color:#f92672">&#34;sharp&#34;</span>: <span style="color:#e6db74">&#34;^0.20.2&#34;</span>,
+		<span style="color:#f92672">&#34;uuid&#34;</span>: <span style="color:#e6db74">&#34;^3.3.2&#34;</span>
+	}
+}</code></pre></div></li>
+
+<li><p><strong>From the photo-albums directory, run:</strong> <code>amplify function build</code> and press Enter to confirm. This will take care of installing the dependencies in our Lambda function&rsquo;s package.json.</p></li>
+
+<li><p><strong>Create photo-albums/amplify/backend/function/workshopphotoprocessor/parameters.json</strong> and paste this content into it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#f92672">&#34;S3UserfilesBucketName&#34;</span>: <span style="color:#e6db74">&#34;REPLACE_WITH_USERFILES_BUCKET_NAME&#34;</span>,
+	<span style="color:#f92672">&#34;DynamoDBPhotosTableArn&#34;</span>: <span style="color:#e6db74">&#34;REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN&#34;</span>
+}</code></pre></div></li>
+
+<li><p>In <em>parameters.json</em> that you just created, replace <strong>REPLACE_WITH_USERFILES_BUCKET_NAME</strong> with the name of the S3 Userfiles bucket created by Amplify.</p>
+
+<p>To find this value, look in <strong>photo-albums/src/aws-exports.js</strong> and find the <strong>aws_user_files_s3_bucket</strong> key.</p></li>
+
+<li><p>In <em>parameters.json</em>, also replace <strong>REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN</strong> with the name ARN of the DynamoDB table used by AppSync for the Photo data type.</p>
+
+<p>To find this value, go to the <strong>Data Sources</strong> section in your AppSync API console, find the <strong>PhotoTable</strong> entry and click on the link in its <strong>Resource</strong> column (which takes you to the associated DynamoDB table), then look in the bottom of the Overview tab for the ARN of the table.</p></li>
+
+<li><p><strong>Replace photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json</strong> with the following:
+<div style="height: 550px; overflow-y: scroll;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#f92672">&#34;AWSTemplateFormatVersion&#34;</span>: <span style="color:#e6db74">&#34;2010-09-09&#34;</span>,
+	<span style="color:#f92672">&#34;Description&#34;</span>: <span style="color:#e6db74">&#34;Lambda resource stack creation using Amplify CLI&#34;</span>,
+<span style="display:block;width:100%;background-color:#3c3d38">	<span style="color:#f92672">&#34;Parameters&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">		<span style="color:#f92672">&#34;env&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">        },
+</span><span style="display:block;width:100%;background-color:#3c3d38">		<span style="color:#f92672">&#34;S3UserfilesBucketName&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">		},
+</span><span style="display:block;width:100%;background-color:#3c3d38">		<span style="color:#f92672">&#34;DynamoDBPhotosTableArn&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">		}
+</span><span style="display:block;width:100%;background-color:#3c3d38">	},
+</span>	<span style="color:#f92672">&#34;Resources&#34;</span>: {
+		<span style="color:#f92672">&#34;LambdaFunction&#34;</span>: {
+			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;AWS::Lambda::Function&#34;</span>,
+			<span style="color:#f92672">&#34;Properties&#34;</span>: {
+				<span style="color:#f92672">&#34;Handler&#34;</span>: <span style="color:#e6db74">&#34;index.handler&#34;</span>,
+				<span style="color:#f92672">&#34;FunctionName&#34;</span>: <span style="color:#e6db74">&#34;workshopphotoprocessor&#34;</span>,
+				<span style="color:#f92672">&#34;Role&#34;</span>: {
+					<span style="color:#f92672">&#34;Fn::GetAtt&#34;</span>: [
+						<span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span>,
+						<span style="color:#e6db74">&#34;Arn&#34;</span>
+					]
+				},
+				<span style="color:#f92672">&#34;Runtime&#34;</span>: <span style="color:#e6db74">&#34;nodejs8.10&#34;</span>,
+				<span style="color:#f92672">&#34;Timeout&#34;</span>: <span style="color:#e6db74">&#34;25&#34;</span>,
+<span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;Environment&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">					<span style="color:#f92672">&#34;Variables&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">						<span style="color:#f92672">&#34;ENV&#34;</span>: {<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;env&#34;</span>},
+</span><span style="display:block;width:100%;background-color:#3c3d38">						<span style="color:#f92672">&#34;THUMBNAIL_WIDTH&#34;</span>: <span style="color:#e6db74">&#34;80&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">						<span style="color:#f92672">&#34;THUMBNAIL_HEIGHT&#34;</span>: <span style="color:#e6db74">&#34;80&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">						<span style="color:#f92672">&#34;DYNAMODB_PHOTOS_TABLE_ARN&#34;</span>: { <span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;DynamoDBPhotosTableArn&#34;</span> }
+</span><span style="display:block;width:100%;background-color:#3c3d38">					}
+</span><span style="display:block;width:100%;background-color:#3c3d38">				}
+</span>			}
+		},
+		<span style="color:#f92672">&#34;LambdaExecutionRole&#34;</span>: {
+			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;AWS::IAM::Role&#34;</span>,
+			<span style="color:#f92672">&#34;Properties&#34;</span>: {
+				<span style="color:#f92672">&#34;RoleName&#34;</span>: <span style="color:#e6db74">&#34;photoalbumsLambdaRole91d2faf3&#34;</span>,
+				<span style="color:#f92672">&#34;AssumeRolePolicyDocument&#34;</span>: {
+					<span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#e6db74">&#34;2012-10-17&#34;</span>,
+					<span style="color:#f92672">&#34;Statement&#34;</span>: [
+						{
+							<span style="color:#f92672">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
+							<span style="color:#f92672">&#34;Principal&#34;</span>: {
+								<span style="color:#f92672">&#34;Service&#34;</span>: [
+									<span style="color:#e6db74">&#34;lambda.amazonaws.com&#34;</span>
+								]
+							},
+							<span style="color:#f92672">&#34;Action&#34;</span>: [
+								<span style="color:#e6db74">&#34;sts:AssumeRole&#34;</span>
+							]
+						}
+					]
+				}
+			}
+		},
+		<span style="color:#f92672">&#34;lambdaexecutionpolicy&#34;</span>: {
+			<span style="color:#f92672">&#34;DependsOn&#34;</span>: [
+				<span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span>
+			],
+			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;AWS::IAM::Policy&#34;</span>,
+			<span style="color:#f92672">&#34;Properties&#34;</span>: {
+				<span style="color:#f92672">&#34;PolicyName&#34;</span>: <span style="color:#e6db74">&#34;lambda-execution-policy&#34;</span>,
+				<span style="color:#f92672">&#34;Roles&#34;</span>: [
+					{
+						<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span>
+					}
+				],
+				<span style="color:#f92672">&#34;PolicyDocument&#34;</span>: {
+					<span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#e6db74">&#34;2012-10-17&#34;</span>,
+					<span style="color:#f92672">&#34;Statement&#34;</span>: [
+						{
+							<span style="color:#f92672">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
+							<span style="color:#f92672">&#34;Action&#34;</span>: [
+								<span style="color:#e6db74">&#34;logs:CreateLogGroup&#34;</span>,
+								<span style="color:#e6db74">&#34;logs:CreateLogStream&#34;</span>,
+								<span style="color:#e6db74">&#34;logs:PutLogEvents&#34;</span>
+							],
+							<span style="color:#f92672">&#34;Resource&#34;</span>: {
+								<span style="color:#f92672">&#34;Fn::Sub&#34;</span>: [
+									<span style="color:#e6db74">&#34;arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*&#34;</span>,
+									{
+										<span style="color:#f92672">&#34;region&#34;</span>: {
+											<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;AWS::Region&#34;</span>
+										},
+										<span style="color:#f92672">&#34;account&#34;</span>: {
+											<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;AWS::AccountId&#34;</span>
+										},
+										<span style="color:#f92672">&#34;lambda&#34;</span>: {
+											<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;LambdaFunction&#34;</span>
+										}
+									}
+								]
+							}
+						}
+<span style="display:block;width:100%;background-color:#3c3d38">					]
+</span><span style="display:block;width:100%;background-color:#3c3d38">				}
+</span><span style="display:block;width:100%;background-color:#3c3d38">			}
+</span><span style="display:block;width:100%;background-color:#3c3d38">		},
+</span><span style="display:block;width:100%;background-color:#3c3d38">		<span style="color:#f92672">&#34;AllPrivsForPhotoAlbums&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;DependsOn&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">			],
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;AWS::IAM::Policy&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Properties&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;PolicyName&#34;</span>: <span style="color:#e6db74">&#34;AllPrivsForPhotoAlbums&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;Roles&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">					{
+</span><span style="display:block;width:100%;background-color:#3c3d38">						<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">					}
+</span><span style="display:block;width:100%;background-color:#3c3d38">				],
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;PolicyDocument&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">					<span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#e6db74">&#34;2012-10-17&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">					<span style="color:#f92672">&#34;Statement&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">						{
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Action&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">								<span style="color:#e6db74">&#34;s3:*&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">							],
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Resource&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">								<span style="color:#f92672">&#34;Fn::Sub&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">									<span style="color:#e6db74">&#34;arn:aws:s3:::${S3UserfilesBucketName}/*&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">									{
+</span><span style="display:block;width:100%;background-color:#3c3d38">										<span style="color:#f92672">&#34;S3UserfilesBucketName&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">											<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;S3UserfilesBucketName&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">										}
+</span><span style="display:block;width:100%;background-color:#3c3d38">									}
+</span><span style="display:block;width:100%;background-color:#3c3d38">								]
+</span><span style="display:block;width:100%;background-color:#3c3d38">							}
+</span><span style="display:block;width:100%;background-color:#3c3d38">						}
+</span><span style="display:block;width:100%;background-color:#3c3d38">					]
+</span><span style="display:block;width:100%;background-color:#3c3d38">				}
+</span><span style="display:block;width:100%;background-color:#3c3d38">			}
+</span><span style="display:block;width:100%;background-color:#3c3d38">		},
+</span><span style="display:block;width:100%;background-color:#3c3d38">		<span style="color:#f92672">&#34;AllPrivsForDynamo&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;DependsOn&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">			],
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;AWS::IAM::Policy&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Properties&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;PolicyName&#34;</span>: <span style="color:#e6db74">&#34;AllPrivsForDynamo&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;Roles&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">					{
+</span><span style="display:block;width:100%;background-color:#3c3d38">						<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">					}
+</span><span style="display:block;width:100%;background-color:#3c3d38">				],
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;PolicyDocument&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">					<span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#e6db74">&#34;2012-10-17&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">					<span style="color:#f92672">&#34;Statement&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">						{
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Action&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">								<span style="color:#e6db74">&#34;dynamodb:*&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">							],
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Resource&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">								<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;DynamoDBPhotosTableArn&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">							}
+</span><span style="display:block;width:100%;background-color:#3c3d38">						}
+</span><span style="display:block;width:100%;background-color:#3c3d38">					]
+</span><span style="display:block;width:100%;background-color:#3c3d38">				}
+</span><span style="display:block;width:100%;background-color:#3c3d38">			}
+</span><span style="display:block;width:100%;background-color:#3c3d38">		},
+</span><span style="display:block;width:100%;background-color:#3c3d38">		<span style="color:#f92672">&#34;RekognitionDetectLabels&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;DependsOn&#34;</span>: [ <span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span> ],
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;AWS::IAM::Policy&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">			<span style="color:#f92672">&#34;Properties&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;PolicyName&#34;</span>: <span style="color:#e6db74">&#34;RekognitionDetectLabels&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;Roles&#34;</span>: [ { <span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;LambdaExecutionRole&#34;</span> } ],
+</span><span style="display:block;width:100%;background-color:#3c3d38">				<span style="color:#f92672">&#34;PolicyDocument&#34;</span>: {
+</span><span style="display:block;width:100%;background-color:#3c3d38">					<span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#e6db74">&#34;2012-10-17&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">					<span style="color:#f92672">&#34;Statement&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">						{
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Action&#34;</span>: [
+</span><span style="display:block;width:100%;background-color:#3c3d38">								<span style="color:#e6db74">&#34;rekognition:detectLabels&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">							],
+</span><span style="display:block;width:100%;background-color:#3c3d38">							<span style="color:#f92672">&#34;Resource&#34;</span>: <span style="color:#e6db74">&#34;*&#34;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">						}
+</span><span style="display:block;width:100%;background-color:#3c3d38">					]
+</span>				}
+			}
+		}		
+	},
+	<span style="color:#f92672">&#34;Outputs&#34;</span>: {
+		<span style="color:#f92672">&#34;Name&#34;</span>: {
+			<span style="color:#f92672">&#34;Value&#34;</span>: {
+				<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;LambdaFunction&#34;</span>
+			}
+		},
+		<span style="color:#f92672">&#34;Arn&#34;</span>: {
+			<span style="color:#f92672">&#34;Value&#34;</span>: {
+				<span style="color:#f92672">&#34;Fn::GetAtt&#34;</span>: [
+					<span style="color:#e6db74">&#34;LambdaFunction&#34;</span>,
+					<span style="color:#e6db74">&#34;Arn&#34;</span>
+				]
+			}
+		},
+		<span style="color:#f92672">&#34;Region&#34;</span>: {
+			<span style="color:#f92672">&#34;Value&#34;</span>: {
+				<span style="color:#f92672">&#34;Ref&#34;</span>: <span style="color:#e6db74">&#34;AWS::Region&#34;</span>
+			}
+		}
+	}
+}</code></pre></div>
+</div></p></li>
+
+<li><p><strong>From the photo-albums directory, run:</strong> <code>amplify push</code> to deploy our new function.</p></li>
+
+<li><p>Wait for the deploy to finish. This step usually only takes about a minute or two.</p></li>
+</ol>
+
+<h3 id="what-we-changed">What we changed</h3>
+
+<ul>
+<li><p>Created a <em>parameters.json</em> file to pass some values into the Photo Processor function&rsquo;s CloudFormation template</p></li>
+
+<li><p>Added parameters <em>env</em>, <em>S3UserfilesBucketName</em>, and <em>DynamoDBPhotosTableArn</em> to the Photo Processor function&rsquo;s CloudFormation template</p></li>
+
+<li><p>Added environment variables to the Photo Processor function&rsquo;s configuration: <em>ENV</em>, <em>THUMBNAIL_WIDTH</em>, <em>THUMBNAIL_HEIGHT</em>, <em>DYNAMODB_PHOTOS_TABLE_ARN</em></p></li>
+
+<li><p>Added an <em>AllPrivsForPhotoAlbums</em> IAM policy to grant the function&rsquo;s role read and write access to the S3 bucket containing our photos</p></li>
+
+<li><p>Added an <em>AllPrivsForDynamo</em> IAM policy to grant the function&rsquo;s role read and write access to the DynamoDB table containing information about our photos</p></li>
+
+<li><p>Added a <em>RekognitionDetectLabels</em> IAM policy to grant the function&rsquo;s role permission to use the detectLabels API from Amazon Rekognition. This policy isn&rsquo;t used yet, but we&rsquo;re going to add it here for convenience while we&rsquo;re working with this file so we won&rsquo;t need to come back and add it when we get to the next section that involves automatically tagging our photos with AI.</p></li>
+</ul>
+
+<div class="notices warning" ><p>The AWS Amplify CLI manages the cloud resources in our project by generating CloudFormation templates for us. CloudFormation templates are very helpful, because they specify all of our project&rsquo;s infrastrucutre as code in the form of JSON and/or YAML files. In this workshop, we&rsquo;ll continue to make edits to some of these generated CloudFormation templates like we did in the steps above.
+<br/> <br/>
+Beware that not all changes are safe to make, and the Amplify CLI may overwrite edits you make in some CloudFormation templates. All of the changes we make in this workshop will persist and won&rsquo;t get overwritten by Amplify because we&rsquo;re not issuing any commands to re-configure or remove any of the resources we&rsquo;re editing, but it&rsquo;s good to remember that this sort of thing <em>can</em> happen if you attempt to use the CLI to re-configure a resource you&rsquo;ve already generated with Amplify.</p>
+</div>
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/amplify-photo-gallery-workshop/70_generating_thumbnails.html" title="Generating Thumbnails"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/amplify-photo-gallery-workshop/70_generating_thumbnails/20_connecting_the_lambda_to_the_bucket.html" title="Connecting the photos bucket to the processor function" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/amplify-photo-gallery-workshop/js/clipboard.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/perfect-scrollbar.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/perfect-scrollbar.jquery.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/jquery.sticky.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/featherlight.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/html5shiv-printshiv.min.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/highlight.pack.js?1553171233"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/amplify-photo-gallery-workshop/js/modernizr.custom.71422.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/learn.js?1553171233"></script>
+    <script src="/amplify-photo-gallery-workshop/js/hugo-learn.js?1553171233"></script>
+
+    <link href="/amplify-photo-gallery-workshop/mermaid/mermaid.css?1553171233" type="text/css" rel="stylesheet" />
+    <script src="/amplify-photo-gallery-workshop/mermaid/mermaid.js?1553171233"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

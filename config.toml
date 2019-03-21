@@ -1,15 +1,15 @@
-baseURL = "https://amplify-workshop.go-aws.com"
-languageCode = "en-us"
-defaultContentLanguage = "en"
+baseURL = "https://awskrug.github.io/amplify-photo-gallery-workshop/"
+languageCode = "ko-kr"
+defaultContentLanguage = "ko"
 title = "Amplify / AppSync / React Workshop"
 theme = "learn"
 uglyurls = true
-googleAnalytics = "UA-129511631-1"
+#googleAnalytics = "UA-129511631-1"
 sectionPagesMenu = "main"
 pygmentsCodeFences = true
 #pygmentsCodeFencesGuessSyntax = true
 #pygmentsStyle = "monokai"
-
+publishDir = "docs"
 
 [blackfriday]
 hrefTargetBlank = true
