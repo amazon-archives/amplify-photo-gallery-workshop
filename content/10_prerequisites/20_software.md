@@ -1,14 +1,14 @@
 +++
-title = "Installs & Configs"
+title = "설치 & 설정"
 chapter = false
 weight = 20
 +++
 
-Before we begin coding, there are a few things we need to install, update, and configure in the Cloud9 environment.
+코딩을 시작하기 전에, Cloud9 환경에 몇 가지 설치, 업데이트, 설정을 해야합니다.
 
-### Installing and updating
+### 설치와 업데이트
 
-In the Cloud9 terminal, **run the following commands** to install and update some software we'll be using for this workshop:
+Cloud9 터미널에서 **다음 명령어를 수행하세요.**  우리가 사용할 몇 가지 소프트웨어를 설치하고 업데이트 합니다.
 
 ```bash
 # Update the AWS CLI
@@ -23,14 +23,17 @@ npm install -g @aws-amplify/cli
 ```
 
 {{% notice note %}}
-These commands will take a few minutes to finish.
+이 명령어들은 완료 되는데 시간이 좀 걸릴수 있습니다. (few minutes)
 {{% /notice %}}
 
-### Configuring a default region 
+### 기본 region 설정하기  
 
-A best practice is to deploy your infrastructure close to your customers, let's configure a default AWS region for this workshop : Northern Virginia (*us-east-1*) for North America or Ireland (*eu-west-1*) for Europe.
+가장 좋은 방법은 인프라를 고객과 가까운 지역에 구성하는 것입니다. (Amplify는 아직 서울 리전을 지원하지 않습니다.)    
+이번 워크샵에서는 기본 AWS region을 다음 지역으로 설정합니다:    
+-  미국 - Northern Virginia (*us-east-1*)  
+-  유럽 - Ireland (*eu-west-1*) 
 
-**Create an AWS config file**, run:
+**AWS config file 생성하기**, 실행:
 
 {{% tabs %}}
 {{% tab "us-east-1" "North America" %}}
@@ -53,5 +56,7 @@ END
 {{% /tabs %}}
 
 {{% notice info %}}
-The AWS Amplify CLI is a toolchain which includes a robust feature set for simplifying mobile and web application development. The step above took care of installing it, but we also need to configure it. It needs to know what region to work with, and it determines this by looking for the *~/.aws/config* file. Cloud9 takes care of making sure we have valid Administrator credentials in the *~/.aws/credentials* file, but it doesn't create *~/.aws/config* for us.
+AWS Amplify CLI는 모바일과 웹 어플리케이션을 개발을 심플하게 해주는 강력한 기능들을 제공하는 툴체인 입니다. 위의 단계에서는 설치만 진행했기 때문에 설정 단계가 추가적으로 필요합니다. 
+AWS Amplify CLI는 **~/.aws/config**을 찾아 작업할 Region 정보를 판별합니다.
+Cloud9은 유효한 Administrator credentials이 **~/.aws/credentials** 파일안에 있는지 확인만 할 뿐 **~/.aws/config**을 생성하지 않습니다.
 {{% /notice %}}

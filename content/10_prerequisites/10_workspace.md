@@ -1,39 +1,36 @@
 +++
-title = "Create a Cloud9 Workspace"
+title = "Cloud9 Workspace 생성하기"
 chapter = false
 weight = 10
 +++
 
-AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It includes a code editor, debugger, and terminal. Cloud9 comes prepackaged with essential tools for popular programming languages, including JavaScript, Python, PHP, and more, so you don't need to install files or configure your development machine to start new projects.
+AWS Cloud9은 cloud-based의 통합 개발 환경(IDE)입니다. 브라우저에서 바로 코드를 작성하고 실행시키고, 디버깅할수 있습니다. 
+Cloud9은 코드 편집기, 디버거와 터미널을 제공합니다. 또한 Javascript, Python, PHP 등의 인기 있는 프로그래밍언어를 위한 필수적인 도구들이 미리 패키징 되어 제공됩니다. 무엇보다도 새로운 프로젝트 시작을 위해 설치 파일이 필요하거나, 개발 환경 설정이 필요하지 않습니다.
+
 
 {{% notice warning %}}
-The Cloud9 workspace should be built by an IAM user with Administrator privileges,
-not the root account user. Please ensure you are logged in as an IAM user, not the root
-account user.
+The Cloud9의 작업영역은 AWS root 계정이 아닌, Administrator 권한을 가진 IAM user에 의해서 작성 되어야 합니다. root 계정이 아닌 IAM User로 로그인 하여 작업 중인게 맞는지 꼭 확인하세요.
 {{% /notice %}}
 
 {{% notice info %}}
-Ad blockers, JavaScript disablers, and tracking blockers should be disabled for
-the cloud9 domain, otherwise connecting to the workspace might be impacted.
+광고 차단기, Javascript 비활성화 도구 및 차단 추적기 등은 Cloud9 에서는 비활성화 하세요. 작업 영역에 영향을 줄 수 있습니다.
 {{% /notice %}}
 
-### Create a new environment
+### 새 환경 만들기
 
-1. Go to the [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1)
-1. Select **Create environment**
-1. Name it **workshop**, and go to the **Next step**
-1. Select **Create a new instance for environment (EC2)** and pick **t2.medium**
-2. Leave all of the environment settings as they are, and go to the **Next step**
-3. Click **Create environment**
+1. [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1) 로 이동
+1. **Create environment** 선택
+1. **workshop**으로 이름을 붙이고 **Next step**으로 넘어가세요.
+1. **Create a new instance for environment (EC2)** 선택하고 **t2.medium**을 고르세요
+2. 모든 환경 설정을 있는 그대로 두고 **Next step**로 이동합니다.
+3. **Create environment**를 클릭합니다.
 
-### Clean up the layout
+### Layout 정리
 
-When the environment comes up, customize the layout by closing the **welcome tab**
-and **lower work area**, and opening a new **terminal** tab in the main work area:
+작업 환경이 나타나면, **welcome tab**을 닫고 레이아웃을 본인에게 맞게 커스터마이징 하세요. **작업 영역을 낮추고**, 새로운 **terminal** 탭을 메인 작업 영역에 띄웁니다.  :
 ![c9before](/images/c9before.png)
 
-Your workspace should now look like this:
+당신의 작업 영역은 이제 이렇게 보일거에요.:
 ![c9after](/images/c9after.png)
 
-If you like this theme, you can choose it yourself by selecting **View / Themes / Solarized / Solarized Dark**
-in the Cloud9 workspace menu.
+Cloud9 workspace 메뉴에서 **View / Themes / Solarized / Solarized Dark** 테마를 직접 선택할 수 있습니다.
