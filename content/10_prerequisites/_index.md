@@ -1,9 +1,9 @@
 +++
-title = "Prerequisites"
+title = "Workshop 사전준비"
 chapter = true
 weight = 10
 +++
 
-# Prerequisites for the Workshop
+# Workshop 사전 준비
 
 {{% children showhidden="false" %}}
