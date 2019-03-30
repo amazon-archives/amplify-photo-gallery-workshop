@@ -1,5 +1,5 @@
 +++
-title = "Workshop 사전준비"
+title = "사전준비"
 chapter = true
 weight = 10
 +++
