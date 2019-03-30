@@ -1,7 +1,7 @@
 # Amplify Photo Gallery Workshop
 AWS Amplify와 AWS AppSync를 이용하여 Photo gallery web app 구현해보는 AWS Workshop tutorial 문서입니다. 현재 한글화 작업을 하고 있습니다.
 
-## the Workshop 보기
+## Workshop 문서 Site로 확인하기
 Workshop 문서는 아래 URL을 통하여 확인할 수 있습니다. (한글화 작업 중)  
 https://awskrug.github.io/amplify-photo-gallery-workshop/ 
 
@@ -36,8 +36,8 @@ git submodule update --checkout --recursive
 #### 로컬환경에서 Hugo 실행하기:
 
 `npm run server`
-or
-`npm run test` to see stubbed in draft pages.
+또는
+`npm run test` 
 
 #### 로컬환경에서 Hugo 확인하기:
 http://localhost:1313/ 로 접속하여 빌드된 Workshop site를 확인합니다.
