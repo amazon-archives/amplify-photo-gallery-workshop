@@ -1,0 +1,18 @@
+language: go
+go:
+  - 1.11.x
+install:
+  - go get github.com/gohugoio/hugo
+
+script:
+  - hugo
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  local-dir: docs
+  target-branch: master
+  on:
+    branch: master
