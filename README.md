@@ -43,9 +43,8 @@ git submodule update --checkout --recursive
 http://localhost:1313/ 로 접속하여 빌드된 Workshop site를 확인합니다.
 
 #### 수정사항 확인하기:
-페이지를 수정한 후 저장하면, Site가 수정사항을 반영하여 화면을 리로딩 합니다.
-
-note: shift-reload may be necessary in your browser to reflect the latest changes.
+페이지를 수정한 후 저장하면, Site가 수정사항을 반영하여 화면을 리로딩 합니다.   
+참고 : 최신 변경 사항을 반영하려면 브라우저에서 shift-reload가 필요할 수 있습니다.
 
 ## License Summary
 
