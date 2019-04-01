@@ -6,7 +6,6 @@ weight: 1
 
 ## AWS Amplify와 AWS AppSync로  <br/> 사진 공유 웹 어플리케이션 구현 
 
-<br>
 ### 환영합니다!
 
 <p style='text-align: left;'>
