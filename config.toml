@@ -1,4 +1,4 @@
-baseURL = "https://awskrug.github.io/amplify-photo-gallery-workshop/"
+baseURL = "https://awskrug.github.io/amplify-photo-gallery-workshop"
 languageCode = "ko-kr"
 defaultContentLanguage = "ko"
 title = "Amplify / AppSync / React Workshop"
@@ -10,6 +10,8 @@ pygmentsCodeFences = true
 #pygmentsCodeFencesGuessSyntax = true
 #pygmentsStyle = "monokai"
 publishDir = "docs"
+staticDir = "static"
+canonifyURLs = true
 
 [blackfriday]
 hrefTargetBlank = true

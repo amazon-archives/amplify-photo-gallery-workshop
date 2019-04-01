@@ -3,11 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/</loc>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/1_account.html</loc>
   </url>
   
   <url>
-    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/1_account.html</loc>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/</loc>
   </url>
   
   <url>
@@ -15,11 +15,11 @@
   </url>
   
   <url>
-    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/130_wrapping_up/10_what_we_built.html</loc>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/10_workspace.html</loc>
   </url>
   
   <url>
-    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html</loc>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/130_wrapping_up/10_what_we_built.html</loc>
   </url>
   
   <url>
@@ -35,10 +35,6 @@
   </url>
   
   <url>
-    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites.html</loc>
-  </url>
-  
-  <url>
     <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/40_graphql/10_setting_up_appsync.html</loc>
   </url>
   
@@ -48,6 +44,10 @@
   
   <url>
     <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/20_getting_started/10_what_we_will_build.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84.html</loc>
   </url>
   
   <url>
@@ -71,10 +71,6 @@
   </url>
   
   <url>
-    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/20_software.html</loc>
-  </url>
-  
-  <url>
     <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/110_ai/20_prep_for_searching.html</loc>
   </url>
   
@@ -84,6 +80,10 @@
   
   <url>
     <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/40_graphql/20_trying_out_queries.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/20_software.html</loc>
   </url>
   
   <url>

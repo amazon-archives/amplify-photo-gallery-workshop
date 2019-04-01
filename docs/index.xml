@@ -11,15 +11,16 @@
     
     
     <item>
-      <title>Create an AWS account</title>
-      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/1_account.html</link>
+      <title>AWS account 생성하기</title>
+      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/1_account.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/1_account.html</guid>
-      <description>Your account must have the ability to create new IAM roles and scope other IAM permissions.
- If you already have an AWS account, and have IAM Administrator access, you can skip this page.
-  If you don&amp;rsquo;t already have an AWS account with Administrator access: create one now
- Once you have an AWS account, ensure you are following the remaining workshop steps as an IAM user with administrator access to the AWS account: Create a new IAM user to use for the workshop</description>
+      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/1_account.html</guid>
+      <description>Workshop에서 사용하고자 하는 AWS 계정은 새로운 IAM 역할을 만들수 있어야 하고 다른 IAM 권한 범위를 지정할 수 있어야 합니다.
+ 이미 AWS 계정을 가지고 있고, IAM 관리자 접속 권한이 있다면 이 페이지를 넘어가도 좋습니다.
+  관리자 접속 권한 계정이 없다면: 새로 하나 만듭시다.
+ AWS 계정을 가지게 되었다면, 남은 워크샵 단계를 잘 따르고 있는 확인해보세요.
+AWS 계정에 대한 관리자 권한이 있는 IAM user : 워크샵에서 사용할 IAM user를 만듭니다.</description>
     </item>
     
     <item>
@@ -30,6 +31,16 @@
       <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/50_working_with_albums/5_managing_albums.html</guid>
       <description>At this point, we have a web app that authenticates users and a secure GraphQL API endpoint that lets us create and read Album data. It&amp;rsquo;s time to connect the two together!
 As we saw above, AWS Amplify is an open source JavaScript library that makes it very easy to integrate a number of cloud services into your web or React Native apps. We&amp;rsquo;ll start by using its Connect React component to take care of automatically querying our GraphQL API and providing data for our React components to use when rendering.</description>
+    </item>
+    
+    <item>
+      <title>Cloud9 Workspace 생성하기</title>
+      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/10_workspace.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/10_workspace.html</guid>
+      <description>AWS Cloud9은 cloud-based의 통합 개발 환경(IDE)입니다. 브라우저에서 바로 코드를 작성하고 실행시키고, 디버깅할수 있습니다. Cloud9은 코드 편집기, 디버거와 터미널을 제공합니다. 또한 Javascript, Python, PHP 등의 인기 있는 프로그래밍언어를 위한 필수적인 도구들이 미리 패키징 되어 제공됩니다. 무엇보다도 새로운 프로젝트 시작을 위해 설치 파일이 필요하거나, 개발 환경 설정이 필요하지 않습니다.
+The Cloud9의 작업영역은 AWS root 계정이 아닌, Administrator 권한을 가진 IAM user에 의해서 작성 되어야 합니다. root 계정이 아닌 IAM User로 로그인 하여 작업 중인게 맞는지 꼭 확인하세요.</description>
     </item>
     
     <item>
@@ -44,16 +55,6 @@ Here&amp;rsquo;s a reminder of everything we accomplished. We:
  Added user authentication with a complete sign up and sign in flow
  Created a GraphQL API to securely manage photo albums backed by DynamoDB tables
  Added the ability to create and view albums</description>
-    </item>
-    
-    <item>
-      <title>Create a Cloud9 Workspace</title>
-      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/10_workspace.html</guid>
-      <description>AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It includes a code editor, debugger, and terminal. Cloud9 comes prepackaged with essential tools for popular programming languages, including JavaScript, Python, PHP, and more, so you don&amp;rsquo;t need to install files or configure your development machine to start new projects.
-The Cloud9 workspace should be built by an IAM user with Administrator privileges, not the root account user.</description>
     </item>
     
     <item>
@@ -164,17 +165,6 @@ This will give us a sample React app with a local auto-reloading web server and 
     </item>
     
     <item>
-      <title>Installs &amp; Configs</title>
-      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/20_software.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/10_prerequisites/20_software.html</guid>
-      <description>Before we begin coding, there are a few things we need to install, update, and configure in the Cloud9 environment.
-Installing and updating In the Cloud9 terminal, run the following commands to install and update some software we&amp;rsquo;ll be using for this workshop:
-# Update the AWS CLI pip install --user --upgrade awscli # Install and use Node.js v8.10 (to match AWS Lambda) nvm install v8.10.0 nvm alias default v8.</description>
-    </item>
-    
-    <item>
       <title>Making Photos Searchable</title>
       <link>https://awskrug.github.io/amplify-photo-gallery-workshop/110_ai/20_prep_for_searching.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -205,6 +195,17 @@ Adding Amplify NPM dependencies We haven&amp;rsquo;t yet added the aws-amplify a
  Link to AWS AppSync web console in Ireland
   Click Queries in the sidebar on the left.
 This area is AWS AppSync&amp;rsquo;s interactive query explorer. We can write queries and mutations here, execute them, and see the results. It&amp;rsquo;s a great way to test things out to make sure our resolvers are working the way we expect.</description>
+    </item>
+    
+    <item>
+      <title>설치 &amp; 설정</title>
+      <link>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/20_software.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://awskrug.github.io/amplify-photo-gallery-workshop/10_%EC%82%AC%EC%A0%84%EC%A4%80%EB%B9%84/20_software.html</guid>
+      <description>코딩을 시작하기 전에, Cloud9 환경에 몇 가지 설치, 업데이트, 설정을 해야합니다.
+설치와 업데이트 Cloud9 터미널에서 다음 명령어를 수행하세요. 우리가 사용할 몇 가지 소프트웨어를 설치하고 업데이트 합니다.
+# Update the AWS CLI pip install --user --upgrade awscli # Install and use Node.js v8.10 (to match AWS Lambda) nvm install v8.10.0 nvm alias default v8.10.0 # Install the AWS Amplify CLI npm install -g @aws-amplify/cli 이 명령어들은 완료 되는데 시간이 좀 걸릴수 있습니다.</description>
     </item>
     
     <item>

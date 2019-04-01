@@ -18,7 +18,7 @@ weight = 1
 AWS 계정에 대한 관리자 권한이 있는 **IAM user** : 
 [워크샵에서 사용할 IAM user를 만듭니다.](https://console.aws.amazon.com/iam/home?region=us-east-1#/users$new)
 
-1. 사용자 상세정보를 입력합니다.:
+1. 사용자 상세정보를 입력합니다:
 ![Create User](/images/iam-1-create-user.png)
 
 1. AdministratorAccess IAM 정책 연결:
