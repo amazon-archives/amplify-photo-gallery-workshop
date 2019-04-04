@@ -4,32 +4,32 @@ chapter = false
 weight = 10
 +++
 
-실제로 상용할 응용프로그램을 만들어보진 못했지만, 우린 확실하게 공유가능한 사진 앨범 웹 앱을 만들어보았습니다.   
+실제로 상용할 서비스를 만들진 않았지만, 웹 앱으로 간단하게 공유가능한 앨범 서비스를 만들어보았습니다.   
 
-우리가 해낸 모든 것들을 되돌아봅시다. 우리는.. :
+우리가 완료한 내용들을 다음 리스트에서 확인해보겠습니다. 우리는 :
 
-- 간단한 리엑트(React) 웹 앱을 시작했습니다.
+- 간단한 리엑트(React) 웹 앱으로 시작했습니다.
 
-- 사용자 인증을 추가하여 완벽한 회원가입과 로그인을 구현했습니다.
+- 사용자인증 추가로 완벽한 회원가입 및 로그인을 구현하였습니다.
 
-- DynamoDB 테이블로 적재할 사진 앨범들이 안전하게 관리되도록 AWS AppSync의 GraphQL API를 생성하였습니다.
+- DynamoDB 테이블에 적재될 사진 앨범들이 안전하게 관리되도록 AWS AppSync의 GraphQL API를 이용했습니다.
 
-- Added the ability to create and view albums
+- 앨범추가 및 보기기능을 추가하였습니다.
 
-- Added the ability to upload photos to an album, complete with automatic thumbnail creation
+- 앨범에 사진들을 업로드하고 썸네일 자동생성을 완료하였습니다.
 
-- Introduced 'load more...' pagination for albums with many photos
+- 사진이 많은 앨범의 "더보기"와 같이 페이지매김을 도입하였습니다.
 
-- Added automatic label detection for photos
+- Amazon Rekognition API를 이용한 사진의 자동라벨 감지기능 추가하였습니다.
 
-- Added the ability to search for all photos for a given label (scoped by each user's album permissions)
+- (각 사용자별로 지정된 앨범권한 범위 내에서) 라벨이 주어진 전체사진을 검색할 수 있는 기능을 추가하였습니다.
 
-- Built a production-ready version of the app and deployed it to S3 for web hosting
+- 프로덕션 버전 앱을 만들고 웹 호스팅을 할 수 있게 S3버킷으로 배포했습니다.
 
-The backend for our photo albums app is entirely serverless, which means it's extremely cost efficient, scalable, and highly available thanks to services from AWS. 
+- 우리가 제작한 앱은 완전한 서버리스이며, AWS서비스 덕분에 비용효율적이며 뛰어난 확장성과 고가용성이라는 장점이 있습니다.
 
-Not bad for a few hours of work! 
+몇시간동안 우리가 한 작업이 괜찮은 것 같네요!
 
-Please give yourself a **huge pat on the back** for making it all the way to the end!
+마지막까지 완수해주신 여러분 스스로를 자랑스러워 해주세요!
 
-### What will _you_ build next?
+### 다음엔 무엇을 구축해보시겠어요?
