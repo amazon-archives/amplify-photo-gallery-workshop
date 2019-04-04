@@ -40,7 +40,7 @@ git submodule update --checkout --recursive
 `npm run test` 
 
 #### 로컬환경에서 Hugo 확인하기:
-http://localhost:1313/ 로 접속하여 빌드된 Workshop site를 확인합니다.
+http://localhost:1313/amplify-photo-gallery-workshop/ 로 접속하여 빌드된 Workshop site를 확인합니다.
 
 #### 수정사항 확인하기:
 페이지를 수정한 후 저장하면, Site가 수정사항을 반영하여 화면을 리로딩 합니다.   
