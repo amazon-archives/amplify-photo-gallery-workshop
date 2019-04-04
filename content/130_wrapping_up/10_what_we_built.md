@@ -1,18 +1,18 @@
 +++
-title = "Congratulations!"
+title = "축하드립니다!"
 chapter = false
 weight = 10
 +++
 
-While no application is really ever done, we've certainly come a long way toward building a shareable photo albums web app! 
+실제로 상용할 응용프로그램을 만들어보진 못했지만, 우린 확실하게 공유가능한 사진 앨범 웹 앱을 만들어보았습니다.   
 
-Here's a reminder of everything we accomplished. We:
+우리가 해낸 모든 것들을 되돌아봅시다. 우리는.. :
 
-- Started with a simple React web app
+- 간단한 리엑트(React) 웹 앱을 시작했습니다.
 
-- Added user authentication with a complete sign up and sign in flow
+- 사용자 인증을 추가하여 완벽한 회원가입과 로그인을 구현했습니다.
 
-- Created a GraphQL API to securely manage photo albums backed by DynamoDB tables
+- DynamoDB 테이블로 적재할 사진 앨범들이 안전하게 관리되도록 AWS AppSync의 GraphQL API를 생성하였습니다.
 
 - Added the ability to create and view albums
 
