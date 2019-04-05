@@ -1,9 +1,9 @@
 +++
-title = "Adding Authentication"
+title = "인증 추가하기"
 chapter = true
 weight = 30
 +++
 
-# Adding Authentication
+# 인증 추가하기
 
 {{% children showhidden="false" %}}
