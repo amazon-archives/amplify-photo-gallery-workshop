@@ -1,9 +1,9 @@
 +++
-title = "Wrapping Up"
+title = "마무리하기"
 chapter = true
 weight = 130
 +++
 
-# Wrapping Up
+# 마무리하기
 
 {{% children showhidden="false" %}}
