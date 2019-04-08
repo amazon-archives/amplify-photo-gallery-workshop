@@ -1,11 +1,11 @@
 +++
-title = "Trying Out Some Queries"
+title = "Querie 수행하기"
 chapter = false
 weight = 20
 +++
 
 
-**Open the AWS Console** and **click into the photoalbums API**. Now we can start poking around with the API.
+**AWS Console로 접근하여 photoalbums API를 클릭합니다**. 이제 API를 파고들어봅시다.
 
 {{% tabs %}}
 {{% tab "us-east-1" "North America" %}}
@@ -17,37 +17,39 @@ Link to [AWS AppSync web console in Ireland](https://console.aws.amazon.com/apps
 {{% /tab %}}
 {{% /tabs %}}
 
-**Click Queries** in the sidebar on the left.
+왼쪽 사이드바에 있는 **Queries를 클릭합니다.** 
 
 ![appsync queries](/images/appsync_queries.png?classes=border)
 
 {{% notice info %}}
-This area is AWS AppSync's interactive query explorer. We can write queries and mutations here, execute them, and see the results. It's a great way to test things out to make sure our resolvers are working the way we expect.
+AWS AppSync의 대화형 쿼리 실행 영역인 이곳에서 쿼리를 작성하거나 변경하고, 쿼리를 실행하여 결과를 볼 수 있습니다. 
+이는 Resolver들이 우리가 예상한 대로 잘 작동하는지 테스트하기 위한 좋은 방법입니다.
 {{% /notice %}}
 
-### Authenticating to AppSync
+### AppSync 인증
 
 {{% notice warning %}}
-Before we can issue queries, we'll need to authenticate (because our AppSync API is configured to authenticate users via the Amazon Cognito User Pool we set up when we configured the authentication for our app.
+쿼리를 실행하기 전에 사용자 인증이 필요합니다.
+(AppSync API는  Application 인증을 구현할때 세팅한 Amazon Congnito 사용자 Pool을 통하여 인증하도록 설정되어 있기 때문)
 {{% /notice %}}
 
-1. **Click the Login with User Pools button** at the top of the query editor.
+1. 쿼리 에디터 상단에 있는 **Login with User Pools 버튼을 클릭하세요.**
 
-1. Look up the value for the **ClientId** field
-    1.  In Cloud9, **open photo-albums/src/aws-exports.js**
-    2.  **Copy** the value of the **aws_user_pools_web_client_id** property
+1. **ClientId** 필드의 값을 확인합니다.
+    1.  Cloud9에서 **photo-albums/src/aws-exports.js 파일을 오픈합니다.**
+    2.  **aws_user_pools_web_client_id** 속성의 값을 **복사** 하세요.
 
-1. **Paste** the value into the **ClientId** field
+1. **ClientId** 필드에 복사한 값을 **붙여넣습니다.**
 
-1. **Enter your credentials** for the user you created when we added authentication
+1.  인증 정보를 추가할때 생성한 사용자 **credentials 을 입력하세요.**
 
-1. **Click Login**
+1. **Login 클릭**
 
-### Trying out some queries
+### 쿼리 수행하기
 
-You should now be able to try out the following mutations and queries. Press the orange 'play' button to execute queries and mutations.
+이제 다음 쿼리와 Mutations를 수행하면 됩니다. 쿼리와 mutations 실행을 위해 주황색 'play' 버튼을 클릭하세요.
 
-**Add a new album** by copy/pasting the following and running the query:
+**새로운 앨범 추가하기** : 다음 문장을 복사 붙여넣기 하여 쿼리를 실행합니다.
 
     mutation {
         createAlbum(input:{name:"First Album"}) {
@@ -56,7 +58,7 @@ You should now be able to try out the following mutations and queries. Press the
         }
     }
 
-**Add another album** by editing and re-running your createAlbum mutation with another album name:
+**다른 앨범 추가하기** : 다른 앨범 이름으로 createAlbum mutation를 수정하고 재실행 합니다.
 
     mutation {
         createAlbum(input:{name:"Second Album"}) {
@@ -65,7 +67,7 @@ You should now be able to try out the following mutations and queries. Press the
         }
     }
 
-**List all albums** by running this query:
+**앨범 목록 조회하기**  : 다음 쿼리를 실행합니다.
 
     query {
         listAlbums {
@@ -76,4 +78,4 @@ You should now be able to try out the following mutations and queries. Press the
         }
     }
 
-As you can see, we're able to read and write data through GraphQL queries and mutations and AppSync takes care of reading and persisting data (in this case, to DynamoDB).
+보다시피, GraphQL 쿼리와 mutation으로 데이터를 읽고 작성할 수 있습니다. AppSync는 데이터 조회와 데이터 보존(Persisting)을 담당합니다.(이 예시는 DynamoDB에 해당).
