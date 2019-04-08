@@ -1,20 +1,22 @@
 +++
-title = "Setting Up AppSync"
+title = "AppSync 세팅"
 chapter = false
 weight = 10
 +++
 
-Now that we have authenticated users, let's make an API for creating albums. These albums won't have any photos in them just yet, just a name and an association with the username that created them, but it's another clear step toward putting our app together.
+이제 인증된 사용자를 가지고 앨범을 만들기 위한 API를 만들어 봅시다. 이 앨범에는 아직 사진이 없고 단순히 이름과 앨범을 생성한 사용자 이름만 있을 것입니다.
 
 {{% notice info %}}
-To build our API we'll use [AWS AppSync](https://aws.amazon.com/appsync/), a managed GraphQL service for building data-driven apps. If you're not yet familiar with the basics of GraphQL, you should take a few minutes and check out [https://graphql.github.io/learn/](https://graphql.github.io/learn/) before continuing, or use the site to refer back to when you have questions as you read along.
+[AWS AppSync](https://aws.amazon.com/appsync/)를 사용하여 API를 구현하고, 데이터 기반 어플리케이션을 구현하기 위하여 관리형 GraphQL 서비스를 사용합니다. 아직 GraphQL이 익숙하지 않다면 워크샵 단계를 진행하기 전에 시간을 내어 다음 자료를 살펴 보세요. [https://graphql.github.io/learn/](https://graphql.github.io/learn/)
+단계를 계속하는 동안에도 질문이 생긴다면 위 자료를 참조하시기 바랍니다.
 {{% /notice %}}
 
 ![AWS AppSync: Rapid prototyping and development with GraphQL](/images/appsync-logo.png)
 
-### Adding an AWS AppSync API
+### AWS AppSync API 추가하기
 
-**From the photo-albums directory, run** `amplify add api` and respond to the prompts like this:
+**photo-albums 디렉토리에서 다음 명령어를 수행하세요**  `amplify add api`   
+수행결과는 다음과 같습니다.
 ```text
 $ amplify add api 
 
@@ -45,11 +47,13 @@ Please manually edit the file created at /home/ec2-user/environment/photo-albums
 ```
 
 
-### Declaring the GraphQL Schema
+### GraphQL Schema 정의
 
-Below is a schema that will suit our needs for storing and querying Albums and Photos. 
+앨범과 사진을 저장하고 조회하기 위한 스키마 정의입니다.
 
-1. **Paste this into photo-albums/amplify/backend/api/photoalbums/schema.graphql**, replacing the example schema content. Remember to save the file. Note: in Cloud9 you can mouse-over the file name in the terminal, click it, and select 'Open'.
+1. 다음 경로의 파일에 **photo-albums/amplify/backend/api/photoalbums/schema.graphql** 아래 내용을 복사하여 붙여넣습니다. 예제 스키마 컨텐츠를 대체합니다. 파일을 저장하는 것을 잊지 마세요. 
+
+    참고 : Cloud9에서 터미널의 파일 이름에 마우스를 올려 놓고 클릭 한 다음 '열기'를 선택할 수 있습니다.
 
     ```graphql
     # amplify/backend/api/photo-albums/schema.graphql
@@ -75,16 +79,16 @@ Below is a schema that will suit our needs for storing and querying Albums and P
     }
     ```
 
-1. Return to your command prompt and **press Enter once** to continue
+1. 명령 프롬프트로 돌아가서 **Enter 를 한번만 눌러** 계속 진행합니다.
 
-1. **Run** `amplify push` and confirm you'd like to continue with the updates
+1. `amplify push` **명령어를 수행하세요** 그리고 업데이트를 계속 진행할 것인지 확인합니다.
 
-1. When prompted about code generation, **select 'No'**
+1. 코드 생성에 대한 메세지가 표시되면, **'No'**를 선택합니다.
 
-1. Wait a few minutes while Amplify takes care of provisioning new resources for us.
+1. Amplify가 새로운 리소스를 프로비저닝하는 동안 몇 분 정도 기다립니다.
 
 {{% notice info %}}
-At this point, without having to write any code, we now have a GraphQL API that will let us perform CRUDL operations on our Album and Photo data types!
+이제 Code 작성 없이 앨범과 사진 데이터에 대하여 CRUDL 작업을 수행할 수 있는 GraphQL API가 생겼습니다!
 <br/><br/>
-But don't worry, the way AWS AppSync is resolving fields into data isn't hidden from us. Each resolver that was automatically generated is available for us to edit as we see fit, and we'll get to that later. For now, let's try out adding some albums and then retrieving them all as a list.
+AWS AppSync가 필드를 데이터로 변환하는 방식이 숨겨져 있는것은 아니니 걱정하지 마세요. 자동으로 생성된 각 resolver들은 우리가 보기에 적절하도록 수정 할 수 있습니다. (다음 단계에서 확인 할수 있습니다) 지금은 앨범을 몇개 추가하고, 그것들을 리스트로 조회해 보겠습니다.
 {{% /notice %}}

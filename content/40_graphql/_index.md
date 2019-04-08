@@ -1,10 +1,10 @@
 +++
-title = "Creating a GraphQL API"
+title = "GraphQL API 생성하기"
 chapter = true
 weight = 40
 +++
 
-# Creating a GraphQL API
+# GraphQL API 생성하기
 
 {{% children showhidden="false" %}}
 
