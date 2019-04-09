@@ -21,7 +21,7 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
 
 3. **Enter values or accept defaults** for the resource category and bucket name
 
-4. Configure it so that **only authenticated users** have access with **read/write permissions**. 
+4. Configure it so that **authenticated users** have access with **read/write permissions** and **guests** have **read permission**. 
 
     Here is sample output with responses:
 
@@ -29,29 +29,31 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     $ amplify add storage
 
 
-    ? Please select from one of the below mentioned services: 
-
+    ? Please select from one of the below mentioned services:
+    
     Content (Images, audio, video, etc.)
 
 
-    ? Please provide a friendly name for your resource that will be used to label this category in the project: 
-
-    photoalbumsstorage
-
-
-    ? Please provide bucket name: 
-
-    <accept the default value>
+    ? Please provide a friendly name for your resource that will be used to label this category in the proje
+    ct: photoalbumsstorage
 
 
-    ? Who should have access: 
-
-    Auth users only
+    ? Please provide bucket name: <accept the default value>
 
 
-    ? What kind of access do you want for Authenticated users: 
+    ? Who should have access: Auth users only
 
-    read/write
+
+    ? What kind of access do you want for Authenticated users? 
+    ◉ create/update
+    ◉ read
+    ◉ delete
+
+
+    ? What kind of access do you want for Guest users? 
+    ◯ create/update
+    ◉ read
+    ◯ delete
     ```
 
 Now we'll have Amplify modify our cloud environment, provisioning the storage resources we just added.

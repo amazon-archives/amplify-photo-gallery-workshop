@@ -15,8 +15,8 @@ In the Cloud9 terminal, **run the following commands** to install and update som
 pip install --user --upgrade awscli
 
 # Install and use Node.js v8.10 (to match AWS Lambda)
-nvm install v8.10.0
-nvm alias default v8.10.0
+nvm install v8.11.0
+nvm alias default v8.11.0
 
 # Install the AWS Amplify CLI
 npm install -g @aws-amplify/cli
