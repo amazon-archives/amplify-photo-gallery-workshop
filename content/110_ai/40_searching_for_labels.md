@@ -1,14 +1,14 @@
 +++
-title = "Searching Photos By Label"
+title = "사진을 레이블로 검색하기"
 chapter = false
 weight = 40
 +++
 
-With all of the back-end work completed, now we just need to update our web app to allow searching for photos by label.
+백엔드 작업이 완료되었으니 이제 사진을 레이블로 검색할 수 있게 하겠습니다.
 
-Let's create a new *Search* component and add it to the *App* component to be rendered on the root path. For rendering all of the matching photos in the *Search* component, we'll re-use the *PhotosList* component we already created.
+새 *Search* 컴포넌트를 생성하고 *App* 컴포넌트에 루트 경로로 표시되도록 추가합니다. *Search* 컴포넌트에서 검색된 모든 사진을 표시하기위해 이미 생성한 *PhotoList* 컴포넌트를 재사용합니다.
 
-**Replace photo-albums/src/App.js** with the following:
+**photo-albums/src/App.js을 다음 내용으로 변경합니다**.
 <div style="height: 595px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=67-144 408">}}
 // photo-albums/src/App.js
@@ -439,24 +439,24 @@ export default withAuthenticator(App, {includeGreetings: true});
 {{< /highlight >}}
 </div>
 
-### What we changed
+### 바뀐 것들
 
-- Added a *SearchPhotos* query to find photos for a given label. 
+- 레이블로 사진을 검색하기 위해 *SearchPhotos* 쿼리를 추가했습니다.
 
-- Added a *Search* component that uses the *SearchPhotos* query to get a list of matching photos for a given label and renders the photos using the pre-existing *PhotosList* component.
+- *SearchPhotos* 쿼리를 사용하여 레이블에 일치하는 사진 목록을 얻어오고, 기존 *PhotosList* 컴포넌트를 사용하여 사진을 표시하는 *Search* 컴포넌트를 추가했습니다.
 
-- Added the *SearchPhotos* component to render as part of the root '/' path.
+- 루트 '/' 경로의 일부로 표시할 *SearchPhotos* 컴포넌트를 추가했습니다.
 
-### Testing the photos search
-With that done, you should be able to go back to the root path '/' in the web app and try out the search. 
+### 사진 검색 기능 시험하기
+이제 웹 앱의 루트 경로 '/'로 돌아가면 검색할 수 있습니다.
 
-Note that when Amplify sets up the Amazon Elasticsearch Service integration, it will only index new data because it doesn't pass the existing data from DynamoDB at the time of creation. You'll need to upload a few more photos to an album before you'll see search results.
+Amplify로 Amazon Elasticsearch Service를 연동하도록 구성했지만, 생성시에 DynamoDB의 기존 데이터를 전달하지 않기 때문에 오직 새 데이터만을 색인을 생성합니다. 검색 결과를 보려면 먼저 몇 장의 사진을 앨범에 업로드해야 합니다.
 
-Give it a shot!
+한번 해 봅시다!
 
 {{% notice note %}}
-Before trying to search for a photo, please make sure that the `amplify push` from the previous page has finished.
+사진을 검색하기 전에 이전 페이지의 `amplify push`가 완료되었는지 확인하십시요.
 <br/>
 <br/>
-To test out the photo search, look in the Photos table in DynamoDB for some valid labels to use as search terms. You must enter a label that matches exactly with one that was detected by Rekognition.
+사진 검색 기능을 테스트하려면 DynamoDB에 Photos 테이블에 검색어로 사용할 유효한 레이블이 있는지 찾아 보아야 합니다. Rekognition에서 감지된 것과 정확히 일치하는 레이블을 입력해야 합니다.
 {{% /notice %}}
