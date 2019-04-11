@@ -1,11 +1,9 @@
 +++
-title = "Working With Albums"
+title = "앨범 작업"
 chapter = true
 weight = 50
 +++
 
-# Working With Albums
+# 앨범 작업
 
 {{% children showhidden="false" %}}
-
-
