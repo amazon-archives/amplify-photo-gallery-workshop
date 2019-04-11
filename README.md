@@ -1,12 +1,16 @@
 # Amplify Photo Gallery Workshop
-AWS Amplify와 AWS AppSync를 이용하여 Photo gallery web app 구현해보는 AWS Workshop tutorial 문서입니다. 
 
-## Workshop 문서 Site로 확인하기
+[![Build Status](https://api.travis-ci.org/awskrug/amplify-photo-gallery-workshop.svg?branch=master)](https://travis-ci.org/awskrug/amplify-photo-gallery-workshop)
+[![GitHub release](https://img.shields.io/github/release/awskrug/amplify-photo-gallery-workshop.svg)](https://github.com/awskrug/amplify-photo-gallery-workshop/releases/latest)
+
+AWS Amplify와 AWS AppSync를 이용하여 사진 앨범 웹앱을 구현해보는 AWS 워크샵 튜토리얼 문서입니다. 
+
+## Workshop 문서 웹페이지 확인하기
 Workshop 문서는 아래 URL을 통하여 확인할 수 있습니다. (한글화 작업 중)  
 https://awskrug.github.io/amplify-photo-gallery-workshop/ 
 
 
-## 로컬환경에서 Hugo로 Workshop 사이트 빌드하기
+## 로컬환경에서 Hugo를 이용해서 워크샵 사이트 빌드하기
 
 #### Hugo 설치:
 
