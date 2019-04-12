@@ -1,19 +1,19 @@
 +++
-title = "Creating a Photo Processor Lambda function"
+title = "사진을 처리하는 람다 함수 만들기"
 chapter = false
 weight = 10
 +++
 
-Let's make a photo processor lambda function so that we can resize our photos.
+사진 처리 람다 함수를 만들어서 사진을 리사이즈 할 수 있게 합니다.
 
 {{% notice warning %}}
-When following the instructions below, **you must name your lambda function _workshopphotoprocessor_**.
+아래 지시를 따를 때에 **람다 함수명을 반드시 _workshopphotoprocessor_ 으로 합니다**.
 <br/>
 <br/>
-Later, we'll edit some CloudFormation templates, and the function name **workshopphotoprocessor** is hard coded to make it easier for this workshop (less edits that you'll have to do).
+이후에 몇가지 클라우드 포메이션 템플릿을 수정하고, 이름이 **workshopphotoprocessor**인 함수는 이번 워크샵을 위해 하드 코딩합니다(꼭 수정할 부분을 줄이기 위해)
 {{% /notice %}}
 
-1. **From the photo-albums directory, run:** `amplify function add` and respond to the prompts the same way as shown below. Make sure you press Enter before continuing to step 2:
+1. **photo-albums 디렉토리에서** `amplify function add`를 실행해서 아래 보여진 것과 비슷한 방식으로 프롬프트에 답합니다. 두번째 단계를 계속하기 전에 엔터를 꼭 눌러야 합니다.
 	```text
 	$ amplify function add
 	Using service: Lambda, provided by: awscloudformation
@@ -46,7 +46,7 @@ Later, we'll edit some CloudFormation templates, and the function name **worksho
 	```
 
 
-2. **Replace /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js** with the following:
+2. **/home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js** 파일을 다음 내용으로 변경합니다.
 <div style="height: 560px; overflow-y: scroll; margin: 0;">
 {{< highlight js >}}
 // amplify/backend/function/workshopphotoprocessor/src/index.js
@@ -172,7 +172,7 @@ exports.handler = async (event, context, callback) => {
 </div>
 
 
-3. **Replace /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/package.json** with the following:
+3. **/home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/package.json** 파일 내용을 다음으로 바꿉니다.
 ```json
 {
 	"name": "workshopphotoprocessor",
@@ -187,10 +187,10 @@ exports.handler = async (event, context, callback) => {
 ```
 
 
-4. **From the photo-albums directory, run:** `amplify function build` and press Enter to confirm. This will take care of installing the dependencies in our Lambda function's package.json.
+4. **photo-albums 디렉토리에서** `amplify function build`를 실행하고 엔터를 눌러 확인합니다. 람다 함수의 package.json에 종속 패키지를 설치합니다.
 
 
-5. **Create photo-albums/amplify/backend/function/workshopphotoprocessor/parameters.json** and paste this content into it:
+5. **photo-albums/amplify/backend/function/workshopphotoprocessor/parameters.json** 파일을 생성하고 다음 내용을 넣습니다.
 ```json
 {
 	"S3UserfilesBucketName": "REPLACE_WITH_USERFILES_BUCKET_NAME",
@@ -198,17 +198,17 @@ exports.handler = async (event, context, callback) => {
 }
 ```
 
-6. In *parameters.json* that you just created, replace **REPLACE_WITH_USERFILES_BUCKET_NAME** with the name of the S3 Userfiles bucket created by Amplify. 
+6. 생성한 *parameters.json* 파일에서 **REPLACE_WITH_USERFILES_BUCKET_NAME** 부분은 Amplify가 생성한 S3 유저 파일 버킷 이름으로 바꿉니다.
 
-	To find this value, look in **photo-albums/src/aws-exports.js** and find the **aws_user_files_s3_bucket** key.
+	이 값은 **photo-albums/src/aws-exports.js** 파일에서 **aws_user_files_s3_bucket** 항목의 키 값으로 찾을 수 있습니다.
 
 
-7. In *parameters.json*, also replace **REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN** with the name ARN of the DynamoDB table used by AppSync for the Photo data type.
+7. *parameters.json* 파일에서 **REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN** 부분은 AppSync에서 사진 데이터 타입을 위해 사용하는 DynamoDB 테이블의 ARN으로 바꿉니다.
    
-	To find this value, go to the **Data Sources** section in your AppSync API console, find the **PhotoTable** entry and click on the link in its **Resource** column (which takes you to the associated DynamoDB table), then look in the bottom of the Overview tab for the ARN of the table.
+	이 값은 AppSync API 콘솔에서 **Data Sources** 섹션에서, **PhotoTable** 항목을 찾고 **Resource** 컬럼의 링크를 클릭하면(연관된 DynamoDB 테이블을 찾는), Overview 탭의 아래쪽의 테이블의 ARN으로 찾을 수 있습니다.
 
 
-8.  **Replace photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** with the following:
+8.  **photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** 를 다음 내용으로 변경합니다.
 <div style="height: 550px; overflow-y: scroll;">
 {{< highlight json "hl_lines=4-14 29-36 100-183">}}
 {
@@ -422,25 +422,26 @@ exports.handler = async (event, context, callback) => {
 {{< /highlight >}}
 </div>
 
-9. **From the photo-albums directory, run:** `amplify push` to deploy our new function.
+9. **photo-albums 디렉터리에서** `amplify push` 실행하여 새 함수를 배포합니다.
 
-10. Wait for the deploy to finish. This step usually only takes about a minute or two.
+10. 배포를 마칠 때까지 기다립니다. 이 단계는 1~2분 정도 소요됩니다.
 
-### What we changed
-- Created a *parameters.json* file to pass some values into the Photo Processor function's CloudFormation template
+### 변경된 것
+- 사진 처리 함수의 클라우드포메이션 템플릿에 값을 전달해줄 *parameters.json* 파일을 생성하였습니다.
 
-- Added parameters *env*, *S3UserfilesBucketName*, and *DynamoDBPhotosTableArn* to the Photo Processor function's CloudFormation template
+- 사진 처리 함수의 클라우드포메이션 템플릿에 *env*, *S3UserfilesBucketName*, *DynamoDBPhotosTableArn* 변수를 추가했습니다.
 
-- Added environment variables to the Photo Processor function's configuration: *ENV*, *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN*
+- 사진 처리 함수의 구성에 *ENV*, *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN* 환경 변수를 추가했습니다.
 
-- Added an *AllPrivsForPhotoAlbums* IAM policy to grant the function's role read and write access to the S3 bucket containing our photos
+- 함수에서 사진을 저장하는 S3 버킷에 읽고 쓰기를 허가하는 *AllPrivsForPhotoAlbums* 라는 IAM 정책을 추가했습니다.
 
-- Added an *AllPrivsForDynamo* IAM policy to grant the function's role read and write access to the DynamoDB table containing information about our photos
+- 함수에서 사진 정보를 수록한 DynamoDB에 읽고 쓰기를 허가하는 *AllPrivsForDynamo* 라는 IAM 정책을 추가하였습니다.
 
-- Added a *RekognitionDetectLabels* IAM policy to grant the function's role permission to use the detectLabels API from Amazon Rekognition. This policy isn't used yet, but we're going to add it here for convenience while we're working with this file so we won't need to come back and add it when we get to the next section that involves automatically tagging our photos with AI.
+- 함수에서 Amazon Rekognition의 detectLabels API를 사용할 수 있도록 허가하는 *RekognitionDetectLabels* 라는 IAM 정책을 추가하였습니다. 이 정책은 아직 사용하지 않지만, 관련 파일을 작업하는 동안이라 편의상 여기에 추가하였으니, 다음 장에서 AI로 자동으로 사진을 태깅하는 것에 관하여 다룰 때 여기로 돌아와서 정책을 추가하지 않아도 됩니다.
 
 {{% notice warning %}}
-The AWS Amplify CLI manages the cloud resources in our project by generating CloudFormation templates for us. CloudFormation templates are very helpful, because they specify all of our project's infrastrucutre as code in the form of JSON and/or YAML files. In this workshop, we'll continue to make edits to some of these generated CloudFormation templates like we did in the steps above. 
+AWS Amplify CLI는 클라우드포메이션 템플릿을 생성하여 프로젝트의 클라우드 리소스를 관리합니다. 클라우드포메이션 템플릿은 프로젝트의 모든 인프라 구성을 JSON 이나 또는 YAML 파일 형식의 코드로 지정하여 매우 유용합니다. 이 워크샵에서는 생성된 클라우드포메이션 템플릿의 일부를 계속 편집할 것입니다.
 <br/> <br/>
-Beware that not all changes are safe to make, and the Amplify CLI may overwrite edits you make in some CloudFormation templates. All of the changes we make in this workshop will persist and won't get overwritten by Amplify because we're not issuing any commands to re-configure or remove any of the resources we're editing, but it's good to remember that this sort of thing _can_ happen if you attempt to use the CLI to re-configure a resource you've already generated with Amplify.
+
+모든 변경 사항을 안전하게 적용할 수는 없고, 수정한 클라우드포메이션 템플릿을 Amplify CLI가 덮어 쓸 수 있음을 주의하십시요. 다만 이 워크샵에서는 우리가 수정한 모든 내용은 Amplify가 덮어 쓰지 않는데, 이는 편집한 리소스를 다시 구성하거나 제거하는 명령을 실행하지 않았기 때문으로, CLI를 이용하여 이미 Amplify로 생성한 리소스를 재구성한다면 이런 경우가 _발생할 수 있다_ 는 것을 기억하는 것이 좋습니다.
 {{% /notice %}}
