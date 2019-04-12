@@ -19,11 +19,11 @@ https://awskrug.github.io/amplify-photo-gallery-workshop/
 `brew install hugo`
 
 리눅스에서는:
-  - [Hugo 릴리즈 페이지](https://github.com/gohugoio/hugo/releases/latest)에서 사용하는 배포판에 맞는 tar.gz 형식의 파일을 받습니다.
+  - [Hugo 릴리즈 페이지](https://github.com/gohugoio/hugo/releases/tag/v0.53)에서 사용하는 배포판에 맞는 tar.gz 형식의 파일을 받습니다.
   - 풀어서 hugo 파일을 `/usr/local/bin` 에 복사합니다.
 
 윈도우에서는:
-  - [Hugo 릴리즈 페이지](https://github.com/gohugoio/hugo/releases/latest)에서 사용하는 윈도우에 맞는 파일을 받습니다.
+  - [Hugo 릴리즈 페이지](https://github.com/gohugoio/hugo/releases/tag/v0.53)에서 사용하는 윈도우에 맞는 파일을 받습니다.
   - 압축 파일을 풀고, 해당 경로를 PATH에 추가합니다.
 
 이외에 자세한 사항은 [Hugo 설치 페이지](https://gohugo.io/getting-started/installing/)를 참고하세요.
