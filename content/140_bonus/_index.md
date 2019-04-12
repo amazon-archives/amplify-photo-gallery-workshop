@@ -1,5 +1,5 @@
 +++
-title = "Bonus Content"
+title = "보너스 컨텐츠"
 chapter = true
 weight = 140
 +++

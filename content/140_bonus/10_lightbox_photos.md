@@ -1,14 +1,14 @@
 +++
-title = "Making a Lightbox for Viewing Fullsize Photos"
+title = "LIGHTBOX 만들어 전체 크기의 사진들 보기"
 chapter = false
 weight = 10
 +++
 
-One thing we haven't yet addressed in our app is adding the ability for users to click on a photo thumbnail to see a larger version of the photo. Since we already have the fullsize and the thumbnail data available to query from our API, all we need to do is update our front end application with a few more lines of code.
+아직 우리는 유저가 앱에서 썸네일을 클릭하여 더 큰 사진을 볼 수 있도록 하는 기능을 다루지 않았습니다. 이미 우리는 API로부터 전체 크기와 썸네일 크기의 데이터 모두를 가지고 올 수 있기 때문에, 프런트엔드 앱에 몇줄 정도 코드를 추가하는 것 만으로도 이 기능을 제공할 수 있습니다.
 
-## Updating the front end
+## 프런트엔드 수정하기
 
-**Replace photo-albums/src/App.js** with the following updated version:
+아래의 수정된 버전으로 **photo-albums/src/App.js를 대체** 해 주세요:
 <div style="height: 595px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=6 61-65 209-226 234 244 371-394">}}
 // photo-albums/src/App.js
@@ -491,16 +491,16 @@ export default withAuthenticator(App, {includeGreetings: true});
 {{< /highlight >}}
 </div>
 
-### What we changed in src/App.js
+### src/App.js 에서 무엇이 수정되었나요
 
-- Imported the *Container* and *Modal* components from semantic-ui-react
+- semantic-ui-react로부터 *Container* 와 *Modal* 컴포넌트들을 불러왔습니다.
 
-- Added additional fields to our *GetAlbum* GraphQL query to fetch fullsize photo info
+- *GetAlbum* GraphQL의 쿼리에 필드를 추가함으로서 전체 크기의 사진 정보를 가져올 수 있습니다.
 
-- Updated the *PhotosList* component to track the currently selected photo and pass it to a nested *Lightbox* component
+- 현재 선택된 사진을 알기 위해서 *PhotosList* 컴포넌트를 수정하여 중첩된 *Lightbox* 컴포넌트로 전달하였습니다.
 
-- Created a *Lightbox* component to render a selected photo's fullsize content in a modal display
+- 선택된 사진의 전체 크기 사진을 모달 화면에서 렌더링 하기 위해서 *Lightbox* 컴포넌트를 생성하였습니다.
 
-### Try out the app
+### 앱을 작동시켜 보세요
 
-Check out the app again and try clicking on any photo thumbnails. You should now see a fullsize version pop up. Clicking the photo will dismiss it and return to the thumbnails view.
+앱을 한 번 더 확인한 후 썸네일을 클릭해 보세요. 이제 전체 크기 사진이 팝업되는 것을 볼 수 있을 것입니다. 전체 크기 사진을 클릭함으로서 썸네일 사진의 뷰로 돌아갈 수 있습니다.
