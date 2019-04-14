@@ -1,19 +1,19 @@
 +++
-title = "Allowing Other Users To Collaborate In Albums"
+title = "다른 유저와 앨범 공유하기"
 chapter = false
 weight = 20
 +++
 
-We can take advantage of the fact that multiple users can sign in to our app and add the ability for other people view and upload to our albums on a case-by-case basis. 
+다수의 유저가 우리의 애플리케이션으로 접속할 수 있다는 장점을 이용하여 다른 유저들이 상황에 따라 우리의 앨범을 보고 업로드 할 수 있는 기능을 넣을 수 있습니다.
 
-The simplest way to do this is to have each album contain a set of usernames that are allowed to view and upload photos to it. Let's see how we can make this work.
+가장 쉬운 방법은 각각의 앨범에 유저들의 이름(usernames)을 포함하여 그들이 이 앨범 보고 새로운 사진을 업로드할 수 있도록 하는 것입니다. 
 
 
-## Updating the backend
+## 백엔드 수정하기
 
-Amplify supports multiple authorization declarations on the *@model* types in our GraphQL Schema. We can add a second auth rule, stating that any user who's username is in an Album's *members* field can see (but not edit) the record.
+Amplify는 GraphQL 스키마 안의 *@model* 타입에서 여러 개의 권한 선언을 지원합니다. 우리는 두 번째 권한 규칙을 추가함으로서 Album의 *members* 필드에 있는 유저가 해당 레코드를 볼 수 있게 할 수 있습니다. 다만, 레코드를 수정할 권한은 없습니다.
 
-1. **Replace /photo-albums/amplify/backend/api/photoalbums/schema.graphql** with the following:
+1. **/photo-albums/amplify/backend/api/photoalbums/schema.graphql** 에 위치한 코드를 아래 코드로 대체해 주세요:
 {{< highlight graphql "hl_lines=5-8">}}
 # amplify/backend/api/photo-albums/schema.graphql
 
@@ -49,18 +49,18 @@ type PhotoS3Info {
 } 
 {{< /highlight >}}
 
-2. **Run `amplify push`** to regenerate a new GraphQL schema and update our AppSync API. 
+2. 새로운 GraphQL를 재생성하고 AppSync API를 갱신하기 위해서   **`amplify push` 명령을 실행해 주세요**. 
 
 {{% notice tip %}}
-You can learn more about adding multiple ownership rules to a model in [the GraphQL Transform documentation](https://aws-amplify.github.io/docs/cli/graphql?sdk=js).
+[GraphQL Transform 문서](https://aws-amplify.github.io/docs/cli/graphql?sdk=js)를 통하여 모델에 여러 개의 소유권 규칙을 추가하는 방법에 대해 더 알아볼 수 있습니다.
 {{% /notice %}}
 
 
-## Updating the frontend
+## 프런트엔드 수정하기
 
-Now that our backend has been updated to look for a list of usernames in a *members* field on our album records, all we need to do is update our UI to allow an album's owner to manage the usernames that should be considered members of the album. We'll also add in another AppSync subscription so that our listing of usernames will refresh when a new username is added to an album.
+이제 우리의 백엔드는 앨범 레코드 내의 *members* 필드 속에서 usernames 목록을 찾도록 수정되었습니다. 추가로 우리가 해야 할 일은 UI를 수정하여 앨범의 소유자가 앨범의 구성원으로서(members) 속해야 할 유저들(usernames)을 관리할 수 있도록 하는 것입니다. 또한, 또 다른 AppSync 구독에 추가함으로서 앨범에 새로운 유저가 추가될 때마다 유저 목록이 갱신되도록 할 것입니다. 
 
-**Replace photo-albums/src/App.js** with the following updated version:
+아래 갱신된 버전의 코드로 **photo-albums/src/App.js 를 대체해 주세요**:
 <div style="height: 595px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=6 10 49-58 64-65 370-387 428-433 441-452 503-569">}}
 // photo-albums/src/App.js
@@ -664,28 +664,28 @@ export default withAuthenticator(App, {includeGreetings: true});
 {{< /highlight >}}
 </div>
 
-### What we changed in src/App.js
+### src/App.js 에서 무엇이 수정되었나요
 
-- Imported *Icon* from semantic-ui-react and *Auth* from aws-amplify
+- semantic-ui-react에서 *Icon* 를, aws-amplify에서 *Auth* 를 불러왔습니다. 
 
-- Added *SubscribeToUpdatedAlbums* query
+- *SubscribeToUpdatedAlbums* 쿼리를 추가하였습니다.
 
-- Added *owner* and *member* fields to be fetched by the *GetAlbum* query
+- *GetAlbum* 쿼리로 가져오는(fetch) *owner* 와 *member* 필드를 추가 하였습니다.
 
-- Subscribed to album updates inside the *AlbumDetailsLoader* component in order to trigger a re-rendering of the album when new members are added
+- 새로운 멤버가 추가 되었을 때 앨범을 다시 렌더링 하는 작업을 발생시키기 위하여 *AlbumDetailsLoader* 컴포넌트 내에서 앨범의 갱신을 구독하였습니다.
 
-- Updated the *AlbumDetails* component's *render()* method to include UI for managing members
+- 멤버들을 관리하기 위한 UI를 추가하기 위하여 *AlbumDetails* 컴포넌트 속의 *render()* 메소드를 수정하였습니다.
 
-- Created *AddUsernameToAlbum* and *AlbumMembers* components to handle adding and listing album members and only render these components if the user owns the album
+- 유저 추가 기능과 목록화(listing)를 제공하기 위해서 앨범의 소유자에게만 보이는 *AddUsernameToAlbum* 와 *AlbumMembers* 컴포넌트 를 생성하였습니다. 
 
-### Try out the app
+### 앱을 작동시켜 보세요
 
-To test out our new multi-user capabilities, we'll need at least one other user to invite to an album. 
+새로운 multi-user 기능을 사용하기 위해서는 앨범에 초대할 한명 이상의 유저가 필요합니다. 
 
-1. Sign out of the app and create a new user (don't forget to check for the verification email and submit the verification code). 
+1. 앱에 로그아웃하고 새로운 유저를 생성합니다 (인증 메일을 확인하는 것과 인증 코드를 제출하는 것을 잊지 마세요). 
 
-2. Sign out of the new username and back in using your original username. 
+2. 새로운 유저에서 로그아웃하고 기존의 유저로 다시 로그인합니다. 
 
-3. Navigate to an album you'd like to share and invite your new username to the album. 
+3. 공유하고 싶은 앨범으로 이동한 뒤 새로운 유저를 앨범에 초대합니다. 
 
-4. Sign out and then back in with the new username and you'll see the album listed! You should also notice that the album membership controls aren't visible since this user doesn't own the album.
+4. 로그아웃하고 다시 새로운 유저로 로그인하면 해당 앨범이 보일 것입니다! 또한 새로운 유저가 앨범에 대한 소유권이 없기 때문에 앨범 멤버쉽 관리 기능이 보이지 않는 것을 알 수 있습니다.

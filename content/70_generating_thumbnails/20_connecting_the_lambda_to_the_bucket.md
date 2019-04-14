@@ -1,13 +1,13 @@
 +++
-title = "Connecting the photos bucket to the processor function"
+title = "사진 버킷을 처리함수와 연결하기"
 chapter = false
 weight = 20
 +++
 
-### Triggering the function when new photos are uploaded to the S3 bucket
-Now that we've created our Photo Processor function, we need to set up a trigger for it to run. Since we want to process every photo that gets uploaded to an album, we'll make these changes by updating the configuration of the S3 userfiles bucket that Amplify created for us.
+### 새 사진이 S3 버킷에 업로드된 후에 함수 동작시키기
+사진 처리 함수를 만들었으니 이제는 함수를 실행하는 트리거를 설정해야합니다. 앨범에 업로드된 모든 사진을 처리해야 하기 때문에, Amplify로 생성한 S3 사용자 파일 버킷의 구성을 수정하여 이러한 변경 작업을 수행합니다.
 
-1. **Replace photo-albums/amplify/backend/storage/photoalbumsstorage/s3-cloudformation-template.json** with the following:
+1. **photo-albums/amplify/backend/storage/photoalbumsstorage/s3-cloudformation-template.json** 파일을 다음 내용으로 변경해주십시요.
 <div style="height: 550px; overflow-y: scroll;">
 {{< highlight json "hl_lines=26-28 90-99 152-175 178-195">}}
 {
@@ -844,40 +844,40 @@ Now that we've created our Photo Processor function, we need to set up a trigger
 </div>
 
 2. {{% notice warning %}}
-After you paste the new template shown above, find the text **REPLACE_WITH_USERFILES_BUCKET_NAME** in your pasted template and replace it with the name of your userfiles S3 bucket. 
+위에 표시된 새 템플릿을 붙여넣기 하고 나서, **REPLACE_WITH_USERFILES_BUCKET_NAME** 항목을 찾아서 사용자 파일 S3 버킷의 이름으로 바꿉니다.
 <br/>
 <br/>
-You can find this value in **photo-albums/src/aws-exports.js** under the **aws_user_files_s3_bucket** key.
+이 값은 **photo-albums/src/aws-exports.js** 파일의 **aws_user_files_s3_bucket** 항목의 키 값으로 찾을 수 있습니다.
 {{% /notice %}}
 
 
-3. **From the photo-albums directory, run:** `amplify push` to update our storage configuration. 
+3. **photo-albums 디렉터리에서** `amplify push` 실행하여 저장소 구성을 갱신합니다.
 
-4. Wait for the update to complete. This step usually only takes a minute or two.
+4. 완료될 때까지 기다립니다. 이 단계는 1~2분 정도 소요됩니다.
 
-### What we changed in amplify/.../s3-cloudformation-template.json
-- Added a *env* parameter, allowing Amplify to pass in the current Amplify environment name to the template
+### amplify/.../s3-cloudformation-template.json 에서 변경한 내용
+- Amplify가 현재 Amplify 환경이름을 템플릿으로 전달할 수 있도록 *env* 파라미터를 추가하였습니다.
 
-- Added a *InvokePhotoProcessorLambda* resource, giving the S3Bucket permission to invoke the PhotoProcessor lambda function.
+- PhotoProcessor 람다 함수를 호출할 수 있도록 S3Bucket 리소스에 권한을 부여하는 *InvokePhotoProcessorLambda* 리소스를 추가하였습니다.
 
-- Added a *NotificationConfiguration* property to the S3Bucket resource, configuring the bucket to invoke our PhotoProcessor lambda function when new photos are added to the 'uploads/' prefix
+- 새 사진이 'uploads/' 접두어로 추가되었을 때에 PhotoProcessor 람다함수를 호출하도록 버킷을 구성하게 S3Bucket 리소스에 *NotificationConfiguration* 속성을 추가하였습니다.
 
 
-- Added a *DenyListS3Buckets* IAM policy, preventing authenticated users from listing the contents of any buckets on S3
+- 인증된 사용자가 S3 버킷 내용 목록을 보는 것을 방지하기 위해 *DenyListS3Buckets* 라는 IAM 정책을 추가하였습니다.
 
 
 {{% notice info %}}
-The default permissions for the user files S3 storage bucket set up by the Amplify CLI allows anyone logged in to our app to list the contents of the bucket for any keys that start with 'public/' (and a few other prefixes too). While our app doesn't expose this as an interaction, someone poking around might try to take their credentials from our app and make an API call to S3 directly to try and list the bucket where all the photos are going. 
+S3 스토리지의 사용자 파일의 기본 권한은 Amplify CLI에서 'public/'(과 다른 일부 접두어도)으로 시작하는 버킷이라면 앱에 로그인한 사용자가 버킷 내용을 나열할 수 있게 설정합니다. 이런 상호작용은 앱에서 노출하지 않으니, 앱을 찔러보는 누군가는 앱에 자격증명(credential)을 가져와서 S3 API를 직접 호출하여 모든 사진이 있는 버킷을 나열하는 시도를 할 수 있습니다.
 <br/>
 <br/>
-We have no need to let users list bucket contents at all, so we've added an IAM policy to the role used by authenticated users to explicitly deny users the ability to list any S3 bucket contents. 
+사용자가 버킷 내용을 모두 열거할 필요는 없으니 인증된 사용자가 S3 버킷 내용을 나열 할 수 있는 기능을 명시적으로 거부하도록 IAM 정책을 역할로 추가했습니다.
 <br/>
 <br/>
-Now, nobody will be able to go directly to the S3 API and list all of the photos that our users have uploaded. We're using UUIDs for album and photo IDs, so we shouldn't have to worry about a curious user enumerating through patterns of IDs hoping to find photos to view.
+이제 아무도 S3 API로 직접 호출하여 사용자가 업로드한 사진을 나열할 수 없습니다. 앨범과 사진의 ID로 UUID를 사용하기 때문에 사진을 찾기 위해 ID 패턴을 열거하는 호기심 많은 사용자들도 걱정할 필요없습니다.
 {{% /notice %}}
 
-### Try uploading another photo
+### 다른 사진 업로드 시도
 
-With these changes completed, we should be able to upload a photo and see our Photo Processor function execute automatically. Try uploading a photo to an album, wait a moment, then refresh the page to see if the album renders the newly uploaded photo. If you see a photo, it means that our Photo Processor function was automatically triggered by the upload, it created a thumbnail, and it added all of the photo information to the DynamoDB table that our AppSync API reads from for resolving Photos. 
+이러한 변경 사항이 완료되면, 사진을 업로드할 수 있고 사진 처리 함수가 자동으로 실행되는 것을 확인할 수 있습니다. 사진을 앨범에 업로드하고 잠시 기다린 다음 페이지를 새로 고침하여 앨범이 새로 업로드된 사진을 표시하는지 확인하십시요. 사진이 표시되면 사진 처리 함수가 업로드에 의해 자동으로 시작되어 썸네일 이미지가 생성되고 AppSync API가 읽은 처리된 사진의 정보들도 DynamoDB 테이블에 모두 추가되었음을 의미합니다.
 
-Refreshing the album view in order to see new photos isn’t a great user experience, but this workshop has a lot of material already and there’s still more to cover in the next section, too. In short, one way to handle this with another AppSync subscription would be to have our photo processor Lambda function trigger a mutation on our AppSync API, and to have the AlbumDetailsLoader component subscribe to that mutation. However, because we’re using Amazon Cognito User Pool authentication for our AppSync API, the only way to have our Lambda function trigger such a mutation would be to create a sort of ‘system’ user (through the normal user sign up and confirmation process), store that user’s credentials securely (perhaps in AWS Secrets Manager), and authenticate to our AppSync API as that user inside our Lambda in order to trigger the mutation. For simplicity's sake, we'll stick to just refreshing the album view for this workshop.
+새로운 사진을 보기 위해 앨범보기를 새로 고치는 것은 좋은 사용자 경험이 아니지만, 이 워크샵에는 이미 많은 내용이 있고 다음장에도  더 많은 내용이 수록되어 있습니다. 짧게 말씀드려본다면, 다른 AppSync 구독으로 이것을 처리하는 한가지 방법은 사진 처리 람다 함수가 AppSync API에서 수정사항을 발생시키고 AlbumDetailsLoader 컴포넌트에서 해당 수정사항을 구독하는 것입니다. 그런데 AppSync API에 Amazon Cognito 사용자 풀 인증을 사용하고 있기 때문에, 람다 기능을 통해 이러한 수정사항을 일으키는 유일한 방법은 일종의 '시스템' 사용자를 만들고(일반 사용자 가입 및 확인 프로세스를 통해), 사용자 자격증명을 안전하게 저장하고(AWS Secrets Manager 등으로), 수정사항을 유발하도록 람다 내부에서 AppSync API에 사용자로서 인증하는 방법입니다. 간단히 하기위해 여기서는 계속해서 앨범보기를 새로 고치는 방법으로 진행할 것입니다.

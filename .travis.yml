@@ -1,9 +1,8 @@
-language: go
-go:
-  - 1.11.x
+language: minimal
 
 install:
-  - go get github.com/gohugoio/hugo
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.53/hugo_0.53_Linux-64bit.deb
+  - sudo dpkg -i hugo*.deb
 
 script:
   - hugo
