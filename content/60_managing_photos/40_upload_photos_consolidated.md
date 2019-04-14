@@ -1,20 +1,22 @@
 +++
-title = "Managing Photos"
+title = "사진 관리하기"
 chapter = false
 weight = 40
 +++
 
-Now that we have an S3 bucket where our photos can get stored, we'll want to create a UI that lets us upload photos to that bucket for storage. We'll also need to track that the photo was intended to be part of a specific album that it was uploaded to, so that we can eventually load all of the photos that belong to that album.
+사진을 저장할수 있는 S3 bucket이 생겼으니 사진을 버킷에 사진을 업로드 하도록 도와줄 UI가 필요합니다. 그리고 앨범에 속한 모든 사진들을 로드 하기 위해서 사진들이 앨범에서 어떤 특정 부분에 속하는지 추적 할수 있어야 합니다.
 
-Let's create a new _S3ImageUpload_ component that will contain an HTML file input element which will fire off an event handler when a user selects a photo. 
+새로운 _S3ImageUpload_ 컴포넌트를 만들어 봅시다. 이 컴포넌트는 사용자가 사진을 선택할때 이벤트 핸들러를 실행시키는 input 엘리먼트를 가진 HTML 파일을 포함합니다. 
 
 {{% notice info %}}
-Our upload event handler will need to upload the file to S3 with some metadata annotating which album it's destined for. Luckily, the [Amplify JS Storage module](https://aws-amplify.github.io/amplify-js/media/storage_guide) makes uploading files to S3 very easy. Also, we'll need to introduce one new dependency to our app — a way to generate UUIDs — because we'll need to ensure that we're uploading files to S3 with unique names (if we used the filenames from users' devices, they could conflict).
+업로드 이벤트 핸들러는 사진이 포함될 앨범이 무엇인지 설명해주는 주석을 가진 메타데이터가 있는 파일을 S3에 업로드 합니다. 다행히 [Amplify JS Storage module](https://aws-amplify.github.io/amplify-js/media/storage_guide)은, S3에 파일업로드 작업을 매우 쉽게 할 수 있습니다. 
+
+그리고, 반드시 고유한 이름으로 S3에 파일을 업로드 해야하기 때문에 UUID를 생성해주는 의존 라이브러리가 필요합니다. (사용자 기기에 있는 파일 이름을 그대로 사용한다면 이름 중복 충돌이 발생할수 있습니다).
 {{% /notice %}}
  
-**From the photo-albums directory, run** `npm install --save uuid`
+**photo-albums 디렉토리에서 다음을 수행합니다.** `npm install --save uuid`
 
-Now we'll update our app by adding some imports, creating an S3ImageUpload component, and including the S3ImageUpload component in the AlbumDetails component. 
+우리 어플리케이션에 의존 라이브러리를 추가하고 S3ImageUpload 컴포넌트를 생성합니다. 그리고 컴포넌트에 생성한 S3ImageUpload 컴포넌트를 포함합니다.
 
 **Replace photo-albums/src/App.js** with this updated version:
 <div style="height: 660px; overflow-y: scroll;">
@@ -364,37 +366,49 @@ export default withAuthenticator(App, {includeGreetings: true});
 {{< /highlight >}}
 </div>
 
-### What we changed in src/App.js
-- Imported v4 as uuid from *uuid*
+### src/App.js 변경사항
+- 의존 라이브러리 추가: v4 as uuid from *uuid*
 
-- Imported *Divider* and *Form* from *semantic-ui-react*
+- 의존 라이브러리 추가: *Divider* and *Form* from *semantic-ui-react*
 
-- Imported *Storage* from *aws-amplify*
+- 의존 라이브러리 추가: *Storage* from *aws-amplify*
 
-- Imported *S3Image* from *aws-amplify-react*
+- 의존 라이브러리 추가: *S3Image* from *aws-amplify-react*
 
-- Updated *GetAlbum* query to support paginating photos
+- 페이징을 제공하기 위한  *GetAlbum* 쿼리 수정 
 
-- Created new components: *S3ImageUpload* and *PhotosList*
+- 새로운 컴포넌트 생성: *S3ImageUpload* and *PhotosList*
 
-- Updated *AlbumDetailsLoader* to support paginating photos
+- 페이징을 제공하기 위해 *AlbumDetailsLoader* 수정
 
-- Added *PhotosList* to *AlbumDetails*'s render output
+- *AlbumDetails*에 *PhotosList* 추가 
 
-### Try uploading a photo
+### 사진 업로드 하기
 
-At this point there's not much to look at, but you should be able to click the button, select a file, and see it change to *'Uploading…'* before switching back to an upload button again. 
+
+이 시점에서 봐야 할 것은 별로 없습니다. 업로드 버튼을 클릭하고 파일을 선택한 후, 업로드 버튼으로 다시 바뀌기 전에 *'Uploading…'* 으로 바뀌는지 확인해보세요.
 
 {{% notice tip %}}
-You can also go manually explore the S3 bucket in the AWS web console to see that the files are getting uploaded. The easiest way to find the bucket name is to look at _src/aws-exports.js_ and find the value configured for __aws_user_files_s3_bucket__. Find your bucket in the S3 web console, then look in the bucket under _public/uploads_.
+AWS 웹 콘솔에서 S3 버킷을 직접 탐색하여 파일이 업로드되고 있는지 확인할 수도 있습니다. 버킷 이름을 찾는 가장 쉬운 방법은 _src / aws-exports.js_ 파일에서  __aws_user_files_s3_bucket__ 에 설정된 값을 찾는 것입니다. S3 웹 콘솔에서 bucket을 찾아 _public/uploads_ 하위에 업로드 한 파일들을 찾아봅니다.
 {{% /notice %}}
  
 {{% notice info %}}
-There are a few things worth calling out in our new _S3ImageUpload_ component. It uses AWS Amplify's _Storage.put_ method to upload a file into the S3 bucket we configured for our app. In this API call, we're passing in a few extra options. 
+새로 생성한 _S3ImageUpload_ 컴포넌트는 몇가지 호출 기능이 있습니다. 어플리케이션에서 설정한 S3 버킷에 파일을 업로드 하기 위해 AWS Amplify의 _Storage.put_ 메소드를 사용하는데 이 API 호출할때 몇가지 추가 옵션들을 같이 전달합니다.
 <br/><br/>
-We pass in _customPrefix: { public: 'uploads/' }_ because we'll want to automatically make thumbnails for each image. We'll accomplish this shortly by adding a trigger onto the S3 bucket that will fire off a thumbnail creation function for us each time any file is added to the _uploads/_ path of the bucket. New thumbnails will also get added to the bucket and to avoid a recursive trigger loop where each thumbnail creation then causes the function to fire again, we'll scope our trigger to only execute for files that are added with a key prefix of _uploads/_. Amplify knows to use our prefix because we specified that it was for files that should be publicly accessible, which is the default permission level for Storage.put.
+_customPrefix: { public: 'uploads/' }_  : 자동으로 각 사진들의 미리보기 이미지(thumbnail)를 만들고 싶을 때 전달합니다. S3 버킷에 미리보기 생성 기능을 실행하는 트리거가 추가 되기 떄문에, 버킷의 _uploads/_ 경로에 파일이 추가 될 때마다 트리거가 바로 실행됩니다.
+
+새로운 썸네일들이 추가되면 이 역시 버킷에 추가되기 때문에 각 썸네일이 생성될 때 마다 썸네일 생성 함수가 재 실행되는 재귀 트리거 루프가 발생할수 있습니다. 이를 피하기 위해서 키 프리픽스 _uploads/_ 를 추가하여 트리거 실행 범위를 제한합니다.
+
+Amplify는 공개적으로 액세스 할 수 있어야하는 파일을 특정하기 위해 접두어를 사용한다는 것을 알고 있습니다.이 파일은 Storage.put의 기본 권한 수준입니다.
 <br/><br/>
-Is it a problem that the default is for all files to be accessible (at the API level) to any of our users in the app? No. This is acceptable since we're using unguessable UUIDs for the photo keys, and users will only be able to retrieve a list of photos for an album if they know that album's UUID as well. If you go read all of the Amplify Storage module's API (or if you're familiar with the underlying S3 API), you might ask “but wait, users can just list all of the objects in the public path and see all of the photos!” For now, you're right, but we'll deal with that later, after our app is working and we take additional precautions to lock it down further (by restricting album listing to certain usernames and by preventing users from listing items in the bucket).
+어플리케이션을 사용하는 사용자라면 누구든지 모든 파일에 대해 접근 할 수 있도록 (API 수준에서) 하는것이 기본정책이라면 문제가 되지 않을까요? 아니요. 우리는 UUID를 사진의 키로 사용하고 있고 사용자들은 앨범의 UUID를 알고 있는 앨범에 대해서면 사진 목록에 접근할 수 있습니다.
+
+만약 당신이 Amplify Storage 모듈의 모든 API를 읽었다면(기본 S3 API에 익숙한 경우) 이렇게 물을지도 모르겠네요. "잠시만요, 사용자들은 공개된 경로에 있는 모든 목록을 조회할 수 있으니 모든 사진들을 볼수 있겠는데요?"
+ 
+ 지금은 당신이맞습니다. 나중에 이를 제한하도록 추가 예방 조치를 취해 처리할 예정입니다. (특정 사용자 이름을 활용하여 버킷 항목 리스트를 조회하지 못하도록 제한함)
 <br/><br/>
-We pass in metadata: _{ albumid: this.props.albumId }_ because we're going to have an S3 thumbnail trigger function take care of adding the information about this photo to our data store after it finishes making the thumbnail, and that function will somehow need to know what album the photo was uploaded for. We could have put the album ID in the photo key as a prefix or suffix, for example, but the metadata approach feels more appropriate. After all, this *is* metadata about the photo, right?
+_{ albumid: this.props.albumId }_  : 
+S3 썸네일 트리거 함수가 사진에 대한 정보를 데이터 저장소에 추가 하게 합니다. 썸네일 이미지 작성 작업이 완료되고 사진이 업로드된 앨범이 무엇인지 이 옵션을 통해서 알려줍니다.
+예를 들면, 사진의 키에 앨범에 ID를 접두사(prefix)나 접미사(suffix)로 추가 할 수 있습니다. 
+메타데이터로 보는게 좀 더 적절해 보이네요. 결국 사진에 대한 메타데이터가 맞습니다.
 {{% /notice %}}
