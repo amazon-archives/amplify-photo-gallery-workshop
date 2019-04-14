@@ -294,7 +294,7 @@ AWS Amplify의 *Connect* 컴포넌트(https://aws-amplify.github.io/docs/js/api#
 GraphQL 스키마에는 *Subscription* 타입이 포함되어 있습니다. AWS AppSync에서 AWS 리소스를 만들 때 (DynamoDB 테이블 및 AWS AppSync 리졸버와 같은) 여러 구독 요소들이 자동으로 함께 생성됩니다. _onCreateAlbum_ Subscription이 그 중 하나에 해당합니다.
 <br/>
 <br/>
-_Connect_ 컴포넌트의 _subscription_ 속성을 통해 _onCreateAlbum_ 의 이벤트 데이터를 구독하고 _onSubscriptionMsg_ 속성을 통해 _onCreateAlbum_ 이벤트가 발생하면 *AlbumsList*의 데이터를 업데이트하도록 지시합니다.
+_Connect_ 컴포넌트의 _subscription_ 속성을 통해 _onCreateAlbum_ 의 이벤트 데이터를 구독하고 _onSubscriptionMsg_ 속성을 통해 _onCreateAlbum_ 이벤트가 발생하면 *AlbumsList* 의 데이터를 업데이트하도록 지시합니다.
 <br/>
 <br/>
 Subscription 속성 내용은 query 속성으로 제공한 것들과 매우 유사해 보입니다. 우리가 수신할 Subscription이 무엇인지 지정하고, 새로운 데이터로 채워야할 필드가 무엇인지 포함된 쿼리일 뿐입니다. 약간 까다로운 점은 subscription으로 부터 받아온 새 데이터를 처리할 핸들러 함수를 정의 해야한다는 것인데 이 핸들러 함수는 _Connect_ 컴포넌트가 _ListAlbums_ 컴포넌트를 갱신하는데 필요한 새로운 데이터를 반환하도록 구현해야합니다. 위 코드에 구현되어 있습니다.
