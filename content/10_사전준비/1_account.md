@@ -27,5 +27,5 @@ AWS 계정에 대한 관리자 권한이 있는 **IAM user** :
 1. create the new user 클릭:
 ![Confirm User](/images/iam-3-create-user.png)
 
-1. Take note of the login URL and save:
+1. login URL 저장:
 ![Login URL](/images/iam-4-save-url.png)
