@@ -1,18 +1,19 @@
 +++
-title = "Deploying our app to S3"
+title = "S3에 앱 배포하기"
 chapter = false
 weight = 120
 +++
 
-Before we build and publish our app, we should free up some memory on the Cloud9 instance. If you're using a micro Cloud9 instance size, there's a good chance there won't be enough memory available to keep our development web server running and to create a production build.
+우리가 앱을 구축 및 배포하기 전에, 우리는 Cloud9 인스턴스의 일부 메모리를 사용할 수 있도록 해야합니다. 만약 여러분께서 Cloud9 인스턴스 타입을 micro를 사용한다면 개발 웹서버 구동을 지속하고 프로덕션을 구축할 수 있는 충분한 메모리가 없기때문에 여기 좋은 기회입니다.
 
-1. Go to the **terminal** tab that's running the **development webserver** (where you ran *npm start*)
+1. **개발 웹서버**를 구동하고 있는 **터미널** 탭으로 이동합니다. (*npm start*를 실행했던 터미널입니다)
 
-1. Press **Control-C** to interrupt the development webserver and kill it.
+2. 개발 웹서버를 중단하고 프로세스를 죽일 수 있도록 **Control-C** 단축키를 누릅니다.
 
-The AWS Amplify CLI makes it easy to deploy our app to a publicly accessible bucket on S3.
+AWS Amplify CLI는 우리의 앱을 공개적으로 접근가능한 S3 버킷으로 배포하는 것을 쉽게 만들어줍니다.
 
-1. **Run** `amplify hosting add`, select a deployment mode (for this workshop, select 'Development'), and respond to the questions (you can accept the default value of index.html for the index and error doc).
+1. `amplify hosting add`를 **실행**하고 배포 모드(이번 워크샵에서는 'Development'를 선택합니다)를 선택하여 질문들에 응답(index와 오류 문서를 위해 index.html를 기본값으로 설정) 합니다.
+
     ```bash
     $ amplify hosting add
 
@@ -37,12 +38,13 @@ The AWS Amplify CLI makes it easy to deploy our app to a publicly accessible buc
     ```
 
 
-2. **Run** `amplify push`
+2. `amplify push`를 **실행**합니다.
 
-3. Wait for the new S3 bucket that will serve our app's static content is created. This usually takes about a minute.
+3. 정적 컨텐츠가 생성되는 앱을 제공할 새로운 S3 버킷이 생성될 때까지 기다립니다. 이 작업은 보통 1분정도가 소요됩니다.
 
-4. **Run** `amplify publish`
+4. `amplify publish`를 **실행**합니다.
 
-5. Wait while Amplify builds a production version of our app and deploys it to the hosting bucket. This process usually takes a minute or two.
+5. Amplify가 프로덕션 버전의 앱을 구축하고 호스팅 버킷으로 배포하는동안 기다립니다. 이 작업은 보통 1-2분정도가 소요됩니다.
 
-After the build and deploy finishes, you'll see a URL for the version of deployed app. Any time you make new changes to the app, just re-run `amplify publish` whenever you want to push a new build out.
+구축 및 배포가 완료되고나서, 여러분은 배포된 앱의 URL을 보실 수 있습니다. 언제든 여러분이 새로 구축된 앱을 호스팅하려면 `amplify publish`명령어만 재실행하여 언제든지 새로 변경된 앱을 생성할 수 있습니다.
+
