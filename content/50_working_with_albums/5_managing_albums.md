@@ -4,14 +4,14 @@ chapter = false
 weight = 5
 +++
 
-이 시점에서 사용자를 인증하는 웹 앱과 앨범 데이터를 만들고 읽을 수있는 안전한 GraphQL API 엔드 포인트가 있습니다. 이제 둘을 연결하는 시간입니다!
+우리가 만든 웹어플리케이션은 사용자를 인증하는 기능과 안전하게 앨범 데이터를 만들고 조회하는 GraphQL API 엔드포인트가 있습니다. 이 두가지 기능을 연결해보겠습니다!
 
 
 {{% notice info %}}
-위에서 보았 듯이 [AWS Amplify] (https://aws.github.io/aws-amplify/)는 웹 또는 React Native 앱에 다수의 클라우드 서비스를 통합하기가 쉬운 오픈 소스 JavaScript 라이브러리입니다. 먼저 [Connect React 구성 요소] (https://aws-amplify.github.io/docs/js/api#connect)를 사용하여 GraphQL API를 자동으로 쿼리하고 React 구성 요소에 대한 데이터를 제공합니다. 렌더링 할 때 사용합니다.
+[AWS Amplify](https://aws.github.io/aws-amplify/)는 웹 또는 React Native 앱에 여러 클라우드 서비스를 쉽게 연동해주는 오픈소스 JavaScript라이브러리 입니다. 
+이제 [Connect React 컴포넌트](https://aws-amplify.github.io/docs/js/api#connect)를 사용하여 리액트 컴포넌트가 렌더링 될 때 필요한 데이터를 자동으로 조회해 오도록 GraphQL API로 쿼리를 수행해봅시다.
 <br/><br/>
-
-Amplify CLI는 이미 *src/aws-exports.js* 파일에 AppSync API와 통신하기 위해 Amplify JS 라이브러리에 전달해야하는 모든 구성이 포함되어 있는지 확인했습니다. 우리가해야 할 일은 API와 상호 작용할 새로운 코드를 추가하는 것뿐입니다.
+Amplify CLI는 이미 *src/aws-exports.js*에 포함된 모든 설정값을 읽어들였기 때문에 AppSync API와 통신하기 위한 설정 값을 알고 있습니다(Amplify JS 라이브러리에 전달할 설정값이 무엇인지 고민하지 않아도 됩니다). 우리는 API와 상호 작용할 새로운 코드를 추가하기만 하면 됩니다.
 {{% /notice %}}
 
 다음은 앨범 목록을 렌더링 할때의 모습입니다:
@@ -19,16 +19,17 @@ Amplify CLI는 이미 *src/aws-exports.js* 파일에 AppSync API와 통신하기
 
 ### 앱 업데이트
 
-프런트 엔드를 다음과 같이 업데이트 해 보겠습니다.
-- 사용자가 앨범을 만들 수 있도록 허용
-- 앨범 목록보기
-- 사용자가 앨범을 클릭하면 세부 정보를 볼 수 있습니다.
+프런트엔드를 다음과 같이 업데이트 해 보겠습니다.   
 
-**사진 앨범 디렉토리**에서 라우팅을 위해 새로운 종속성을 추가하려면 다음을 실행하십시오.
+  - 새로운 앨범 생성하기  
+  - 앨범 목록보기   
+  - 앨범을 클릭하면 앨범 세부정보 확인하기    
+
+**사진 앨범 디렉토리**에서 다음 명령어를 수행하여 라우팅을 위한 라이브러리를 설치합니다.
 `npm install --save react-router-dom`
 
 {{% notice note %}}
-일반적으로 각 구성 요소에 대해 별도의 파일을 만들지 만 여기서는 모든 것을 함께 유지하므로 모든 프런트 엔드 코드를 한 곳에서 볼 수 있습니다.
+일반적으로 컴포넌트 및 요소 별로 각각의 별도 파일을 만들지만 이번 워크샵에서는 App.js 파일 안에서 모든 코드를 작성하겠습니다.
 {{% /notice %}}
 
 **photo-albums/src/App.js**를 다음과 같이 바꾸십시오:
@@ -247,52 +248,54 @@ export default withAuthenticator(App, {includeGreetings: true});
 
 ### src/App.js에서 변경된 내용
 
-- aws-amplify-react에서 *Connect* 구성 요소 가져오기.
+- aws-amplify-react에서 *Connect* 컴포넌트 추가
 
-- semantic-ui-react에서 더 많은 프리젠 테이션 구성 요소를 가져 왔습니다.
+- semantic-ui-react에서 UI 컴포넌트 추가
 
-- aws-amplify에서 *API* 및 *graphqlOperation* 가져오기.
+- aws-amplify에서 *API* 및 *graphqlOperation* 추가
 
-- react-router-dom에서 라우팅 구성 요소 가져오기.
+- react-router-dom에서 라우팅 컴포넌트 추가
 
-- makeComparator를 추가하여 JS에서 문자열을 안전하게 정렬 할 수있게했습니다.
+- makeComparator를 추가하여 JS에서 문자 정렬 기능 추가
 
-- *NewAlbum*, *AlbumsList*, *AlbumsDetailsLoader*, *AlbumDetails*, *AlbumsListLoader* 새로운 구성 요소 추가
+- *NewAlbum*, *AlbumsList*, *AlbumsDetailsLoader*, *AlbumDetails*, *AlbumsListLoader* 컴포넌트 추가
 
-- *ListAlbums*, *SubscribeToNewAlbums*, *GetAlbum* GraphQL 쿼리 및 변이 추가
+- *ListAlbums*, *SubscribeToNewAlbums*, *GetAlbum* GraphQL 쿼리 및 변이(mutations) 추가
 
-- 현재 URL 경로를 기반으로 다양한 구성 요소를 제공하도록 App 구성 요소를 업데이트했습니다.
+- 현재 URL 경로를 기반으로 다양한 컴포넌트를 제공하도록 App 컴포넌트를 업데이트 (라우팅 적용)
 
-### 앱을 한번 사용해보십시오.
+### 앱을 실행해보세요.
 
-지금 앱을 확인하고 새로운 기능을 사용해보십시오.
+어플리케이션을 다시 실행하여 새로운 기능을 확인합니다.
 
-- 앨범 목록보기
+- 앨범 목록을 확인합니다.
 
-- 새 앨범을 만들고 앨범 목록에 나타납니다.
+- 새 앨범을 만들고 앨범 목록에 새로 추가한 앨범이 조회되는지 확인합니다.
 
-- 앨범 세부 정보보기의 시작을 보려면 앨범을 클릭하십시오.
+- 앨범 세부정보를 확인합니다.
 
-- 앨범을 볼 때 '앨범 목록으로 돌아 가기'를 클릭하면 집으로 돌아갑니다.
+- 앨범을 볼 때 '앨범 목록으로 돌아 가기'를 클릭하면 앨범 목록리스트로 돌아갑니다.
 
 
 {{% notice tip %}}
-이 로딩 마법은 AWS Amplify의 *Connect* 구성 요소 (https://aws-amplify.github.io/docs/js/api#connect) (*aws-amplify-react* 패키지에서 가져온 것입니다). 우리가해야 할 일은이 컴포넌트를 쿼리 prop에 GraphQL 쿼리 연산을 전달하는 것뿐입니다. 구성 요소가 마운트 될 때 해당 쿼리를 실행하고 데이터,로드 및 오류 인수를 통해 하위 함수에 정보를 전달합니다. 우리는이 값을 사용하여 일부로드 텍스트를 표시하거나 성공적으로 가져온 데이터를 *AlbumsList* 구성 요소로 전달합니다.
+AWS Amplify의 *Connect* 컴포넌트(https://aws-amplify.github.io/docs/js/api#connect) (*aws-amplify-react* 패키지로부터 임포트)를 통해 앨범 데이터가 로딩됩니다.  
+우리는 이 컴포넌트를 query prop에 GraphQL 쿼리 연산을 담아 전달하기만 하면 됩니다. 컴포넌트가 마운트 될 때 해당 쿼리가 실행되고 자식 함수에게 데이터, 로딩, 에러를 인자(arguments)로 전달합니다. 
+전달된 인자들을 이용하여 로딩 텍스트를 보여주거나, 성공적으로 페치된 데이터를 *AlbumsList* 컴포넌트에게 전달함으로 적절히 렌더링 작업을 수행합니다.
 {{% /notice %}}
 
 {{% notice info %}}
-위에서 사용한 *listAlbums* 쿼리는 매우 높은 제한 인수로 전달됩니다. 이는 하나의 요청으로 모든 앨범을로드하고 페이지 매김 된 DynamoDB 응답을 처리하는 대신 클라이언트 측에서 사전 순으로 앨범을 정렬 할 수 있기 때문입니다. 이것은 *AlbumsList* 코드를 매우 간단하게 유지하므로 성능이나 네트워크 비용면에서 그럴 가치가 있습니다.
+위에서 사용한 *listAlbums* 쿼리는 매우 높은 제한 인자를 전달합니다.(listAlbums(limit: 9999)) 한번의 요청으로 모든 앨범 정보를 가져와서 클라이언트 사이드에서 사전순서로 정렬합니다. (페이징 처리된 DynamoDB 응답을 활용하지 않습니다.) 이 방법은 *AlbumsList* 코드를 매우 간단하게 유지하므로 성능이나 네트워크 비용 측면에서 활용할 가치가 있습니다.
 {{% /notice %}}
 
 {{% notice info %}}
-새로운 앨범이 만들어 질 때마다 AppSync 실시간 구독을 활용하여 앨범 목록을 자동으로 새로 고치는 방법도 주목할 가치가 있습니다.
+새로운 앨범이 만들어 질 때마다 AppSync 실시간 구독을 활용하여 앨범 목록이 자동으로 갱신되는 것도 주목해주세요.
 <br/>
 <br/>
-Google의 GraphQL 스키마에는 *Album* 유형에 대한 AWS AppSync에서 DynamoDB 테이블 및 AWS AppSync 확인자와 같은 리소스를 만들었을 때 자동으로 생성 된 구독 항목이 포함 된 *Subscription* 유형이 포함되어 있습니다. 이 중 하나가 _onCreateAlbum_ 구독입니다.
+GraphQL 스키마에는 *Subscription* 타입이 포함되어 있습니다. AWS AppSync에서 AWS 리소스를 만들 때 (DynamoDB 테이블 및 AWS AppSync 리졸버와 같은) 여러 구독 요소들이 자동으로 함께 생성됩니다. _onCreateAlbum_ Subscription이 그 중 하나에 해당합니다.
 <br/>
 <br/>
-_Connect_ 구성 요소의 _subscription_ 및 _onSubscriptionMsg_ 속성은 _onCreateAlbum_ 이벤트 데이터를 구독하고 그에 따라 *AlbumsList*의 데이터를 업데이트하도록 지시합니다.
+_Connect_ 컴포넌트의 _subscription_ 속성을 통해 _onCreateAlbum_ 의 이벤트 데이터를 구독하고 _onSubscriptionMsg_ 속성을 통해 _onCreateAlbum_ 이벤트가 발생하면 *AlbumsList* 의 데이터를 업데이트하도록 지시합니다.
 <br/>
 <br/>
-구독 속성의 콘텐츠는 이전에 query 속성에 대해 제공 한 것과 매우 유사합니다. 우리가 듣고 자하는 구독을 지정하는 질의와 새로운 데이터가 도착했을 때 우리가 다시 원했던 필드를 포함합니다. 약간 까다로운 점은 subscription의 새 데이터에 반응하는 핸들러 함수를 정의해야한다는 것입니다.이 함수는 _Connect_ 구성 요소가 _ListAlbums_ 구성 요소를 새로 고치는 데 사용할 새로운 데이터 집합을 반환해야합니다. 이것은 우리가 위에서 한 것입니다.
+Subscription 속성 내용은 query 속성으로 제공한 것들과 매우 유사해 보입니다. 우리가 수신할 Subscription이 무엇인지 지정하고, 새로운 데이터로 채워야할 필드가 무엇인지 포함된 쿼리일 뿐입니다. 약간 까다로운 점은 subscription으로 부터 받아온 새 데이터를 처리할 핸들러 함수를 정의 해야한다는 것인데 이 핸들러 함수는 _Connect_ 컴포넌트가 _ListAlbums_ 컴포넌트를 갱신하는데 필요한 새로운 데이터를 반환하도록 구현해야합니다. 위 코드에 구현되어 있습니다.
 {{% /notice %}}

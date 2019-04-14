@@ -21,7 +21,7 @@ AWS Amplify CLI는 리엑트와 리엑트 네이티브용 iOS와 안드로이드
 
 1. `amplify init`를 **실행합니다.**
 
-1. 'photo-albums'을 기본 프로젝트명으로 하기 위해 **_Enter_를 누르십시요.**
+1. 'photo-albums'을 기본 프로젝트명으로 하기 위해 **Enter를 누르십시요.**
 
 1. environment name은 **'dev'를 입력합니다.**
 
@@ -56,5 +56,5 @@ Amplify CLI는 적절한 클라우드 리소스로 프로비저닝하고 src/aws
 축하합니다! 바로 방금 귀하는 Amazon Cognito로 수백만 사용자까지 확장할 수 있는 사용자 등록과 권한 부여를 위한 서버리스 백엔드를 만들었습니다.
 
 {{% notice tip %}}
-Amazon Cognito를 사용하면 웹과 모바일 애플리케이션에 사용자 등록, 로그인, 접근제어 기능을 쉽고 빠르게 추가할 수 있습니다. 방금 생성한 유저 풀은 보안된 사용자 디렉터리로 이를 이용하여 사용자가 생성한 사용자명과 암호로 로그인할 수 있습니다. Amazon Cognito(Amplify CLI 함께)는 또한 Facebook, Google, Amazon 같은 소셜 인증 공급자와 SAML 2.0을 통한 엔터프라이즈 인증 공급자를 이용한 로그인 구성도 지원합니다. 자세한 내용을 알기 원하시면 [Amazon Cognito Developer Resources page](https://aws.amazon.com/cognito/dev-resources/)와 [AWS Amplify Authentication documentation.](https://aws-amplify.github.io/amplify-js/media/authentication_guide#federated-identities-social-sign-in)를 살펴보십시요.
+Amazon Cognito를 사용하면 웹과 모바일 애플리케이션에 사용자 등록, 로그인, 접근제어 기능을 쉽고 빠르게 추가할 수 있습니다. 방금 생성한 유저 풀은 보안된 사용자 디렉터리로 이를 이용하여 사용자가 생성한 사용자명과 암호로 로그인할 수 있습니다. Amazon Cognito(Amplify CLI 함께)는 또한 Facebook, Google, Amazon 같은 소셜 인증 공급자와 SAML 2.0을 통한 엔터프라이즈 인증 공급자를 이용한 로그인 구성도 지원합니다. 자세한 내용을 알기 원하시면 [Amazon Cognito Developer Resources page](https://aws.amazon.com/cognito/dev-resources/)와 [AWS Amplify Authentication documentation](https://aws-amplify.github.io/amplify-js/media/authentication_guide#federated-identities-social-sign-in)를 살펴보십시요.
 {{% /notice %}}
