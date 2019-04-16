@@ -59,12 +59,6 @@ Now that we've created our Photo Processor function, we need to set up a trigger
 		"s3PermissionsGuestPublic": {
 			"Type": "String"
 		},	
-		"s3PermissionsGuestProtected": {
-			"Type": "String"
-		},	
-		"s3PermissionsGuestPrivate": {
-			"Type": "String"
-		},
 		"s3PermissionsGuestUploads": {
 			"Type": "String"
 		},
