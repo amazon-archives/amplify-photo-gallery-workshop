@@ -23,7 +23,7 @@ AWS Amplify CLI는 리엑트와 리엑트 네이티브용 iOS와 안드로이드
 
 1. 'photo-albums'을 기본 프로젝트명으로 하기 위해 **Enter를 누르십시요.**
 
-1. environment name은 **'dev'를 입력합니다.**
+1. environment name은 **'master'를 입력합니다.**
 
 1. default editor(우리는 Cloud9을 씁니다)로 **'None' 선택하십시요.**
 
