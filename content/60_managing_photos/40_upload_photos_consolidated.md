@@ -404,5 +404,4 @@ export default withAuthenticator(App, {includeGreetings: true});
   _metadata: { albumid: this.props.albumId }_  : 
   S3 썸네일 트리거 함수가 사진에 대한 정보를 데이터 저장소에 추가 하게 합니다. 썸네일 이미지 작성 작업이 완료되고 사진이 업로드된 앨범이 무엇인지 이 옵션을 통해서 알려줍니다.
   예를 들면, 사진의 키에 앨범에 ID를 접두사(prefix)나 접미사(suffix)로 추가 할 수 있습니다. 
-  메타데이터로 보는게 좀 더 적절해 보이네요. 결국 사진에 대한 메타데이터가 맞습니다.
 {{% /notice %}}
