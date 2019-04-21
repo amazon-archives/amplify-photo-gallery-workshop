@@ -50,7 +50,7 @@ Amplify 스토리지 모듈에 대해 다음 자료를 참고하세요. [here](h
 
     ? What kind of access do you want for Authenticated users: 
 
-    read/write
+    create/update
     ```
 
 
