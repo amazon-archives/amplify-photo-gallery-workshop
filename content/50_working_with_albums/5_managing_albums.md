@@ -11,7 +11,7 @@ weight = 5
 [AWS Amplify](https://aws.github.io/aws-amplify/)는 웹 또는 React Native 앱에 여러 클라우드 서비스를 쉽게 연동해주는 오픈소스 JavaScript라이브러리 입니다. 
 이제 [Connect React 컴포넌트](https://aws-amplify.github.io/docs/js/api#connect)를 사용하여 리액트 컴포넌트가 렌더링 될 때 필요한 데이터를 자동으로 조회해 오도록 GraphQL API로 쿼리를 수행해봅시다.
 <br/><br/>
-Amplify CLI는 이미 *src/aws-exports.js*에 포함된 모든 설정값을 읽어들였기 때문에 AppSync API와 통신하기 위한 설정 값을 알고 있습니다(Amplify JS 라이브러리에 전달할 설정값이 무엇인지 고민하지 않아도 됩니다). 우리는 API와 상호 작용할 새로운 코드를 추가하기만 하면 됩니다.
+Amplify CLI는 이미 *src/aws-exports.js* 에 포함된 모든 설정값을 읽어들였기 때문에 AppSync API와 통신하기 위한 설정 값을 알고 있습니다(Amplify JS 라이브러리에 전달할 설정값이 무엇인지 고민하지 않아도 됩니다). 우리는 API와 상호 작용할 새로운 코드를 추가하기만 하면 됩니다.
 {{% /notice %}}
 
 다음은 앨범 목록을 렌더링 할때의 모습입니다:

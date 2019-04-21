@@ -6,7 +6,7 @@
 AWS Amplify와 AWS AppSync를 이용하여 사진 앨범 웹앱을 구현해보는 AWS 워크샵 튜토리얼 문서입니다. 
 
 ## Workshop 문서 웹페이지 확인하기
-Workshop 문서는 아래 URL을 통하여 확인할 수 있습니다. (한글화 작업 중)  
+Workshop 문서는 아래 URL을 통하여 확인할 수 있습니다. (번역 작업 완료- 오타 점검 중)  
 https://awskrug.github.io/amplify-photo-gallery-workshop/ 
 
 
