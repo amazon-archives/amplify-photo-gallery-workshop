@@ -6,10 +6,10 @@ weight = 40
 
 사진을 저장할수 있는 S3 bucket이 생겼으니 사진을 버킷에 사진을 업로드 하도록 도와줄 UI가 필요합니다. 그리고 앨범에 속한 모든 사진들을 로드 하기 위해서 사진들이 앨범에서 어떤 특정 부분에 속하는지 추적 할수 있어야 합니다.
 
-새로운 _S3ImageUpload_ 컴포넌트를 만들어 봅시다. 이 컴포넌트는 사용자가 사진을 선택할때 이벤트 핸들러를 실행시키는 input 엘리먼트를 가진 HTML 파일을 포함합니다. 
+새로운 _S3ImageUpload_ 컴포넌트를 만들어 봅시다. 이 컴포넌트는 사용자가 사진을 선택할때 이벤트 핸들러를 실행시키는 input 엘리먼트를 가진 HTML이 포함되어 있습니다.
 
 {{% notice info %}}
-업로드 이벤트 핸들러는 사진이 포함될 앨범이 무엇인지 설명해주는 주석을 가진 메타데이터가 있는 파일을 S3에 업로드 합니다. 다행히 [Amplify JS Storage module](https://aws-amplify.github.io/amplify-js/media/storage_guide)은, S3에 파일업로드 작업을 매우 쉽게 할 수 있습니다. 
+업로드 이벤트 핸들러를 통해 사진이 어떤 앨범에 들어갈지 설명하는 주석을 가진 메터데이터가 있는 파일을 S3에 업로드 합니다. 다행히 [Amplify JS Storage module](https://aws-amplify.github.io/amplify-js/media/storage_guide)을 이용하면 S3에 파일업로드 작업을 매우 쉽게 할 수 있습니다. 
 그리고, 반드시 고유한 이름으로 S3에 파일을 업로드 해야하기 때문에 UUID를 생성해주는 의존 라이브러리가 필요합니다. (사용자 기기에 있는 파일 이름을 그대로 사용한다면 이름 중복 충돌이 발생할수 있습니다).
 {{% /notice %}}
  
@@ -19,28 +19,28 @@ weight = 40
 
 **Replace photo-albums/src/App.js** with this updated version:
 <div style="height: 660px; overflow-y: scroll;">
-{{< highlight jsx "hl_lines=5-6 9-10 49-143 220-263 274-283">}}
+{{< highlight jsx "hl_lines=6-7 9-10 50-143 218-263 273-284">}}
 // src/App.js
 
 import React, { Component } from 'react';
 
 import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
-import { Divider, Form, Grid, Header, Input, List, Segment } from 'semantic-ui-react';
+import {Divider, Form, Grid, Header, Input, List, Segment } from 'semantic-ui-react';
 import {v4 as uuid} from 'uuid';
 
-import { Connect, S3Image, withAuthenticator } from 'aws-amplify-react';
+import { Connect, withAuthenticator, S3Image } from 'aws-amplify-react';
 import Amplify, { API, graphqlOperation, Storage } from 'aws-amplify';
 
 import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
 
+
 function makeComparator(key, order='asc') {
   return (a, b) => {
     if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) return 0; 
-
     const aVal = (typeof a[key] === 'string') ? a[key].toUpperCase() : a[key];
     const bVal = (typeof b[key] === 'string') ? b[key].toUpperCase() : b[key];
-
+    
     let comparison = 0;
     if (aVal > bVal) comparison = 1;
     if (aVal < bVal) comparison = -1;
@@ -68,8 +68,9 @@ const SubscribeToNewAlbums = `
   }
 `;
 
+
 const GetAlbum = `query GetAlbum($id: ID!, $nextTokenForPhotos: String) {
-    getAlbum(id: $id) {
+  getAlbum(id: $id) {
     id
     name
     photos(sortDirection: DESC, nextToken: $nextTokenForPhotos) {
@@ -83,8 +84,7 @@ const GetAlbum = `query GetAlbum($id: ID!, $nextTokenForPhotos: String) {
       }
     }
   }
-}
-`;
+}`;
 
 
 class S3ImageUpload extends React.Component {
@@ -235,10 +235,10 @@ class AlbumsList extends React.Component {
 }
     
 
+
 class AlbumDetailsLoader extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             nextTokenForPhotos: null,
             hasMorePhotos: true,
@@ -380,7 +380,7 @@ export default withAuthenticator(App, {includeGreetings: true});
 
 - 페이징을 제공하기 위해 *AlbumDetailsLoader* 수정
 
-- *AlbumDetails*에 *PhotosList* 추가 
+- *AlbumDetails* 에 *PhotosList* 추가 
 
 ### 사진 업로드 하기
 
@@ -401,7 +401,7 @@ export default withAuthenticator(App, {includeGreetings: true});
   만약 당신이 Amplify Storage 모듈의 모든 API를 읽었다면(기본 S3 API에 익숙한 경우) 이렇게 물을지도 모르겠네요. "잠시만요, 사용자들은 공개된 경로에 있는 모든 목록을 조회할 수 있으니 모든 사진들을 볼수 있겠는데요?"
   지금은 당신이맞습니다. 나중에 이를 제한하도록 추가 예방 조치를 취해 처리할 예정입니다. (특정 사용자 이름을 활용하여 버킷 항목 리스트를 조회하지 못하도록 제한함)
   <br/><br/>
-  _{ albumid: this.props.albumId }_  : 
+  _metadata: { albumid: this.props.albumId }_  : 
   S3 썸네일 트리거 함수가 사진에 대한 정보를 데이터 저장소에 추가 하게 합니다. 썸네일 이미지 작성 작업이 완료되고 사진이 업로드된 앨범이 무엇인지 이 옵션을 통해서 알려줍니다.
   예를 들면, 사진의 키에 앨범에 ID를 접두사(prefix)나 접미사(suffix)로 추가 할 수 있습니다. 
   메타데이터로 보는게 좀 더 적절해 보이네요. 결국 사진에 대한 메타데이터가 맞습니다.
