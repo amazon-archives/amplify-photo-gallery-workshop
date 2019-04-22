@@ -45,14 +45,15 @@ git submodule update --checkout --recursive
 - [튜토리얼 한글화 작업 가이드](https://github.com/awskrug/amplify-photo-gallery-workshop/wiki/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC-%ED%95%9C%EA%B8%80%ED%99%94-%EC%9E%91%EC%97%85-%EA%B0%80%EC%9D%B4%EB%93%9C)
 
 #### 로컬환경에서 Hugo 실행
-앞서 설치한 hugo를 이용하여 다음을 실행하면 로컬환경에서 번역한 내용을 확인해 볼 수 있습니다.
-`hugo server`
+앞서 설치한 hugo를 아래와 같이 실행하면, 로컬환경에서 번역한 내용을 웹 브라우저를 통해 확인해 볼 수 있습니다.
+
+```hugo server```
 
 #### 로컬환경에서 작업 내용 확인하기
-http://localhost:1313/amplify-photo-gallery-workshop/ 로 접속하여 빌드한 워크샵 사이트를 확인합니다.
+웹 브라우저에서 http://localhost:1313/amplify-photo-gallery-workshop 로 접속하여 빌드한 워크샵 사이트를 확인합니다.
 
 #### 수정사항 확인하기
-페이지 파일(.md 파일)을 수정 후 저장하면, 즉시 반영되고 브라우저 화면도 자동으로 갱신됩니다.
+페이지 파일(.md 파일)을 수정 후 저장하면, 즉시 반영되고 웹 브라우저 화면도 자동으로 갱신됩니다.
 
 ## License Summary
 
