@@ -15,7 +15,7 @@ AWS Amplify CLI는 리엑트와 리엑트 네이티브용 iOS와 안드로이드
 
 ### Amplify 초기화
 
-** 커맨드라인으로 photo-albums 디렉터리에서**:
+**커맨드라인으로 photo-albums 디렉터리에서** :
 
 1. **photo-albums 디렉터리로 들어갑니다.** `cd photo-albums`
 
@@ -36,7 +36,7 @@ AWS Amplify CLI는 리엑트와 리엑트 네이티브용 iOS와 안드로이드
 ![amplify init](/images/amplify_init.png)
 
 {{% notice info %}}
-이렇게 하면 [Amazon Cognito](https://aws.amazon.com/cognito/) 유저 풀을 구성하여 사용자가 가입하고 로그인을 위한 백엔드 역할을 할 수 있는 새 로컬 구성을 생성합니다(Amazon Cognito와 유저 풀에 대한 자세한 내용은 아래에 있습니다). 이 단계를 더 자세히 아시려면 [AWS Amplify 인증 가이드](https://aws-amplify.github.io/amplify-js/media/authentication_guide.html)에서 'Installation and Configuration' 항목을 살펴보십시요.
+이렇게 하면 [Amazon Cognito](https://aws.amazon.com/cognito/) 유저 풀을 구성하여 사용자가 가입하고 로그인을 위한 백엔드 역할을 할 수 있는 새 로컬 구성을 생성합니다(Amazon Cognito와 유저 풀에 대한 자세한 내용은 아래에 있습니다). 이 단계를 더 자세히 보시려면 [AWS Amplify 인증 가이드](https://aws-amplify.github.io/amplify-js/media/authentication_guide.html)에서 'Installation and Configuration' 항목을 살펴보십시요.
 {{% /notice %}}
 
 ### 인증 추가하기
