@@ -9,7 +9,7 @@ weight = 20
 
 1. **photo-albums/amplify/backend/storage/photoalbumsstorage/s3-cloudformation-template.json** 파일을 다음 내용으로 변경해주십시요.
 <div style="height: 550px; overflow-y: scroll;">
-{{< highlight json "hl_lines=150-159 213-236 239-274">}}
+{{< highlight json "hl_lines=144-153 207-229 233-268">}}
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "S3 resource stack creation using Amplify CLI",

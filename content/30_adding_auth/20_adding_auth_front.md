@@ -6,7 +6,7 @@ weight = 20
 
 이제 등록과 로그인을 관리하는 백엔드가 구성되었으니 _withAuthenticator_ [AWS Amplify의 상위 리액트 컴포넌트](https://aws-amplify.github.io/amplify-js/media/authentication_guide.html#using-components-in-react)를 이용해서 기존 _App_ 컴포넌트를 감싸도록 합니다. 그러면 앱에서 사용자 등록, 확인, 로그인, 로그 아웃, 비밀번호 재설정을 할 수 있는 간단한 UI를 제공합니다.
 
-### Amplify NPM 종속성 추가
+### Amplify npm 라이브러리 추가
 
 아직 *aws-amplify*, *aws-amplify-react* 모듈을 앱에 추가하지 않았으니 이제 추가합니다.
 

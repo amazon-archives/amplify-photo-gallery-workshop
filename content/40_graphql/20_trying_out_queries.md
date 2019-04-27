@@ -8,6 +8,10 @@ weight = 20
 **AWS Console로 접근하여 photoalbums API를 클릭합니다**. 이제 API를 파고들어봅시다.
 
 {{% tabs %}}
+{{% tab "ap-northeast-2" "Seoul" %}}
+Link to [AWS AppSync web console in Seoul](https://console.aws.amazon.com/appsync/home?region=ap-northeast-2#/apis)
+{{% /tab %}}
+
 {{% tab "us-east-1" "North America" %}}
 Link to [AWS AppSync web console in Northern Virgina](https://console.aws.amazon.com/appsync/home?region=us-east-1#/apis)
 {{% /tab %}}

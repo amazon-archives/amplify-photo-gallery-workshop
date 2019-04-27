@@ -28,14 +28,24 @@ npm install -g @aws-amplify/cli
 
 ### 기본 region 설정하기  
 
-가장 좋은 방법은 인프라를 고객과 가까운 지역에 구성하는 것입니다. (Amplify는 아직 서울 리전을 지원하지 않습니다.)    
+가장 좋은 방법은 인프라를 고객과 가까운 지역에 구성하는 것입니다. (Amplify는 서울 리전도 지원합니다.)    
 이번 워크샵에서는 기본 AWS region을 다음 지역으로 설정합니다:    
+-  한국 - Seoul (*ap-northeast-2*)  
 -  미국 - Northern Virginia (*us-east-1*)  
 -  유럽 - Ireland (*eu-west-1*) 
 
 **AWS config file 생성하기**, 실행:
 
 {{% tabs %}}
+{{% tab "ap-northeast-2" "Seoul" %}}
+```bash
+cat <<END > ~/.aws/config
+[default]
+region=ap-northeast-2
+END
+```
+{{% /tab %}}
+
 {{% tab "us-east-1" "North America" %}}
 ```bash
 cat <<END > ~/.aws/config

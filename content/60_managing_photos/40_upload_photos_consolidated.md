@@ -19,7 +19,7 @@ weight = 40
 
 **Replace photo-albums/src/App.js** with this updated version:
 <div style="height: 660px; overflow-y: scroll;">
-{{< highlight jsx "hl_lines=6-7 9-10 50-143 218-263 273-284">}}
+{{< highlight jsx "hl_lines=6-7 9-10 50-143 218-263 268-284">}}
 // src/App.js
 
 import React, { Component } from 'react';
@@ -288,7 +288,6 @@ class AlbumDetailsLoader extends React.Component {
 class AlbumDetails extends Component {
     render() {
         if (!this.props.album) return 'Loading album...';
-        
         return (
             <Segment>
             <Header as='h3'>{this.props.album.name}</Header>

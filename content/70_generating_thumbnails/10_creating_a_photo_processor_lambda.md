@@ -210,7 +210,7 @@ exports.handler = async (event, context, callback) => {
 
 8.  **photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** 를 다음 내용으로 변경합니다.
 <div style="height: 550px; overflow-y: scroll;">
-{{< highlight json "hl_lines=4-14 29-36 100-183">}}
+{{< highlight json "hl_lines=4-14 29-36 104-186">}}
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
@@ -427,13 +427,13 @@ exports.handler = async (event, context, callback) => {
 10. 배포를 마칠 때까지 기다립니다. 이 단계는 1~2분 정도 소요됩니다.
 
 ### 변경된 것
-- 사진 처리 함수의 클라우드포메이션 템플릿에 값을 전달해줄 *parameters.json* 파일을 생성하였습니다.
+- 사진 처리 함수의 클라우드포메이션 템플릿에 값을 전달해줄 *parameters.json* 파일을 생성하였습니다. (photo-albums/amplify/backend/function/workshopphotoprocessor/parameters.json)
 
-- 사진 처리 함수의 클라우드포메이션 템플릿에 *env*, *S3UserfilesBucketName*, *DynamoDBPhotosTableArn* 변수를 추가했습니다.
+- 사진 처리 함수의 클라우드포메이션 템플릿에 *env*, *S3UserfilesBucketName*, *DynamoDBPhotosTableArn* 변수를 추가했습니다. (photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json)
 
-- 사진 처리 함수의 구성에 *ENV*, *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN* 환경 변수를 추가했습니다.
+- 사진 처리 함수의 구성에 *ENV*, *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN* 환경 변수를 추가했습니다. (/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js)
 
-- 함수에서 사진을 저장하는 S3 버킷에 읽고 쓰기를 허가하는 *AllPrivsForPhotoAlbums* 라는 IAM 정책을 추가했습니다.
+- 함수에서 사진을 저장하는 S3 버킷에 읽고 쓰기를 허가하는 *AllPrivsForPhotoAlbums* 라는 IAM 정책을 추가했습니다. (photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json)
 
 - 함수에서 사진 정보를 수록한 DynamoDB에 읽고 쓰기를 허가하는 *AllPrivsForDynamo* 라는 IAM 정책을 추가하였습니다.
 
