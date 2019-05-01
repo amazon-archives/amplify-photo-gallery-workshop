@@ -22,7 +22,7 @@ AWS Amplify CLI로 어플리케이션을 공개적으로 접근가능한 S3 버�
     DEV (S3 only with HTTP)
 
 
-    ? hosting bucket name 
+    ? hosting bucket name (자동으로 생성되므로 Enter키를 치면 됩니다.)
 
     photoalbums-19700101010203--hostingbucket
 
