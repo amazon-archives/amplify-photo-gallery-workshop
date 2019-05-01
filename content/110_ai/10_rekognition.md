@@ -27,7 +27,7 @@ photo_processor 람다 함수에 Amazon Rekognition을 연동하겠습니다.
 
 **amplify/backend/function/workshopphotoprocessor/src/index.js**를 다음 버전으로 변경합니다.
 
-{{< highlight js "hl_lines=5 24-38 116 121">}}
+{{< highlight js "hl_lines=5 22-36 114 119">}}
 // photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js
 
 const AWS = require('aws-sdk');
@@ -182,4 +182,4 @@ exports.handler = async (event, context, callback) => {
 
 **photo-albums 디렉토리에서** `amplify push`를 실행해서 갱신된 버전의 사진 처리 함수를 배포합니다.
 
-배포가 끝나면 새 사진을 앨범에 추가해 봅니다. 그리고 DynamoDB의 PhotoTable에 해당 행을 찾아보아서 새로 업로드한 것에 적절히 레이블이 주어졌는지 확인해 봅니다. 바라기는 해당 사진과 관련있는 레이블을 볼 것입니다.
+배포가 끝나면 새 사진을 앨범에 추가해 봅니다. 그리고 DynamoDB의 PhotoTable에 해당 행을 찾아보아서 새로 업로드한 것에 적절히 레이블이 주어졌는지 확인해 봅니다. 해당 사진과 관련있는 레이블이 포함되었길 바랍니다!

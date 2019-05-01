@@ -5,7 +5,7 @@ weight = 10
 +++
 
 ### 목표
-이 워크샵에서 다음을 포함한 몇 가지 기능이 있는 앱을 빌드합니다.
+이 워크샵에서 다음을 포함한 몇 가지 기능이 있는 어플리케이션을 빌드합니다.
 
 * 사용자 등록 및 인증을 하게하여 누가 어떤 사진 앨범의 소유자인지 알 수 있습니다.
 
@@ -35,7 +35,7 @@ weight = 10
 
 * [Amazon Cognito](https://aws.amazon.com/cognito/)는 사용자 등록과 인증을 처리합니다.
 
-* [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (S3)는 사용자가 업로드한 많은 사진을 저장하고 제공하며 앱의 정적 에셋을 호스팅합니다.
+* [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (S3)는 사용자가 업로드한 많은 사진을 저장하고 제공하며 어플리케이션의 정적 에셋을 호스팅합니다.
 
 * [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)는 사진과 앨범 데이터에 대한 API 쿼리를 수밀리초 응답으로 제공합니다.
 

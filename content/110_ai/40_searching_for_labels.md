@@ -445,10 +445,10 @@ export default withAuthenticator(App, {includeGreetings: true});
 
 - *SearchPhotos* 쿼리를 사용하여 레이블에 일치하는 사진 목록을 얻어오고, 기존 *PhotosList* 컴포넌트를 사용하여 사진을 표시하는 *Search* 컴포넌트를 추가했습니다.
 
-- 루트 '/' 경로의 일부로 표시할 *SearchPhotos* 컴포넌트를 추가했습니다.
+- 루트 '/' 경로의 일부로 표시할 *Search* 컴포넌트를 추가했습니다.
 
 ### 사진 검색 기능 시험하기
-이제 웹 앱의 루트 경로 '/'로 돌아가면 검색할 수 있습니다.
+이제 웹 어플리케이션의 루트 경로 '/'로 돌아가면 검색할 수 있습니다.
 
 Amplify로 Amazon Elasticsearch Service를 연동하도록 구성했지만, 생성시에 DynamoDB의 기존 데이터를 전달하지 않기 때문에 오직 새 데이터만을 색인을 생성합니다. 검색 결과를 보려면 먼저 몇 장의 사진을 앨범에 업로드해야 합니다.
 
