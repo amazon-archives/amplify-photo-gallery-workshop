@@ -31,17 +31,16 @@ weight = 30
     Content (Images, audio, video, etc.)
 
 
-    ? Please provide a friendly name for your resource that will be used to label this category in the proje
-    ct: photoalbumsstorage
+    ? Please provide a friendly name for your resource that will be used to label this category in the project: photoalbumsstorage
 
 
-    ? Please provide bucket name: <accept the default value>
+    ? Please provide bucket name: (Enter를 눌러 기본값을 그대로 사용합니다.)
 
 
-    ? Who should have access: Auth users only
+    ? Who should have access: Auth and guest users
 
 
-    ? What kind of access do you want for Authenticated users? 
+    ? What kind of access do you want for Authenticated users? (a키를 눌러 모두 선택합니다.)
     ◉ create/update
     ◉ read
     ◉ delete

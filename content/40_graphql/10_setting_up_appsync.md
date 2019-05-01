@@ -43,7 +43,7 @@ Yes
 
 Please manually edit the file created at /home/ec2-user/environment/photo-albums/amplify/backend/api/photoalbums/schema.graphql
 
-? Press enter to continue 
+? Press enter to continue (아직 Enter키를 누르지 마세요!)
 ```
 
 

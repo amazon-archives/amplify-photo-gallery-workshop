@@ -17,7 +17,7 @@ weight = 40
 
 우리 어플리케이션에 의존 라이브러리를 추가하고 S3ImageUpload 컴포넌트를 생성합니다. 그리고 컴포넌트에 생성한 S3ImageUpload 컴포넌트를 포함합니다.
 
-**Replace photo-albums/src/App.js** with this updated version:
+**photo-albums/src/App.js**의 내용을 아래 코드로 교체합니다:
 <div style="height: 660px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=6-7 9-10 50-143 218-263 268-284">}}
 // src/App.js

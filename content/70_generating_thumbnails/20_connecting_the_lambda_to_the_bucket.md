@@ -716,7 +716,7 @@ weight = 20
 
 4. 완료될 때까지 기다립니다. 이 단계는 1~2분 정도 소요됩니다.
 
-### amplify/.../s3-cloudformation-template.json 에서 변경한 내용
+### s3-cloudformation-template.json 에서 변경한 내용
 
 - PhotoProcessor 람다 함수를 호출할 수 있도록 S3Bucket 리소스에 권한을 부여하는 *InvokePhotoProcessorLambda* 리소스를 추가하였습니다.
 

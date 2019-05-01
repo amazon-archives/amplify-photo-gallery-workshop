@@ -46,7 +46,7 @@ weight = 10
 	```
 
 
-2. **/home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js** 파일을 다음 내용으로 변경합니다.
+2. **photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js** 파일을 다음 내용으로 변경합니다.
 <div style="height: 560px; overflow-y: scroll; margin: 0;">
 {{< highlight js >}}
 // amplify/backend/function/workshopphotoprocessor/src/index.js
@@ -172,7 +172,7 @@ exports.handler = async (event, context, callback) => {
 </div>
 
 
-3. **/home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/package.json** 파일 내용을 다음으로 바꿉니다.
+3. **photo-albums/amplify/backend/function/workshopphotoprocessor/src/package.json** 파일 내용을 다음으로 바꿉니다.
 ```json
 {
 	"name": "workshopphotoprocessor",
@@ -210,9 +210,9 @@ exports.handler = async (event, context, callback) => {
 	이 값은 **photo-albums/src/aws-exports.js** 파일에서 **aws_user_files_s3_bucket** 항목의 키 값으로 찾을 수 있습니다.
 
 
-7. *parameters.json* 파일에서 **REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN** 부분은 AppSync에서 사진 데이터 타입을 위해 사용하는 DynamoDB 테이블의 ARN으로 바꿉니다.
+7. *parameters.json* 파일에서 **REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN** 부분은 AppSync에서 사진 데이터 관리를 위해 사용하는 DynamoDB 테이블의 ARN으로 바꿉니다.
    
-	이 값은 AppSync API 콘솔에서 **Data Sources** 섹션에서, **PhotoTable** 항목을 찾고 **Resource** 컬럼의 링크를 클릭하면(연관된 DynamoDB 테이블을 찾는), Overview 탭의 아래쪽의 테이블의 ARN으로 찾을 수 있습니다.
+	이 ARN값은 AppSync API 콘솔의 **Data Sources** 섹션에서, **PhotoTable** 항목을 찾고 **Resource** 컬럼의 링크를 클릭하면 연관된 DynamoDB 테이블로 이동하고, Overview 탭의 최하단에서 찾을 수 있습니다.
 
 
 8.  **photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** 를 다음 내용으로 변경합니다.

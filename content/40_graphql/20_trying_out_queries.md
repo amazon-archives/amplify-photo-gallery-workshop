@@ -5,7 +5,7 @@ weight = 20
 +++
 
 
-**AWS Console로 접근하여 photoalbums API를 클릭합니다**. 이제 API를 파고들어봅시다.
+**AWS Console에서 AppSync로 이동후에 photoalbums-master API를 클릭합니다**. 이제 API를 파고들어봅시다.
 
 {{% tabs %}}
 {{% tab "ap-northeast-2" "Seoul" %}}
