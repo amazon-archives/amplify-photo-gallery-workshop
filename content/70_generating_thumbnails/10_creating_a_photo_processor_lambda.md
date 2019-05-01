@@ -186,9 +186,16 @@ exports.handler = async (event, context, callback) => {
 }
 ```
 
-
 4. **photo-albums 디렉토리에서** `amplify function build`를 실행하고 엔터를 눌러 확인합니다. 람다 함수의 package.json에 종속 패키지를 설치합니다.
-
+{{% notice warning %}}
+**VScode** 로 작성하고 계시다면..	
+아래 **amplify function build** 를 수행한 후 다음과 같이 작업해주세요		
+[AWS Lambda 실행환경에 맞는 sharp 라이브러리가 빌드 되어야 합니다.](http://sharp.pixelplumbing.com/en/stable/install/#aws-lambda)	
+1. 위에서 생성한 package.json 파일이 있는 photo-albums/amplify/backend/function/workshopphotoprocessor/src 경로로 이동 합니다.		
+2. 다음 명령어를 수행합니다.		
+`rm -rf node_modules/sharp`		
+`npm install --arch=x64 --platform=linux --target=8.10.0 sharp`
+{{% /notice %}}
 
 5. **photo-albums/amplify/backend/function/workshopphotoprocessor/parameters.json** 파일을 생성하고 다음 내용을 넣습니다.
 ```json
