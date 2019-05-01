@@ -8,7 +8,7 @@ weight = 20
 
 이제 각 사진의 레이블을 저장할 수 있으니, AppSync API를 통해 이 데이터를 노출할 준비가 되었습니다.
 
-DynamoDB 쿼리로 검색하는 방법도 가능하지만, Amazon Elasticsearch Service를 사용하여 데이터를 색인하고 검색 쿼리를 다루는 방식이 좀 더 유연하고 효율적입니다. 다행이 Amplify CLI는 매우 쉽게 Amazon Elasticsearch 엔드포인트를 생성하고 앱 데이터와 연결합니다.
+DynamoDB 쿼리로 검색하는 방법도 가능하지만, Amazon Elasticsearch Service를 사용하여 데이터를 색인하고 검색 쿼리를 다루는 방식이 좀 더 유연하고 효율적입니다. 다행이 Amplify CLI는 매우 쉽게 Amazon Elasticsearch 엔드포인트를 생성하고 어플리케이션 데이터와 연결합니다.
 
 
 1. **photo-albums/amplify/backend/api/photoalbums/schema.graphql** 을 다음 내용으로 변경합니다.
