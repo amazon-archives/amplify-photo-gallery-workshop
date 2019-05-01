@@ -18,16 +18,17 @@ The Cloud9의 작업영역은 AWS root 계정이 아닌, Administrator 권한�
 
 ### 새 환경 만들기
 
+1. 이 실습은 버지니아 리전(us-east-1)에서 실행됩니다.
 1. [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1) 로 이동
 1. **Create environment** 선택
 1. **workshop**으로 이름을 붙이고 **Next step**으로 넘어가세요.
-1. **Create a new instance for environment (EC2)** 선택하고 **t2.medium**을 고르세요
+1. **Create a new instance for environment (EC2)** 선택하고 **t2.micro**를 고르세요
 2. 모든 환경 설정을 있는 그대로 두고 **Next step**로 이동합니다.
 3. **Create environment**를 클릭합니다.
 
 ### Layout 정리
 
-작업 환경이 나타나면, 레이아웃을 본인에게 맞게 커스터마이징 합니다.  1) **welcome tab**을 닫고 2) **아래 작업 영역도 닫습니다.**, 3)새로운 **terminal** 탭을 메인 작업 영역에 띄웁니다.  :
+작업 환경이 나타나면, 레이아웃을 본인에게 맞게 커스터마이징 합니다.  1) **welcome tab**을 닫고 2) **아래 작업 영역도 닫습니다.** 3)새로운 **terminal** 탭을 메인 작업 영역에 띄웁니다.  :
 ![c9before](/images/c9before.png)
 
 당신의 작업 영역은 이제 이렇게 보일거에요.:
