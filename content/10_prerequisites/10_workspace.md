@@ -22,7 +22,7 @@ The Cloud9의 작업영역은 AWS root 계정이 아닌, Administrator 권한�
 1. [Cloud9 web console](https://us-east-1.console.aws.amazon.com/cloud9/home?region=us-east-1) 로 이동
 1. **Create environment** 선택
 1. **workshop**으로 이름을 붙이고 **Next step**으로 넘어가세요.
-1. **Create a new instance for environment (EC2)** 선택하고 **t2.micro**를 고르세요
+1. **Create a new instance for environment (EC2)** 선택하고 **t2.small**을 고르세요
 2. 모든 환경 설정을 있는 그대로 두고 **Next step**로 이동합니다.
 3. **Create environment**를 클릭합니다.
 
