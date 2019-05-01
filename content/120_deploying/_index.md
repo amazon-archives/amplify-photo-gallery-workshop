@@ -1,10 +1,10 @@
 +++
-title = "앱 배포하기"
+title = "어플리케이션 배포하기"
 chapter = true
 weight = 120
 +++
 
-# 앱 배포하기
+# 어플리케이션 배포하기
 
 {{% children showhidden="false" %}}
 
