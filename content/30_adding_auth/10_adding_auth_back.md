@@ -25,9 +25,9 @@ AWS Amplify CLI는 리엑트와 리엑트 네이티브용 iOS와 안드로이드
 
 1. environment name은 **'master'를 입력합니다.**
 
-1. default editor(우리는 Cloud9을 씁니다)로 **'None' 선택하십시요.**
+1. Cloud9을 사용중이시면 default editor에 **'None' 선택하십시요.** (만약 Cloud9이 아닌 다른 에디터를 사용한다면 해당 에디터를 선택해 주세요)
 
-1. 프롬프트가 나오면 **JavaScript와 React를 선택하십시요.**
+1. 프롬프트가 나오면 **JavaScript와 react를 선택하십시요.**
 
 1. 경로와 명령어에는 **기본값을 선택합니다.**
 
@@ -44,6 +44,8 @@ AWS Amplify CLI는 리엑트와 리엑트 네이티브용 iOS와 안드로이드
 1. 인증을 추가하기 위해 `amplify add auth`를 **실행합니다.**
 
 1. 기본 인증 및 보안 구성을 사용할지 질문에는 **Yes를 선택합니다.**
+
+1. 로그인시 유저 인증은 **Username을 선택합니다.**
 
 1. 클라우드에 변경 사항을 반영하기 위해 `amplify push`를 **실행합니다.**
 

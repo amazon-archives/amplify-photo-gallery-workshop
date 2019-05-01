@@ -17,6 +17,7 @@ create-react-app은 [https://github.com/facebook/create-react-app](https://githu
 
 **Cloud9 터미널에서** `npx create-react-app photo-albums`를 실행하시고 새로 생성된 디렉토리로 이동합니다 `cd photo-albums`
 
+> 이 명령어를 통해 photo-albums라는 이름을 가진 amplify 앱의 기본 구조를 생성합니다.
 
 ### 시멘틱 UI 리액트 추가하기
 
