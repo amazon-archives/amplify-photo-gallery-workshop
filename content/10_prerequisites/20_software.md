@@ -6,6 +6,10 @@ weight = 20
 
 코딩을 시작하기 전에, Cloud9 환경에 몇 가지 설치, 업데이트, 설정을 해야합니다.
 
+{{% notice note %}}
+로컬 환경에서 실습을 진행하실 분들은 각자 환경에 맞춰서 설정하시기 바랍니다.
+{{% /notice %}}
+
 ### 설치와 업데이트
 
 Cloud9 터미널에서 **다음 명령어를 수행하세요.**  우리가 사용할 몇 가지 소프트웨어를 설치하고 업데이트 합니다.
@@ -14,7 +18,7 @@ Cloud9 터미널에서 **다음 명령어를 수행하세요.**  우리가 사�
 # Update the AWS CLI
 pip install --user --upgrade awscli
 
-# Install and use Node.js v8.10 (to match AWS Lambda)
+# Install and use Node.js v8.11 (to match AWS Lambda)
 nvm install v8.11.0
 nvm alias default v8.11.0
 
@@ -23,7 +27,7 @@ npm install -g @aws-amplify/cli
 ```
 
 {{% notice note %}}
-이 명령어들은 완료 되는데 시간이 좀 걸릴수 있습니다. (few minutes)
+이 명령어들은 완료 되는데 시간이 수 분이 소요됩니다.
 {{% /notice %}}
 
 ### 기본 region 설정하기  
