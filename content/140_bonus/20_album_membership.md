@@ -14,7 +14,7 @@ weight = 20
 Amplify는 GraphQL 스키마 안의 *@model* 타입에서 여러 개의 권한 선언을 지원합니다. 우리는 두 번째 권한 규칙을 추가함으로서 Album의 *members* 필드에 있는 유저가 해당 레코드를 볼 수 있게 할 수 있습니다. 다만, 레코드를 수정할 권한은 없습니다.
 
 1. **/photo-albums/amplify/backend/api/photoalbums/schema.graphql** 에 위치한 코드를 아래 코드로 대체해 주세요:
-{{< highlight graphql "hl_lines=5-8">}}
+{{< highlight graphql "hl_lines=5-8 11-12">}}
 # amplify/backend/api/photo-albums/schema.graphql
 
 type Album 
@@ -235,13 +235,13 @@ class S3ImageUpload extends React.Component {
   
   uploadFile = async (file) => {
     const fileName = uuid();
-
+    const user = await Auth.currentAuthenticatedUser();
     const result = await Storage.put(
       fileName, 
       file, 
       {
         customPrefix: { public: 'uploads/' },
-        metadata: { albumid: this.props.albumId }
+        metadata: { albumid: this.props.albumId, owner: user.username }
       }
     );
 
