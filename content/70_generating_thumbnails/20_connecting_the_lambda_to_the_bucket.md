@@ -9,7 +9,7 @@ weight = 20
 
 1. **photo-albums/amplify/backend/storage/photoalbumsstorage/s3-cloudformation-template.json** 파일을 다음 내용으로 변경해주십시요.
 <div style="height: 550px; overflow-y: scroll;">
-{{< highlight json "hl_lines=144-153 207-229 233-268">}}
+{{< highlight json "hl_lines=47-58 144-167 221-244 247-282">}}
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "S3 resource stack creation using Amplify CLI",
@@ -160,7 +160,21 @@ weight = 20
 				"FunctionName" : "workshopphotoprocessor",
 				"Principal" : "s3.amazonaws.com",
 				"SourceAccount" :  { "Ref": "AWS::AccountId" },
-				"SourceArn": "arn:aws:s3:::REPLACE_WITH_USERFILES_BUCKET_NAME"
+				"SourceArn": {
+					"Fn::Join": [
+						"",
+						[
+							"arn:aws:s3:::",
+							{
+								"Ref": "bucketName"
+							},
+							"-",
+							{
+								"Ref": "env"
+							}
+						]
+					]
+				}
 			}
 		},
 		"S3Bucket": {
@@ -704,17 +718,9 @@ weight = 20
 {{< /highlight >}}
 </div>
 
-2. {{% notice warning %}}
-위에 표시된 새 템플릿을 붙여넣기 하고 나서, **REPLACE_WITH_USERFILES_BUCKET_NAME** 항목을 찾아서 사용자 파일 S3 버킷의 이름으로 바꿉니다.
-<br/>
-<br/>
-이 값은 **photo-albums/src/aws-exports.js** 파일의 **aws_user_files_s3_bucket** 항목의 키 값으로 찾을 수 있습니다.
-{{% /notice %}}
+2. **photo-albums 디렉터리에서** `amplify push` 실행하여 저장소 구성을 갱신합니다.
 
-
-3. **photo-albums 디렉터리에서** `amplify push` 실행하여 저장소 구성을 갱신합니다.
-
-4. 완료될 때까지 기다립니다. 이 단계는 1~2분 정도 소요됩니다.
+3. 완료될 때까지 기다립니다. 이 단계는 1~2분 정도 소요됩니다.
 
 ### s3-cloudformation-template.json 에서 변경한 내용
 
