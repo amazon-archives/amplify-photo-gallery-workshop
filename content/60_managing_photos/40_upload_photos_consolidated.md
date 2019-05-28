@@ -384,7 +384,7 @@ export default withAuthenticator(App, {includeGreetings: true});
 ### 사진 업로드 하기
 
 
-이 시점에서 봐야 할 것은 별로 없습니다. 업로드 버튼을 클릭하고 파일을 선택한 후, 업로드 버튼으로 다시 바뀌기 전에 *'Uploading…'* 으로 바뀌는지 확인해보세요.
+이 시점에서 봐야 할 것은 별로 없습니다. 업로드 버튼을 클릭하고 파일을 선택한 후, 업로드 버튼으로 다시 바뀌기 전에 *'Uploading…'* 으로 바뀌는지 확인해보세요. 이 시점에서 아직 사진 미리보기는 제공되지 않습니다.
 
 {{% notice tip %}}
   AWS 웹 콘솔에서 S3 버킷을 직접 탐색하여 파일이 업로드되고 있는지 확인할 수도 있습니다. 버킷 이름을 찾는 가장 쉬운 방법은 _src / aws-exports.js_ 파일에서  __aws_user_files_s3_bucket__ 에 설정된 값을 찾는 것입니다. S3 웹 콘솔에서 bucket을 찾아 _public/uploads_ 하위에 업로드 한 파일들을 찾아봅니다.
