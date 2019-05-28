@@ -217,7 +217,7 @@ exports.handler = async (event, context, callback) => {
 
 8.  **photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** 를 다음 내용으로 변경합니다.
 <div style="height: 550px; overflow-y: scroll;">
-{{< highlight json "hl_lines=4-14 29-36 104-186">}}
+{{< highlight json "hl_lines=4-14 20 29-36 104-186">}}
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",

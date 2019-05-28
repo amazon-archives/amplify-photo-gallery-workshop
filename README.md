@@ -47,7 +47,7 @@ git submodule update --checkout --recursive
 #### 로컬환경에서 Hugo 실행
 앞서 설치한 hugo를 아래와 같이 실행하면, 로컬환경에서 번역한 내용을 웹 브라우저를 통해 확인해 볼 수 있습니다.
 
-```hugo server```
+```npm test```
 
 #### 로컬환경에서 작업 내용 확인하기
 웹 브라우저에서 http://localhost:1313/amplify-photo-gallery-workshop 로 접속하여 빌드한 워크샵 사이트를 확인합니다.
