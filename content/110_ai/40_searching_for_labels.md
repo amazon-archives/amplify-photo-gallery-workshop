@@ -20,7 +20,7 @@ import { Divider, Form, Grid, Header, Input, List, Segment } from 'semantic-ui-r
 import {v4 as uuid} from 'uuid';
 
 import { Connect, S3Image, withAuthenticator } from 'aws-amplify-react';
-import Amplify, { API, graphqlOperation, Storage } from 'aws-amplify';
+import Amplify, { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 
 import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
@@ -165,13 +165,14 @@ class S3ImageUpload extends React.Component {
   
   uploadFile = async (file) => {
     const fileName = uuid();
+    const user = await Auth.currentAuthenticatedUser();
 
     const result = await Storage.put(
       fileName, 
       file, 
       {
         customPrefix: { public: 'uploads/' },
-        metadata: { albumid: this.props.albumId }
+        metadata: { albumid: this.props.albumId, owner: user.username }
       }
     );
 

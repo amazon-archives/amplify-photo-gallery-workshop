@@ -235,13 +235,14 @@ class S3ImageUpload extends React.Component {
   
   uploadFile = async (file) => {
     const fileName = uuid();
+    const user = await Auth.currentAuthenticatedUser();
 
     const result = await Storage.put(
       fileName, 
       file, 
       {
         customPrefix: { public: 'uploads/' },
-        metadata: { albumid: this.props.albumId }
+        metadata: { albumid: this.props.albumId, owner: user.username }
       }
     );
 
