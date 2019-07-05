@@ -5,7 +5,7 @@ weight = 20
 +++
 
 
-**Open the AWS Console** and **click into the photoalbums API**. Now we can start poking around with the API.
+**Open the AWS Console** and **click into the photoalbums-master API**. Now we can start poking around with the API.
 
 {{% tabs %}}
 {{% tab "us-east-1" "North America" %}}
