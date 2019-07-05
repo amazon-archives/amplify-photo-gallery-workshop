@@ -43,11 +43,15 @@ This will create a new local configuration for us which we can use to set up an 
 
 1. **Run** `amplify add auth` to add authentication to the app
 
-1. **Select Yes** when asked if you'd like to use the default authentication and security configuration
+1. **Select Default Configuration** when asked if you'd like to use the default authentication and security configuration
+   
+1. **Select Username** when asked how you want users to sign in
+   
+1. **Leave Email selected** when asked what attributes are required for signing up, **make no changes and press Enter to continue**
 
-1. **Run** `amplify push` to create these changes in the cloud
+2. **Run** `amplify push` to create these changes in the cloud
 
-1. Wait for the provisioning to complete. This will take a few minutes.
+3. Wait for the provisioning to complete. This will take a few minutes.
 
 {{% notice info %}}
 The Amplify CLI will take care of provisioning the appropriate cloud resources and it will update src/aws-exports.js with all of the configuration data we need to be able to use the cloud resources in our app.
