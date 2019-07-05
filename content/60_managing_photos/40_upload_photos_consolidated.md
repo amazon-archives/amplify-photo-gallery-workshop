@@ -382,7 +382,7 @@ export default withAuthenticator(App, {includeGreetings: true});
 
 - Added *PhotosList* to *AlbumDetails*'s render output
 
-### Try uploading a photo
+### Try uploading a photo in an album
 
 At this point there's not much to look at, but you should be able to click the button, select a file, and see it change to *'Uploading…'* before switching back to an upload button again. 
 
