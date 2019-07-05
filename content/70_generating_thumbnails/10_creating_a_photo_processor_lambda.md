@@ -7,13 +7,18 @@ weight = 10
 Let's make a photo processor lambda function so that we can resize our photos.
 
 {{% notice warning %}}
-When following the instructions below, **you must name your lambda function _workshopphotoprocessor_**.
+We're about to run `amplify function add` and answer some interactive questions so that Amplify will help create an appropriate Cloud Formation template for our lambda function.  
+<br/>
+When following the instructions below, **you must name your lambda function _workshopphotoprocessor_**. Later, we'll edit some CloudFormation templates, and the function name **workshopphotoprocessor** is hard coded to make it easier for this workshop (less edits that you'll have to do).
 <br/>
 <br/>
-Later, we'll edit some CloudFormation templates, and the function name **workshopphotoprocessor** is hard coded to make it easier for this workshop (less edits that you'll have to do).
+**Amplify will also ask us if we want to access other resources created in this project from this new Lambda function.** **Say No to this prompt.**  You might think we want to say 'Yes' here, because Amplify will then generate appropriate IAM access policies to allow our photo processor lambda function to access the photos in our S3 bucket.  However, we're going to be making a few other modifications to the default Cloud Formation template that Amplify generates, and so in this case, it's going to be easier if we just say 'No' to this question because we'll copy/paste sufficient configuration changes to the generated Cloud Formation template in the next step.
 {{% /notice %}}
 
-1. **From the photo-albums directory, run:** `amplify function add` and respond to the prompts the same way as shown below. Make sure you press Enter before continuing to step 2:
+
+1. **From the photo-albums directory, run:** `amplify function add` and respond to the prompts the same way as shown below. 
+
+1. Make sure you **press Enter before continuing to step 3 after following these prompts**:
 	```text
 	$ amplify function add
 	Using service: Lambda, provided by: awscloudformation
@@ -33,13 +38,20 @@ Later, we'll edit some CloudFormation templates, and the function name **worksho
 
 	Hello world function
 
+    ? Do you want to access other resources created in this project from your Lambda function? 
+	
+	No
+
 
 	? Do you want to edit the local lambda function now? 
+
 	Yes
+
 
 	Please manually edit the file created at /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js
 
 	? Press enter to continue 
+
 	<Enter>
 
 	Successfully added resource workshopphotoprocessor locally.

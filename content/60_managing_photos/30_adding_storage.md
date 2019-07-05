@@ -29,8 +29,7 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     Content (Images, audio, video, etc.)
 
 
-    ? Please provide a friendly name for your resource that will be used to label this category in the proje
-    ct: photoalbumsstorage
+    ? Please provide a friendly name for your resource that will be used to label this category in the project: photoalbumsstorage
 
 
     ? Please provide bucket name: <accept the default value>
