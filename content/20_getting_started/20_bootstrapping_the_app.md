@@ -15,7 +15,9 @@ This will give us a sample React app with a local auto-reloading web server and 
 You can learn more about create-react-app at [https://github.com/facebook/create-react-app](https://github.com/facebook/create-react-app).
 {{% /notice %}}
 
-**In the Cloud9 terminal, run** `npx create-react-app photo-albums`, then navigate to the newly created directory `cd photo-albums`
+**In the Cloud9 terminal, run** `npx create-react-app photo-albums`.
+
+**Then, navigate to the newly created directory with** `cd photo-albums`.
 
 
 ### Adding Semantic UI React
