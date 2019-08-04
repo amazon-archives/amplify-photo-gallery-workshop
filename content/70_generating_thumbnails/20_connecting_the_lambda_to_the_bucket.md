@@ -711,10 +711,19 @@ After you paste the new template shown above, find the text **REPLACE_WITH_USERF
 You can find this value in **photo-albums/src/aws-exports.js** under the **aws_user_files_s3_bucket** key.
 {{% /notice %}}
 
+3. **From the photo-albums directory, run** `amplify update storage`.
 
-3. **From the photo-albums directory, run:** `amplify push` to update our storage configuration. 
+4. **Press Enter** until you reach the prompt about a Lambda Trigger.
 
-4. Wait for the update to complete. This step usually only takes a minute or two.
+5. When prompted, "Do you want to add a Lambda Trigger for your S3 Bucket?", **select 'Yes'**.
+
+6. **Press Enter** to "Choose an existing function from the project".
+
+7. **Press Enter** to select 'workshopphotoprocessor'.
+
+8. **Run** `amplify push` to update our storage configuration. 
+
+9. Wait for the update to complete. This step usually only takes a minute or two.
 
 ### What we changed in amplify/.../s3-cloudformation-template.json
 - Added a *InvokePhotoProcessorLambda* resource, giving the S3Bucket permission to invoke the PhotoProcessor lambda function.

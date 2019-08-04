@@ -16,7 +16,7 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
 
 3. **Enter values or accept defaults** for the resource category and bucket name
 
-4. **Chose Auth and guest users** when asked who should have access. Configure it so that **authenticated users** have access with **create/update, read, and delete access** (use the spacebar to toggle on/off, the arrow keys to move, and Enter to continue) and **guests** have **read permission**. 
+4. **Chose Auth and guest users** when asked who should have access. Configure it so that **authenticated users** have access with **create/update, read, and delete access** (use the spacebar to toggle on/off, the arrow keys to move, and Enter to continue) and **guests** have **read permission**. When prompted about a Lambda Trigger, **select 'No'**.
 
     Here is sample output with responses:
 
@@ -48,6 +48,9 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     ◯ create/update
     ◉ read
     ◯ delete
+    
+    
+    ? Do you want to add a Lambda Trigger for your S3 Bucket? No
     ```
 
 Now we'll have Amplify modify our cloud environment, provisioning the storage resources we just added.
