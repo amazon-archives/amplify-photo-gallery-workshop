@@ -47,9 +47,11 @@ This will create a new local configuration for us which we can use to set up an 
    
 1. **Select Username** when asked how you want users to sign in
    
-1. **Leave Email selected** when asked what attributes are required for signing up, **make no changes and press Enter to continue**
+1. **Select "No, I am done."** when asked about advanced settings.
 
 2. **Run** `amplify push` to create these changes in the cloud
+
+2. Confirm you want Amplify to make changes in the cloud for you.
 
 3. Wait for the provisioning to complete. This will take a few minutes.
 
