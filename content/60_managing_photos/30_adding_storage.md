@@ -61,14 +61,6 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     No
     ```
 
-We'll now run a script to rename the Lambda Function from S3Triggerxxxxxxx to **_workshopphotoprocessor_**
-### GABE TO INSERT sed script below###
-```text
-####This script must replace all the S3Triggerxxxxxxx with workshopphotoprocessor under the photoalbums/amplify/ 
-Make sure to replace the function directory name and the funtion cloudformation template name as well. (not sure if needed)####
-```
-### GABE TO INSERT sed script above###
-
 We'll modify this Lambda function later, for now we want to create the S3 bucket to host our photos.
 
 Now we'll have Amplify modify our cloud environment, provisioning the storage resources we just added.

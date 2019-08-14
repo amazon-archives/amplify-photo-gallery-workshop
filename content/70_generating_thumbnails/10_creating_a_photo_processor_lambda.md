@@ -6,10 +6,10 @@ weight = 10
 
 Remember the Lambda function we created earlier? We'll now modify it to make it resize photos into thumbnails.
 
-2. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/workshopphotoprocessor/src/index.js** with the following:
+2. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/index.js** with the following:
 <div style="height: 560px; overflow-y: scroll; margin: 0;">
 {{< highlight js >}}
-// amplify/backend/function/workshopphotoprocessor/src/index.js
+// amplify/backend/function/S3Triggerxxxxxxx/src/index.js
 
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3({ signatureVersion: 'v4' });
@@ -132,10 +132,10 @@ exports.handler = async (event, context, callback) => {
 </div>
 
 
-3. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/workshopphotoprocessor/src/package.json** with the following:
+3. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/package.json** with the following:
 ```json
 {
-	"name": "workshopphotoprocessor",
+	"name": "S3Triggerxxxxxxx",
 	"version": "1.0.0",
 	"description": "The photo uploads processor",
 	"main": "index.js",
@@ -150,25 +150,7 @@ exports.handler = async (event, context, callback) => {
 4. **From the photoalbums directory, run:** `amplify function build` and press Enter to confirm. This will take care of installing the dependencies in our Lambda function's package.json.
 
 
-5. **Create photoalbums/amplify/backend/function/workshopphotoprocessor/parameters.json** and paste this content into it:
-```json
-{
-	"S3UserfilesBucketName": "REPLACE_WITH_USERFILES_BUCKET_NAME",
-	"DynamoDBPhotosTableArn": "REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN"
-}
-```
-
-6. In *parameters.json* that you just created, replace **REPLACE_WITH_USERFILES_BUCKET_NAME** with the name of the S3 Userfiles bucket created by Amplify. 
-
-	To find this value, look in **photoalbums/src/aws-exports.js** and find the **aws_user_files_s3_bucket** key.
-
-
-7. In *parameters.json*, also replace **REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN** with the name ARN of the DynamoDB table used by AppSync for the Photo data type.
-   
-	To find this value, go to the **Data Sources** section in your AppSync API console, find the **PhotoTable** entry and click on the link in its **Resource** column (which takes you to the associated DynamoDB table), then look in the bottom of the Overview tab for the ARN of the table.
-
-
-8.  **Replace photoalbums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** with the following:
+8.  **Replace photoalbums/amplify/backend/function/S3Triggerxxxxxxx/S3Triggerxxxxxxx-cloudformation-template.json** with the following:
 <div style="height: 550px; overflow-y: scroll;">
 {{< highlight json "hl_lines=4-14 29-36 100-183">}}
 {
@@ -176,21 +158,60 @@ exports.handler = async (event, context, callback) => {
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
 		"env": {
-            "Type": "String"
-        },
-		"S3UserfilesBucketName": {
 			"Type": "String"
 		},
-		"DynamoDBPhotosTableArn": {
-			"Type": "String"
+		"DynamoDBPhotoTableArn": {
+			"Type": "String",
+			"Default": "DYNAMODB_PHOTO_TABLE_ARN_PLACEHOLDER"
+		}
+	},
+	"Conditions": {
+		"ShouldNotCreateEnvResources": {
+			"Fn::Equals": [
+				{
+					"Ref": "env"
+				},
+				"NONE"
+			]
 		}
 	},
 	"Resources": {
 		"LambdaFunction": {
 			"Type": "AWS::Lambda::Function",
+			"Metadata": {
+				"aws:asset:path": "./src",
+				"aws:asset:property": "Code"
+			},
 			"Properties": {
 				"Handler": "index.handler",
-				"FunctionName": "workshopphotoprocessor",
+				"FunctionName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"S3_TRIGGER_NAME_PLACEHOLDER",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"S3_TRIGGER_NAME_PLACEHOLDER",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
+				"Environment": {
+					"Variables": {
+						"ENV": {
+							"Ref": "env"
+						},
+						"THUMBNAIL_WIDTH": "80",
+						"THUMBNAIL_HEIGHT": "80",
+						"DYNAMODB_PHOTOS_TABLE_ARN": { "Ref" : "DynamoDBPhotoTableArn" }
+					}
+				},
 				"Role": {
 					"Fn::GetAtt": [
 						"LambdaExecutionRole",
@@ -198,21 +219,30 @@ exports.handler = async (event, context, callback) => {
 					]
 				},
 				"Runtime": "nodejs8.10",
-				"Timeout": "25",
-				"Environment": {
-					"Variables": {
-						"ENV": {"Ref": "env"},
-						"THUMBNAIL_WIDTH": "80",
-						"THUMBNAIL_HEIGHT": "80",
-						"DYNAMODB_PHOTOS_TABLE_ARN": { "Ref": "DynamoDBPhotosTableArn" }
-					}
-				}
+				"Timeout": "25"
 			}
 		},
 		"LambdaExecutionRole": {
 			"Type": "AWS::IAM::Role",
 			"Properties": {
-				"RoleName": "photoalbumsLambdaRole91d2faf3",
+				"RoleName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"S3_TRIGGER_NAME_PLACEHOLDERLambdaRole66924eb7",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"S3_TRIGGER_NAME_PLACEHOLDERLambdaRole66924eb7",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
 				"AssumeRolePolicyDocument": {
 					"Version": "2012-10-17",
 					"Statement": [
@@ -274,41 +304,6 @@ exports.handler = async (event, context, callback) => {
 				}
 			}
 		},
-		"AllPrivsForPhotoAlbums": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "AllPrivsForPhotoAlbums",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"s3:*"
-							],
-							"Resource": {
-								"Fn::Sub": [
-									"arn:aws:s3:::${S3UserfilesBucketName}/*",
-									{
-										"S3UserfilesBucketName": {
-											"Ref": "S3UserfilesBucketName"
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
 		"AllPrivsForDynamo": {
 			"DependsOn": [
 				"LambdaExecutionRole"
@@ -329,20 +324,24 @@ exports.handler = async (event, context, callback) => {
 							"Action": [
 								"dynamodb:*"
 							],
-							"Resource": {
-								"Ref": "DynamoDBPhotosTableArn"
-							}
+							"Resource": { "Ref" : "DynamoDBPhotoTableArn" }
 						}
 					]
 				}
 			}
 		},
 		"RekognitionDetectLabels": {
-			"DependsOn": [ "LambdaExecutionRole" ],
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
 			"Type": "AWS::IAM::Policy",
 			"Properties": {
 				"PolicyName": "RekognitionDetectLabels",
-				"Roles": [ { "Ref": "LambdaExecutionRole" } ],
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
 				"PolicyDocument": {
 					"Version": "2012-10-17",
 					"Statement": [
@@ -356,7 +355,7 @@ exports.handler = async (event, context, callback) => {
 					]
 				}
 			}
-		}		
+		}
 	},
 	"Outputs": {
 		"Name": {
@@ -387,6 +386,19 @@ exports.handler = async (event, context, callback) => {
 {{< /highlight >}}
 </div>
 
+9. **Run** the following commands on the terminal of your Cloud9 IDE from the same **photoalbums** directory you've been working on:
+```bash
+AMPLIFY_ENV=$(jq -r '.envName' amplify/.config/local-env-info.json)
+REGION=$(jq -r '.providers.awscloudformation.Region' amplify/backend/amplify-meta.json)
+STACK_ID=$(jq -r '.providers.awscloudformation.StackId' amplify/backend/amplify-meta.json)
+ACCOUNT_ID=$(echo $STACK_ID | sed -r 's/^arn:aws:(.+):(.+):(.+):stack.+$/\3/')
+API_ID=$(jq -r '.api.photoalbums.output.GraphQLAPIIdOutput' amplify/backend/amplify-meta.json)
+DYNAMO_DB_PHOTO_TABLE_ARN="arn:aws:dynamodb:$REGION:$ACCOUNT_ID:table/Photo-$API_ID-$AMPLIFY_ENV"
+S3_TRIGGER_NAME=$(jq -r '.function | to_entries[] | .key' amplify/backend/amplify-meta.json)
+sed -i "s/S3_TRIGGER_NAME_PLACEHOLDER/$S3_TRIGGER_NAME/g" amplify/backend/function/$S3_TRIGGER_NAME/$S3_TRIGGER_NAME-cloudformation-template.json
+sed -i "s,DYNAMODB_PHOTO_TABLE_ARN_PLACEHOLDER,$DYNAMO_DB_PHOTO_TABLE_ARN,g" amplify/backend/function/$S3_TRIGGER_NAME/$S3_TRIGGER_NAME-cloudformation-template.json
+```
+
 9. **From the photoalbums directory, run:** `amplify push` to deploy our new function.
 
 10. Wait for the deploy to finish. This step usually only takes about a minute or two.
@@ -409,10 +421,6 @@ The AWS Amplify CLI manages the cloud resources in our project by generating Clo
 <br/> <br/>
 Beware that not all changes are safe to make, and the Amplify CLI may overwrite edits you make in some CloudFormation templates. All of the changes we make in this workshop will persist and won't get overwritten by Amplify because we're not issuing any commands to re-configure or remove any of the resources we're editing, but it's good to remember that this sort of thing _can_ happen if you attempt to use the CLI to re-configure a resource you've already generated with Amplify.
 {{% /notice %}}
-
-3. **From the photoalbums directory, run:** `amplify push` to update our storage configuration. 
-
-4. Wait for the update to complete. This step usually only takes a minute or two.
 
 ### Try uploading another photo
 
