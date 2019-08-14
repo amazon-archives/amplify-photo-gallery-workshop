@@ -19,7 +19,7 @@ nvm install v8.11.0
 nvm alias default v8.11.0
 
 # Install the AWS Amplify CLI
-npm install -g @aws-amplify/cli
+npm install -g @aws-amplify/cli@1.12.0
 ```
 
 {{% notice note %}}
