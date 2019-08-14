@@ -4,59 +4,7 @@ chapter = false
 weight = 10
 +++
 
-Let's make a photo processor lambda function so that we can resize our photos.
-
-{{% notice warning %}}
-We're about to run `amplify function add` and answer some interactive questions so that Amplify will help create an appropriate Cloud Formation template for our lambda function.  
-<br/>
-When following the instructions below, **you must name your lambda function _workshopphotoprocessor_**. Later, we'll edit some CloudFormation templates, and the function name **workshopphotoprocessor** is hard coded to make it easier for this workshop (less edits that you'll have to do).
-<br/>
-<br/>
-**Amplify will also ask us if we want to access other resources created in this project from this new Lambda function.** **Say No to this prompt.**  You might think we want to say 'Yes' here, because Amplify will then generate appropriate IAM access policies to allow our photo processor lambda function to access the photos in our S3 bucket.  However, we're going to be making a few other modifications to the default Cloud Formation template that Amplify generates, and so in this case, it's going to be easier if we just say 'No' to this question because we'll copy/paste sufficient configuration changes to the generated Cloud Formation template in the next step.
-{{% /notice %}}
-
-
-1. **From the photoalbums directory, run:** `amplify function add` and respond to the prompts the same way as shown below. 
-
-1. Make sure you **press Enter before continuing to step 3 after following these prompts**:
-	```text
-	$ amplify function add
-	Using service: Lambda, provided by: awscloudformation
-
-
-	? Provide a friendly name for your resource to be used as a label for this category in the project: 
-
-	workshopphotoprocessor
-
-
-	? Provide the AWS Lambda function name: 
-
-	workshopphotoprocessor
-
-
-	? Choose the function template that you want to use: 
-
-	Hello world function
-
-    ? Do you want to access other resources created in this project from your Lambda function? 
-	
-	No
-
-
-	? Do you want to edit the local lambda function now? 
-
-	Yes
-
-
-	Please manually edit the file created at /home/ec2-user/environment/photoalbums/amplify/backend/function/workshopphotoprocessor/src/index.js
-
-	? Press enter to continue 
-
-	<Enter>
-
-	Successfully added resource workshopphotoprocessor locally.
-	```
-
+Remember the Lambda function we created earlier? We'll now modify it to make it resize photos into thumbnails.
 
 2. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/workshopphotoprocessor/src/index.js** with the following:
 <div style="height: 560px; overflow-y: scroll; margin: 0;">
@@ -428,6 +376,11 @@ exports.handler = async (event, context, callback) => {
 			"Value": {
 				"Ref": "AWS::Region"
 			}
+		},
+		"LambdaExecutionRole": {
+			"Value": {
+				"Ref": "LambdaExecutionRole"
+			}
 		}
 	}
 }
@@ -456,3 +409,13 @@ The AWS Amplify CLI manages the cloud resources in our project by generating Clo
 <br/> <br/>
 Beware that not all changes are safe to make, and the Amplify CLI may overwrite edits you make in some CloudFormation templates. All of the changes we make in this workshop will persist and won't get overwritten by Amplify because we're not issuing any commands to re-configure or remove any of the resources we're editing, but it's good to remember that this sort of thing _can_ happen if you attempt to use the CLI to re-configure a resource you've already generated with Amplify.
 {{% /notice %}}
+
+3. **From the photoalbums directory, run:** `amplify push` to update our storage configuration. 
+
+4. Wait for the update to complete. This step usually only takes a minute or two.
+
+### Try uploading another photo
+
+With these changes completed, we should be able to upload a photo and see our Photo Processor function execute automatically. Try uploading a photo to an album, wait a moment, then refresh the page to see if the album renders the newly uploaded photo. If you see a photo, it means that our Photo Processor function was automatically triggered by the upload, it created a thumbnail, and it added all of the photo information to the DynamoDB table that our AppSync API reads from for resolving Photos. 
+
+Refreshing the album view in order to see new photos isn’t a great user experience, but this workshop has a lot of material already and there’s still more to cover in the next section, too. In short, one way to handle this with another AppSync subscription would be to have our photo processor Lambda function trigger a mutation on our AppSync API, and to have the AlbumDetailsLoader component subscribe to that mutation. However, because we’re using Amazon Cognito User Pool authentication for our AppSync API, the only way to have our Lambda function trigger such a mutation would be to create a sort of ‘system’ user (through the normal user sign up and confirmation process), store that user’s credentials securely (perhaps in AWS Secrets Manager), and authenticate to our AppSync API as that user inside our Lambda in order to trigger the mutation. For simplicity's sake, we'll stick to just refreshing the album view for this workshop.

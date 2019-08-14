@@ -35,7 +35,7 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     ? Please provide bucket name: <accept the default value>
 
 
-    ? Who should have access: Auth users only
+    ? Who should have access: Auth and guest users
 
 
     ? What kind of access do you want for Authenticated users? 
@@ -48,7 +48,28 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     ◯ create/update
     ◉ read
     ◯ delete
+
+
+    ? Do you want to add a Lambda Trigger for your S3 Bucket? Yes
+
+
+    ? Select from the following options 
+    Create a new function 
+
+
+    ? Do you want to edit the local S3Triggerxxxxxxx lambda function now? (Y/n) 
+    No
     ```
+
+We'll now run a script to rename the Lambda Function from S3Triggerxxxxxxx to **_workshopphotoprocessor_**
+### GABE TO INSERT sed script below###
+```text
+####This script must replace all the S3Triggerxxxxxxx with workshopphotoprocessor under the photoalbums/amplify/ 
+Make sure to replace the function directory name and the funtion cloudformation template name as well. (not sure if needed)####
+```
+### GABE TO INSERT sed script above###
+
+We'll modify this Lambda function later, for now we want to create the S3 bucket to host our photos.
 
 Now we'll have Amplify modify our cloud environment, provisioning the storage resources we just added.
 
