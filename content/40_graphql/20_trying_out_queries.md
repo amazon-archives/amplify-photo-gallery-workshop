@@ -5,17 +5,7 @@ weight = 20
 +++
 
 
-**Open the AWS Console** and **click into the photoalbums-master API**. Now we can start poking around with the API.
-
-{{% tabs %}}
-{{% tab "us-east-1" "North America" %}}
-Link to [AWS AppSync web console in Northern Virgina](https://console.aws.amazon.com/appsync/home?region=us-east-1#/apis)
-{{% /tab %}}
-
-{{% tab  "eu-west-1"  "Europe" %}}
-Link to [AWS AppSync web console in Ireland](https://console.aws.amazon.com/appsync/home?region=eu-west-1#/apis)
-{{% /tab %}}
-{{% /tabs %}}
+**Open the AWS Console**, browse to AppSync, make sure you're in your chosen region and **click into the photoalbums-master API**. Now we can start poking around with the API.
 
 **Click Queries** in the sidebar on the left.
 
