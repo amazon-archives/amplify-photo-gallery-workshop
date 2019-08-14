@@ -8,10 +8,10 @@ With all of the back-end work completed, now we just need to update our web app 
 
 Let's create a new *Search* component and add it to the *App* component to be rendered on the root path. For rendering all of the matching photos in the *Search* component, we'll re-use the *PhotosList* component we already created.
 
-**Replace photo-albums/src/App.js** with the following:
+**Replace photoalbums/src/App.js** with the following:
 <div style="height: 595px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=67-144 408">}}
-// photo-albums/src/App.js
+// photoalbums/src/App.js
 
 import React, { Component } from 'react';
 

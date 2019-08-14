@@ -23,14 +23,15 @@ Let's update our front-end to:
 - show a list of albums
 - allow users to click into an album to view its details
 
-**From the photo-albums directory, run** `npm install --save react-router-dom` to **add a new dependency** for routing. 
+**From the photoalbums directory, run** `npm install --save react-router-dom` to **add a new dependency** for routing. 
 
 {{% notice note %}}
 Usually, we'd create separate files for each of our components, but here we'll just keep everything together so we can see all of the front end code in one place.
 {{% /notice %}}
 
 
-**Replace photo-albums/src/App.js** with the following updated version:
+**Replace photoalbums/src/App.js** with the following updated version:
+<div style="height: 660px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=5 6 8 9 14-207">}}
 // src/App.js
 
@@ -242,6 +243,7 @@ class App extends Component {
 
 export default withAuthenticator(App, {includeGreetings: true});
 {{< /highlight >}}
+</div>
 
 ### What we changed in src/App.js
 

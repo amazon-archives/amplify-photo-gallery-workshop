@@ -13,9 +13,9 @@ The simplest way to do this is to have each album contain a set of usernames tha
 
 Amplify supports multiple authorization declarations on the *@model* types in our GraphQL Schema. We can add a second auth rule, stating that any user who's username is in an Album's *members* field can see (but not edit) the record.
 
-1. **Replace /photo-albums/amplify/backend/api/photoalbums/schema.graphql** with the following:
+1. **Replace /photoalbums/amplify/backend/api/photoalbums/schema.graphql** with the following:
 {{< highlight graphql "hl_lines=5-8">}}
-# amplify/backend/api/photo-albums/schema.graphql
+# amplify/backend/api/photoalbums/schema.graphql
 
 type Album 
   @model 
@@ -60,10 +60,10 @@ You can learn more about adding multiple ownership rules to a model in [the Grap
 
 Now that our backend has been updated to look for a list of usernames in a *members* field on our album records, all we need to do is update our UI to allow an album's owner to manage the usernames that should be considered members of the album. We'll also add in another AppSync subscription so that our listing of usernames will refresh when a new username is added to an album.
 
-**Replace photo-albums/src/App.js** with the following updated version:
+**Replace photoalbums/src/App.js** with the following updated version:
 <div style="height: 595px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=6 10 49-58 64-65 370-387 428-433 441-452 503-569">}}
-// photo-albums/src/App.js
+// photoalbums/src/App.js
 
 import React, { Component } from 'react';
 

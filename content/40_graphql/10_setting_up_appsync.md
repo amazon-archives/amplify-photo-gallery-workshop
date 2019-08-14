@@ -14,7 +14,7 @@ To build our API we'll use [AWS AppSync](https://aws.amazon.com/appsync/), a man
 
 ### Adding an AWS AppSync API
 
-**From the photo-albums directory, run** `amplify add api` and respond to the prompts like this:
+**From the photoalbums directory, run** `amplify add api` and respond to the prompts like this:
 ```text
 $ amplify add api 
 
@@ -39,7 +39,7 @@ One-to-many relationship (e.g., “Blogs” with “Posts” and “Comments”)
 ? Do you want to edit the schema now? 
 Yes
 
-Please manually edit the file created at /home/ec2-user/environment/photo-albums/amplify/backend/api/photoalbums/schema.graphql
+Please manually edit the file created at /home/ec2-user/environment/photoalbums/amplify/backend/api/photoalbums/schema.graphql
 
 ? Press enter to continue 
 ```
@@ -49,10 +49,10 @@ Please manually edit the file created at /home/ec2-user/environment/photo-albums
 
 Below is a schema that will suit our needs for storing and querying Albums and Photos. 
 
-1. **Paste this into photo-albums/amplify/backend/api/photoalbums/schema.graphql**, replacing the example schema content. Remember to save the file. Note: in Cloud9 you can mouse-over the file name in the terminal, click it, and select 'Open'.
+1. **Paste this into photoalbums/amplify/backend/api/photoalbums/schema.graphql**, replacing the example schema content. Remember to save the file. Note: in Cloud9 you can mouse-over the file name in the terminal, click it, and select 'Open'.
 
     ```graphql
-    # amplify/backend/api/photo-albums/schema.graphql
+    # amplify/backend/api/photoalbums/schema.graphql
 
     type Album @model @auth(rules: [{allow: owner}]) {
         id: ID!

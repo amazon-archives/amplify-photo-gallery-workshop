@@ -23,7 +23,7 @@ The AWS Amplify CLI makes it easy to deploy our app to a publicly accessible buc
 
     ? hosting bucket name 
 
-    photoalbums-19700101010203--hostingbucket
+    Accept the propossed one that looks like photoalbums-19700101010203--hostingbucket
 
 
     ? index doc for the website 
@@ -37,12 +37,8 @@ The AWS Amplify CLI makes it easy to deploy our app to a publicly accessible buc
     ```
 
 
-2. **Run** `amplify push`
+2. **Run** `amplify publish`. This command includes an _amplify push_ but also publishes changes to our hosted app.
 
-3. Wait for the new S3 bucket that will serve our app's static content is created. This usually takes about a minute.
-
-4. **Run** `amplify publish`
-
-5. Wait while Amplify builds a production version of our app and deploys it to the hosting bucket. This process usually takes a minute or two.
+3. Wait while Amplify builds a production version of our app and deploys it to the hosting bucket. This process usually takes a minute or two.
 
 After the build and deploy finishes, you'll see a URL for the version of deployed app. Any time you make new changes to the app, just re-run `amplify publish` whenever you want to push a new build out.

@@ -5,17 +5,7 @@ weight = 20
 +++
 
 
-**Open the AWS Console** and **click into the photoalbums-master API**. Now we can start poking around with the API.
-
-{{% tabs %}}
-{{% tab "us-east-1" "North America" %}}
-Link to [AWS AppSync web console in Northern Virgina](https://console.aws.amazon.com/appsync/home?region=us-east-1#/apis)
-{{% /tab %}}
-
-{{% tab  "eu-west-1"  "Europe" %}}
-Link to [AWS AppSync web console in Ireland](https://console.aws.amazon.com/appsync/home?region=eu-west-1#/apis)
-{{% /tab %}}
-{{% /tabs %}}
+**Open the AWS Console**, browse to AppSync, make sure you're in your chosen region and **click into the photoalbums-master API**. Now we can start poking around with the API.
 
 **Click Queries** in the sidebar on the left.
 
@@ -34,7 +24,7 @@ Before we can issue queries, we'll need to authenticate (because our AppSync API
 1. **Click the Login with User Pools button** at the top of the query editor.
 
 1. Look up the value for the **ClientId** field
-    1.  In Cloud9, **open photo-albums/src/aws-exports.js**
+    1.  In Cloud9, **open photoalbums/src/aws-exports.js**
     2.  **Copy** the value of the **aws_user_pools_web_client_id** property
 
 1. **Paste** the value into the **ClientId** field

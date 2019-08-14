@@ -12,11 +12,11 @@ Let's create a new _S3ImageUpload_ component that will contain an HTML file inpu
 Our upload event handler will need to upload the file to S3 with some metadata annotating which album it's destined for. Luckily, the [Amplify JS Storage module](https://aws-amplify.github.io/amplify-js/media/storage_guide) makes uploading files to S3 very easy. Also, we'll need to introduce one new dependency to our app — a way to generate UUIDs — because we'll need to ensure that we're uploading files to S3 with unique names (if we used the filenames from users' devices, they could conflict).
 {{% /notice %}}
  
-**From the photo-albums directory, run** `npm install --save uuid`
+**From the photoalbums directory, run** `npm install --save uuid`
 
 Now we'll update our app by adding some imports, creating an S3ImageUpload component, and including the S3ImageUpload component in the AlbumDetails component. 
 
-**Replace photo-albums/src/App.js** with this updated version:
+**Replace photoalbums/src/App.js** with this updated version:
 <div style="height: 660px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=5-6 9-10 49-143 220-263 274-283">}}
 // src/App.js

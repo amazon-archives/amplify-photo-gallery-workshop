@@ -10,13 +10,17 @@ We'll need a place to store all of the photos that get uploaded to our albums. A
 
 First, we'll use the Amplify CLI to enable storage for our app. This will create a bucket on Amazon S3 and set it up with appropriate permissions so that users who are logged in to our app can read from and write to it. We'll also allow guests to read from the bucket, in case we ever want to allow albums to be made public. 
 
-1. **From the photo-albums directory, run** `amplify add storage`
+1. **From the photoalbums directory, run** `amplify add storage`
 
 2. **Select 'Content'** at the prompt
 
 3. **Enter values or accept defaults** for the resource category and bucket name
 
-4. **Chose Auth and guest users** when asked who should have access. Configure it so that **authenticated users** have access with **create/update, read, and delete access** (use the spacebar to toggle on/off, the arrow keys to move, and Enter to continue) and **guests** have **read permission**. 
+4. **Chose Auth and guest users** when asked who should have access. Configure it so that **authenticated users** have access with **create/update, read, and delete access** (use the spacebar to toggle on/off, the arrow keys to move, and Enter to continue) and **guests** have **read permission**.
+
+5. **Select _Yes_** when asked to add a Lambda Trigger for your S3 Bucket. This will create a Lambda function that will get triggered by S3 Events. We'll later use this function for photo processing.
+
+6. **Select _No_** when asked to edit a the Lambda function. We'll do this at a later stage.
 
     Here is sample output with responses:
 
@@ -35,7 +39,7 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     ? Please provide bucket name: <accept the default value>
 
 
-    ? Who should have access: Auth users only
+    ? Who should have access: Auth and guest users
 
 
     ? What kind of access do you want for Authenticated users? 
@@ -48,7 +52,20 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
     ◯ create/update
     ◉ read
     ◯ delete
+
+
+    ? Do you want to add a Lambda Trigger for your S3 Bucket? Yes
+
+
+    ? Select from the following options 
+    Create a new function 
+
+
+    ? Do you want to edit the local S3Triggerxxxxxxx lambda function now? (Y/n) 
+    No
     ```
+
+We'll modify this Lambda function later, for now we want to create the S3 bucket to host our photos.
 
 Now we'll have Amplify modify our cloud environment, provisioning the storage resources we just added.
 

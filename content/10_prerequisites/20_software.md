@@ -14,12 +14,15 @@ In the Cloud9 terminal, **run the following commands** to install and update som
 # Update the AWS CLI
 pip install --user --upgrade awscli
 
-# Install and use Node.js v8.10 (to match AWS Lambda)
+# Install and use Node.js v8.11 (to match AWS Lambda)
 nvm install v8.11.0
 nvm alias default v8.11.0
 
 # Install the AWS Amplify CLI
-npm install -g @aws-amplify/cli
+npm install -g @aws-amplify/cli@1.12.0
+
+# Install jq
+sudo yum install jq -y
 ```
 
 {{% notice note %}}
@@ -33,7 +36,7 @@ A best practice is to deploy your infrastructure close to your customers, let's 
 **Create an AWS config file**, run:
 
 {{% tabs %}}
-{{% tab "us-east-1" "North America" %}}
+{{% tab "us-east-1" "Virginia" %}}
 ```bash
 cat <<END > ~/.aws/config
 [default]
@@ -42,11 +45,29 @@ END
 ```
 {{% /tab %}}
 
-{{% tab  "eu-west-1"  "Europe" %}}
+{{% tab "us-west-2" "Oregon" %}}
+```bash
+cat <<END > ~/.aws/config
+[default]
+region=us-west-2
+END
+```
+{{% /tab %}}
+
+{{% tab "eu-west-1" "Ireland" %}}
 ```bash
 cat <<END > ~/.aws/config
 [default]
 region=eu-west-1
+END
+```
+{{% /tab %}}
+
+{{% tab  "ap-southeast-1"  "Singapore" %}}
+```bash
+cat <<END > ~/.aws/config
+[default]
+region=ap-southeast-1
 END
 ```
 {{% /tab %}}

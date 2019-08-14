@@ -15,13 +15,13 @@ Here's what the sign-in screen will look like:
 
 ### Initializing Amplify
 
-**On the command line, in the photo-albums directory**:
+**On the command line, in the photoalbums directory**:
 
-1. **Be sure to be in photo-albums directory** `cd photo-albums`
+1. **Be sure to be in photoalbums directory** `cd photoalbums`
 
 1. **Run** `amplify init`
 
-1. **Press _Enter_** to accept the default project name 'photo-albums'
+1. **Press _Enter_** to accept the default project name 'photoalbums'
 
 1. **Enter 'master'** for the environment name
 
@@ -47,9 +47,11 @@ This will create a new local configuration for us which we can use to set up an 
    
 1. **Select Username** when asked how you want users to sign in
    
-1. **Leave Email selected** when asked what attributes are required for signing up, **make no changes and press Enter to continue**
+1. **Select "No, I am done."** when asked about advanced settings.
 
 2. **Run** `amplify push` to create these changes in the cloud
+
+2. Confirm you want Amplify to make changes in the cloud for you.
 
 3. Wait for the provisioning to complete. This will take a few minutes.
 
