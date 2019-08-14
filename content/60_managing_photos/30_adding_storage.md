@@ -20,6 +20,8 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
 
 5. **Select _Yes_** when asked to add a Lambda Trigger for your S3 Bucket. This will create a Lambda function that will get triggered by S3 Events. We'll later use this function for photo processing.
 
+6. **Select _No_** when asked to edit a the Lambda function. We'll do this at a later stage.
+
     Here is sample output with responses:
 
     ```text
