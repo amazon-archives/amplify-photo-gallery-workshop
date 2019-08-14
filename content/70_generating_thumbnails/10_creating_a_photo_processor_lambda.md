@@ -16,7 +16,7 @@ When following the instructions below, **you must name your lambda function _wor
 {{% /notice %}}
 
 
-1. **From the photo-albums directory, run:** `amplify function add` and respond to the prompts the same way as shown below. 
+1. **From the photoalbums directory, run:** `amplify function add` and respond to the prompts the same way as shown below. 
 
 1. Make sure you **press Enter before continuing to step 3 after following these prompts**:
 	```text
@@ -48,7 +48,7 @@ When following the instructions below, **you must name your lambda function _wor
 	Yes
 
 
-	Please manually edit the file created at /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js
+	Please manually edit the file created at /home/ec2-user/environment/photoalbums/amplify/backend/function/workshopphotoprocessor/src/index.js
 
 	? Press enter to continue 
 
@@ -58,7 +58,7 @@ When following the instructions below, **you must name your lambda function _wor
 	```
 
 
-2. **Replace /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js** with the following:
+2. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/workshopphotoprocessor/src/index.js** with the following:
 <div style="height: 560px; overflow-y: scroll; margin: 0;">
 {{< highlight js >}}
 // amplify/backend/function/workshopphotoprocessor/src/index.js
@@ -184,7 +184,7 @@ exports.handler = async (event, context, callback) => {
 </div>
 
 
-3. **Replace /home/ec2-user/environment/photo-albums/amplify/backend/function/workshopphotoprocessor/src/package.json** with the following:
+3. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/workshopphotoprocessor/src/package.json** with the following:
 ```json
 {
 	"name": "workshopphotoprocessor",
@@ -199,10 +199,10 @@ exports.handler = async (event, context, callback) => {
 ```
 
 
-4. **From the photo-albums directory, run:** `amplify function build` and press Enter to confirm. This will take care of installing the dependencies in our Lambda function's package.json.
+4. **From the photoalbums directory, run:** `amplify function build` and press Enter to confirm. This will take care of installing the dependencies in our Lambda function's package.json.
 
 
-5. **Create photo-albums/amplify/backend/function/workshopphotoprocessor/parameters.json** and paste this content into it:
+5. **Create photoalbums/amplify/backend/function/workshopphotoprocessor/parameters.json** and paste this content into it:
 ```json
 {
 	"S3UserfilesBucketName": "REPLACE_WITH_USERFILES_BUCKET_NAME",
@@ -212,7 +212,7 @@ exports.handler = async (event, context, callback) => {
 
 6. In *parameters.json* that you just created, replace **REPLACE_WITH_USERFILES_BUCKET_NAME** with the name of the S3 Userfiles bucket created by Amplify. 
 
-	To find this value, look in **photo-albums/src/aws-exports.js** and find the **aws_user_files_s3_bucket** key.
+	To find this value, look in **photoalbums/src/aws-exports.js** and find the **aws_user_files_s3_bucket** key.
 
 
 7. In *parameters.json*, also replace **REPLACE_WITH_DYNAMO_PHOTOS_TABLE_ARN** with the name ARN of the DynamoDB table used by AppSync for the Photo data type.
@@ -220,7 +220,7 @@ exports.handler = async (event, context, callback) => {
 	To find this value, go to the **Data Sources** section in your AppSync API console, find the **PhotoTable** entry and click on the link in its **Resource** column (which takes you to the associated DynamoDB table), then look in the bottom of the Overview tab for the ARN of the table.
 
 
-8.  **Replace photo-albums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** with the following:
+8.  **Replace photoalbums/amplify/backend/function/workshopphotoprocessor/workshopphotoprocessor-cloudformation-template.json** with the following:
 <div style="height: 550px; overflow-y: scroll;">
 {{< highlight json "hl_lines=4-14 29-36 100-183">}}
 {
@@ -434,7 +434,7 @@ exports.handler = async (event, context, callback) => {
 {{< /highlight >}}
 </div>
 
-9. **From the photo-albums directory, run:** `amplify push` to deploy our new function.
+9. **From the photoalbums directory, run:** `amplify push` to deploy our new function.
 
 10. Wait for the deploy to finish. This step usually only takes about a minute or two.
 

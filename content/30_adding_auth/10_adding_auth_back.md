@@ -15,13 +15,13 @@ Here's what the sign-in screen will look like:
 
 ### Initializing Amplify
 
-**On the command line, in the photo-albums directory**:
+**On the command line, in the photoalbums directory**:
 
-1. **Be sure to be in photo-albums directory** `cd photo-albums`
+1. **Be sure to be in photoalbums directory** `cd photoalbums`
 
 1. **Run** `amplify init`
 
-1. **Press _Enter_** to accept the default project name 'photo-albums'
+1. **Press _Enter_** to accept the default project name 'photoalbums'
 
 1. **Enter 'master'** for the environment name
 

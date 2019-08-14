@@ -10,7 +10,7 @@ We'll need a place to store all of the photos that get uploaded to our albums. A
 
 First, we'll use the Amplify CLI to enable storage for our app. This will create a bucket on Amazon S3 and set it up with appropriate permissions so that users who are logged in to our app can read from and write to it. We'll also allow guests to read from the bucket, in case we ever want to allow albums to be made public. 
 
-1. **From the photo-albums directory, run** `amplify add storage`
+1. **From the photoalbums directory, run** `amplify add storage`
 
 2. **Select 'Content'** at the prompt
 

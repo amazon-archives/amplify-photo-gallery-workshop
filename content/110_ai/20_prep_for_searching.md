@@ -11,9 +11,9 @@ Now that we are storing labels for each photo, we're ready to move on and expose
 While it's possible to perform some level of searching via DynamoDB Query operations, a more flexible and performant approach is to use the Amazon Elasticsearch Service to index data and handle our search queries. Fortunately, the Amplify CLI makes creating an Amazon Elasticsearch Service endpoint, and connecting it to our app's data, very easy.
 
 
-1. **Replace /photo-albums/amplify/backend/api/photoalbums/schema.graphql** with the following:
+1. **Replace /photoalbums/amplify/backend/api/photoalbums/schema.graphql** with the following:
 {{< highlight graphql "hl_lines=9 15">}}
-# amplify/backend/api/photo-albums/schema.graphql
+# amplify/backend/api/photoalbums/schema.graphql
 
 type Album @model @auth(rules: [{allow: owner}]) {
     id: ID!
@@ -37,7 +37,7 @@ type PhotoS3Info {
 }
 {{< /highlight >}}
 
-2. **From the photo-albums directory, run:** `amplify push` to provision our new resources.
+2. **From the photoalbums directory, run:** `amplify push` to provision our new resources.
 
 3. Wait for the update to finish. Creating a new Amazon Elasticsearch Service endpoint can take several minutes. **This step usually takes 8 to 12 minutes to complete.**
 

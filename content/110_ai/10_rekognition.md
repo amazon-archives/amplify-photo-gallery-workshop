@@ -28,7 +28,7 @@ Let's add Amazon Rekognition integration in to our photo_processor lambda functi
 **Replace amplify/backend/function/workshopphotoprocessor/src/index.js** with the following version:
 
 {{< highlight js "hl_lines=5 24-38 116 121">}}
-// photo-albums/amplify/backend/function/workshopphotoprocessor/src/index.js
+// photoalbums/amplify/backend/function/workshopphotoprocessor/src/index.js
 
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3({ signatureVersion: 'v4' });
@@ -180,6 +180,6 @@ Our Photo Processor code now uses Amazon Rekognition's detectLabels API. But bec
 
 ### Re-deploying the Photo Processor Lambda
 
-**From the photo-albums directory, run:** `amplify push` to deploy an updated version of the Photo Processor function.
+**From the photoalbums directory, run:** `amplify push` to deploy an updated version of the Photo Processor function.
 
 After the deploy finishes, try adding a new photo to an album. Then, go look at its row in the PhotoTable in DynamoDB and see if you see a labels property for the new upload. Hopefully you see some relevant labels for the photo!

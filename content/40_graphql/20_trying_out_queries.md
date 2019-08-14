@@ -34,7 +34,7 @@ Before we can issue queries, we'll need to authenticate (because our AppSync API
 1. **Click the Login with User Pools button** at the top of the query editor.
 
 1. Look up the value for the **ClientId** field
-    1.  In Cloud9, **open photo-albums/src/aws-exports.js**
+    1.  In Cloud9, **open photoalbums/src/aws-exports.js**
     2.  **Copy** the value of the **aws_user_pools_web_client_id** property
 
 1. **Paste** the value into the **ClientId** field

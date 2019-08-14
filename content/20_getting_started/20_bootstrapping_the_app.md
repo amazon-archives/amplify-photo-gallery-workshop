@@ -15,16 +15,16 @@ This will give us a sample React app with a local auto-reloading web server and 
 You can learn more about create-react-app at [https://github.com/facebook/create-react-app](https://github.com/facebook/create-react-app).
 {{% /notice %}}
 
-**In the Cloud9 terminal, run** `npx create-react-app photo-albums`.
+**In the Cloud9 terminal, run** `npx create-react-app photoalbums`.
 
-**Then, navigate to the newly created directory with** `cd photo-albums`.
+**Then, navigate to the newly created directory with** `cd photoalbums`.
 
 
 ### Adding Semantic UI React
 
 Before we start writing our UI, we'll also include Semantic UI components for React to give us components that will help make our interface look a bit nicer.
 
-**In the photo-albums directory, run** `npm install --save semantic-ui-react`
+**In the photoalbums directory, run** `npm install --save semantic-ui-react`
 
 Then, **edit public/index.html** and add this stylesheet link:
 
@@ -41,7 +41,7 @@ Then, **edit public/index.html** and add this stylesheet link:
 ### Starting the App
 Now let's start our development server so we can make changes and see them refreshed live in the browser.
 
-**In the photo-albums directory, run** `npm start`. 
+**In the photoalbums directory, run** `npm start`. 
 
 Once the web server has started, click the **Preview** menu and **select Preview Running Application**
 

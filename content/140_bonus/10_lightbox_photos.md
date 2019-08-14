@@ -8,10 +8,10 @@ One thing we haven't yet addressed in our app is adding the ability for users to
 
 ## Updating the front end
 
-**Replace photo-albums/src/App.js** with the following updated version:
+**Replace photoalbums/src/App.js** with the following updated version:
 <div style="height: 595px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=6 61-65 209-226 234 244 371-394">}}
-// photo-albums/src/App.js
+// photoalbums/src/App.js
 
 import React, { Component } from 'react';
 

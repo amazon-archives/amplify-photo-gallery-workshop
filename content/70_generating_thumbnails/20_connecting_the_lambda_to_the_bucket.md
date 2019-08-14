@@ -7,7 +7,7 @@ weight = 20
 ### Triggering the function when new photos are uploaded to the S3 bucket
 Now that we've created our Photo Processor function, we need to set up a trigger for it to run. Since we want to process every photo that gets uploaded to an album, we'll make these changes by updating the configuration of the S3 userfiles bucket that Amplify created for us.
 
-1. **Replace photo-albums/amplify/backend/storage/photoalbumsstorage/s3-cloudformation-template.json** with the following:
+1. **Replace photoalbums/amplify/backend/storage/photoalbumsstorage/s3-cloudformation-template.json** with the following:
 <div style="height: 550px; overflow-y: scroll;">
 {{< highlight json "hl_lines=150-159 213-236 239-274">}}
 {
@@ -708,11 +708,11 @@ Now that we've created our Photo Processor function, we need to set up a trigger
 After you paste the new template shown above, find the text **REPLACE_WITH_USERFILES_BUCKET_NAME** in your pasted template and replace it with the name of your userfiles S3 bucket. 
 <br/>
 <br/>
-You can find this value in **photo-albums/src/aws-exports.js** under the **aws_user_files_s3_bucket** key.
+You can find this value in **photoalbums/src/aws-exports.js** under the **aws_user_files_s3_bucket** key.
 {{% /notice %}}
 
 
-3. **From the photo-albums directory, run:** `amplify push` to update our storage configuration. 
+3. **From the photoalbums directory, run:** `amplify push` to update our storage configuration. 
 
 4. Wait for the update to complete. This step usually only takes a minute or two.
 
