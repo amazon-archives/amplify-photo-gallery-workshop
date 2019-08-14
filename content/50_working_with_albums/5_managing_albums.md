@@ -31,6 +31,7 @@ Usually, we'd create separate files for each of our components, but here we'll j
 
 
 **Replace photoalbums/src/App.js** with the following updated version:
+<div style="height: 660px; overflow-y: scroll;">
 {{< highlight jsx "hl_lines=5 6 8 9 14-207">}}
 // src/App.js
 
@@ -242,6 +243,7 @@ class App extends Component {
 
 export default withAuthenticator(App, {includeGreetings: true});
 {{< /highlight >}}
+</div>
 
 ### What we changed in src/App.js
 
