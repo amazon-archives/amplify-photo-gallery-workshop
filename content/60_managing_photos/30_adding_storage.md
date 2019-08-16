@@ -18,9 +18,9 @@ First, we'll use the Amplify CLI to enable storage for our app. This will create
 
 4. **Chose Auth and guest users** when asked who should have access. Configure it so that **authenticated users** have access with **create/update, read, and delete access** (use the spacebar to toggle on/off, the arrow keys to move, and Enter to continue) and **guests** have **read permission**.
 
-5. **Select _Yes_** when asked to add a Lambda Trigger for your S3 Bucket. This will create a Lambda function that will get triggered by S3 Events. We'll later use this function for photo processing.
+5. **Select _Yes_** when asked to add a Lambda Trigger for your S3 Bucket. This will create a Lambda function that will get triggered by S3 Events. Later on we'll use this function for photo processing.
 
-6. **Select _No_** when asked to edit a the Lambda function. We'll do this at a later stage.
+6. **Select _No_** when asked to edit a the Lambda function. We'll do this at a later step in the workshop.
 
     Here is sample output with responses:
 

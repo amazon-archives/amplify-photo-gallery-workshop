@@ -4,9 +4,19 @@ chapter = false
 weight = 10
 +++
 
-Remember the Lambda function we created earlier? We'll now modify it to make it resize photos into thumbnails.
+Remember the Lambda function we created earlier? Now it's time to modify it so it can resize our uploded photos into thumbnails.
 
-2. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/index.js** with the following:
+{{% notice warning %}}
+The instructions below use the text _S3Triggerxxxxxxx_ to indicate a pattern in your folders and files that you'll need to look for.
+<br/><br/>
+**The folders and files are not actually called S3Triggerxxxxxxx** but rather something like _S3Trigger1a2b3c4_ or similar, so please look
+in your filesystem to find the appropriate files. Hopefully it will be pretty obvious as you look for the files; there should only be
+one match for each of the items mentioned below.
+{{% /notice %}}
+
+
+
+1. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/index.js** with the following:
 <div style="height: 560px; overflow-y: scroll; margin: 0;">
 {{< highlight js >}}
 // amplify/backend/function/S3Triggerxxxxxxx/src/index.js
@@ -135,7 +145,7 @@ exports.handler = async (event, context, callback) => {
 3. **Replace /home/ec2-user/environment/photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/package.json** with the following:
 ```json
 {
-	"name": "S3Triggerxxxxxxx",
+	"name": "S3TriggerPhotoProcessor",
 	"version": "1.0.0",
 	"description": "The photo uploads processor",
 	"main": "index.js",
@@ -386,31 +396,35 @@ exports.handler = async (event, context, callback) => {
 {{< /highlight >}}
 </div>
 
-9. **Run** the following commands on the terminal of your Cloud9 IDE from the same **photoalbums** directory you've been working on:
-```bash
-AMPLIFY_ENV=$(jq -r '.envName' amplify/.config/local-env-info.json)
-REGION=$(jq -r '.providers.awscloudformation.Region' amplify/backend/amplify-meta.json)
-STACK_ID=$(jq -r '.providers.awscloudformation.StackId' amplify/backend/amplify-meta.json)
-ACCOUNT_ID=$(echo $STACK_ID | sed -r 's/^arn:aws:(.+):(.+):(.+):stack.+$/\3/')
-API_ID=$(jq -r '.api.photoalbums.output.GraphQLAPIIdOutput' amplify/backend/amplify-meta.json)
-DYNAMO_DB_PHOTO_TABLE_ARN="arn:aws:dynamodb:$REGION:$ACCOUNT_ID:table/Photo-$API_ID-$AMPLIFY_ENV"
-S3_TRIGGER_NAME=$(jq -r '.function | to_entries[] | .key' amplify/backend/amplify-meta.json)
-sed -i "s/S3_TRIGGER_NAME_PLACEHOLDER/$S3_TRIGGER_NAME/g" amplify/backend/function/$S3_TRIGGER_NAME/$S3_TRIGGER_NAME-cloudformation-template.json
-sed -i "s,DYNAMODB_PHOTO_TABLE_ARN_PLACEHOLDER,$DYNAMO_DB_PHOTO_TABLE_ARN,g" amplify/backend/function/$S3_TRIGGER_NAME/$S3_TRIGGER_NAME-cloudformation-template.json
-```
+9. The Cloud Formation template you just pasted above contains some placeholder text that needs to be replaced with values specific for your environment. **Run the following commands** on the terminal of your Cloud9 IDE from the same **photoalbums** directory you've been working on:
+	```bash
+	AMPLIFY_ENV=$(jq -r '.envName' amplify/.config/local-env-info.json)
+
+	REGION=$(jq -r '.providers.awscloudformation.Region' amplify/backend/amplify-meta.json)
+
+	STACK_ID=$(jq -r '.providers.awscloudformation.StackId' amplify/backend/amplify-meta.json)
+
+	ACCOUNT_ID=$(echo $STACK_ID | sed -r 's/^arn:aws:(.+):(.+):(.+):stack.+$/\3/')
+
+	API_ID=$(jq -r '.api.photoalbums.output.GraphQLAPIIdOutput' amplify/backend/amplify-meta.json)
+
+	DYNAMO_DB_PHOTO_TABLE_ARN="arn:aws:dynamodb:$REGION:$ACCOUNT_ID:table/Photo-$API_ID-$AMPLIFY_ENV"
+
+	S3_TRIGGER_NAME=$(jq -r '.function | to_entries[] | .key' amplify/backend/amplify-meta.json)
+
+	sed -i "s/S3_TRIGGER_NAME_PLACEHOLDER/$S3_TRIGGER_NAME/g" amplify/backend/function/$S3_TRIGGER_NAME/$S3_TRIGGER_NAME-cloudformation-template.json
+
+	sed -i "s,DYNAMODB_PHOTO_TABLE_ARN_PLACEHOLDER,$DYNAMO_DB_PHOTO_TABLE_ARN,g" amplify/backend/function/$S3_TRIGGER_NAME/$S3_TRIGGER_NAME-cloudformation-template.json
+	```
 
 9. **From the photoalbums directory, run:** `amplify push` to deploy our new function.
 
 10. Wait for the deploy to finish. This step usually only takes about a minute or two.
 
 ### What we changed
-- Created a *parameters.json* file to pass some values into the Photo Processor function's CloudFormation template
+- Added parameters *env*, *DynamoDBPhotosTableArn* to the Photo Processor function's CloudFormation template
 
-- Added parameters *env*, *S3UserfilesBucketName*, and *DynamoDBPhotosTableArn* to the Photo Processor function's CloudFormation template
-
-- Added environment variables to the Photo Processor function's configuration: *ENV*, *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN*
-
-- Added an *AllPrivsForPhotoAlbums* IAM policy to grant the function's role read and write access to the S3 bucket containing our photos
+- Added environment variables to the Photo Processor function's configuration: *THUMBNAIL_WIDTH*, *THUMBNAIL_HEIGHT*, *DYNAMODB_PHOTOS_TABLE_ARN*
 
 - Added an *AllPrivsForDynamo* IAM policy to grant the function's role read and write access to the DynamoDB table containing information about our photos
 
