@@ -4,6 +4,14 @@ chapter = false
 weight = 20
 +++
 
+<div style="text-align: left; border: 2px solid red; background-color: #FFDDDD; padding: 20px; font-size: 130%;">
+<strong>Attention</strong>
+<p style="text-align: left">
+  Due to an AWS Lambda runtime environment change, this part of the workshop will not work without performing some manual work to update the generated Lambda function to use a new Lambda Layer. We recommend you skip this section for now. More information is available here:
+   <a href="https://github.com/aws-amplify/amplify-cli/issues/2385#issuecomment-534359510">https://github.com/aws-amplify/amplify-cli/issues/2385#issuecomment-534359510</a>
+</p>
+</div>
+
 #### Updating the GraphQL Schema
 
 Now that we are storing labels for each photo, we're ready to move on and expose this data via our AppSync API.
