@@ -1,6 +1,9 @@
 ---
-title: "Analytics"
-date: 2019-12-11T16:45:04+01:00
-draft: true
+title: "Adding Analytics"
+chapter: true
+weight: 115
 ---
 
+# Adding Analytics
+
+{{% children showhidden="false" %}}
