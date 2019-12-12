@@ -45,10 +45,3 @@ it takes **about 2-3 Minutes** until the first events will be shown at your Amaz
 By default Pinpoint also grabs some demographis of our users.
 
 ![pinpoint demographic](/images/pinpoint_demographics.png)
-
-
-## Extend your business with Amazon Pinpoint
-
-As you might have noticed, Amazon Pinpoint offers much more than just user activity tracking in your application. 
-Tinker around and try to generate value for your business using the analytics data! 
-To get started you can use our [Amazon Pinpoint workshop](https://www.pinpoint-workshop.com/)
