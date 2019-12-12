@@ -6,7 +6,7 @@ weight: 120
 ---
 Next we need to alter and add code in our **src/app.js** to generate trackable events from our application. 
 
-Around line 10 we need to add `Analytics` to our import. The line should look like 
+Around line 10 we need to add **Analytics** to our import. The line should look like 
 
 ```javascript
 import Amplify, { Analytics, API, Auth, graphqlOperation, Storage } from 'aws-amplify';
