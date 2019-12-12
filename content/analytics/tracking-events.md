@@ -59,7 +59,12 @@ Browse to the Amazon Pinpoint Service in your Console to check the Events we're 
 it takes **about 2-3 Minutes** until the first events will be shown at your Amazon Pinpoint Dashboard
 {{% /notice %}}
 
-# Extend your business with Amazon Pinpoint
+By default Pinpoint also grabs some demographis of our users.
+
+![pinpoint demographic](/images/pinpoint_demographics.png)
+
+
+## Extend your business with Amazon Pinpoint
 
 As you might noticed, Amazon Pinpoint offers much more than just to track your users in your application. 
 So tinker around and try to generate value for your business using the analytics data! 
