@@ -13,7 +13,7 @@ import Amplify, { Analytics, API, Auth, graphqlOperation, Storage } from 'aws-am
 ```
 
 Then we need to add the event generation where we want to track our user interaction. 
-Amplify simplifies that all we need to do is to add the following code to **src/app.js**:  
+Amplify simplifies that; all we need to do is to add the following code to **src/app.js**:  
 
 ```javascript
 Analytics.autoTrack('session', {
@@ -32,7 +32,7 @@ Analytics.autoTrack('pageView', {
 });
 ```
 
-This will do everything automatically for you. If you want to further customize when and what to track. There are several options to target this use-case. Tryout and tinker! The official [Amplify documentation](https://aws-amplify.github.io/docs/js/analytics) is a good starting point to get into it
+This will do everything automatically for you. If you want to, you can further customize when and what to track. There are several options to target this use-case. Try it out and tinker! The official [Amplify documentation](https://aws-amplify.github.io/docs/js/analytics) is a good starting point to get into it
 
 Browse to the Amazon Pinpoint Service in your Console to check the Events we're tracking
 
@@ -49,6 +49,6 @@ By default Pinpoint also grabs some demographis of our users.
 
 ## Extend your business with Amazon Pinpoint
 
-As you might noticed, Amazon Pinpoint offers much more than just to track your users in your application. 
-So tinker around and try to generate value for your business using the analytics data! 
+As you might have noticed, Amazon Pinpoint offers much more than just user activity tracking in your application. 
+Tinker around and try to generate value for your business using the analytics data! 
 To get started you can use our [Amazon Pinpoint workshop](https://www.pinpoint-workshop.com/)

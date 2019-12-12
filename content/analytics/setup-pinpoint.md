@@ -5,7 +5,7 @@ draft: true
 weight: 110
 ---
 
-First of all, we need add pinpoint to our project. 
+First of all, we need to add Amazon Pinpoint to our project. 
 
 ### Initializing Amazon Pinpoint via Amplify
 
@@ -17,8 +17,8 @@ First of all, we need add pinpoint to our project.
 
 1. **Define a resource name** like _photoalbums_
 
-1. **Let unauthenticated users send analytics events as well** (as we let unauthenticated users browse our albums and look at our images)
+1. **Let unauthenticated users send analytics events as well** (as we let unauthenticated users send analytics)
 
 ![amplify add analytics](/images/amplify_add_analytics.png)
 
-3. Wait for the provisioning to complete. This will take a few minutes.
+Wait for the provisioning to complete. This will take a few minutes.
