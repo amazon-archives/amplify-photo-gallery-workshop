@@ -1,7 +1,7 @@
 ---
 title: "Tracking Events"
 date: 2019-12-11T16:47:20+01:00
-draft: true
+draft: false
 weight: 120
 ---
 Next we need to alter and add code in our **src/app.js** to generate trackable events from our application. 
