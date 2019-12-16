@@ -53,7 +53,6 @@ Wait a few minutes and you should be able to see "Active targetable endpoints" i
 
 ![pinpoint demographic](/images/pinpoint_endpoints.png)
 
-
 ## Extend your business with Amazon Pinpoint
 
 As you might have noticed, Amazon Pinpoint offers much more than just user activity tracking in your application. 
