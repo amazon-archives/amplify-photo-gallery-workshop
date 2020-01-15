@@ -228,7 +228,7 @@ exports.handler = async (event, context, callback) => {
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs8.10",
+				"Runtime": "nodejs10.x",
 				"Timeout": "25"
 			}
 		},
