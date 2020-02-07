@@ -12,6 +12,7 @@ export const onCreateAlbum = /* GraphQL */ `
           id
           albumId
           bucket
+          labels
           owner
         }
         nextToken
@@ -30,6 +31,7 @@ export const onUpdateAlbum = /* GraphQL */ `
           id
           albumId
           bucket
+          labels
           owner
         }
         nextToken
@@ -48,6 +50,7 @@ export const onDeleteAlbum = /* GraphQL */ `
           id
           albumId
           bucket
+          labels
           owner
         }
         nextToken
@@ -71,6 +74,7 @@ export const onCreatePhoto = /* GraphQL */ `
         width
         height
       }
+      labels
       album {
         id
         name
@@ -99,6 +103,7 @@ export const onUpdatePhoto = /* GraphQL */ `
         width
         height
       }
+      labels
       album {
         id
         name
@@ -127,6 +132,7 @@ export const onDeletePhoto = /* GraphQL */ `
         width
         height
       }
+      labels
       album {
         id
         name

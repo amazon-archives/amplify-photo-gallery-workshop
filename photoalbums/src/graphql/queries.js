@@ -31,6 +31,7 @@ export const getAlbum = /* GraphQL */ `
           id
           albumId
           bucket
+          labels
           owner
         }
         nextToken
@@ -54,6 +55,7 @@ export const getPhoto = /* GraphQL */ `
         width
         height
       }
+      labels
       album {
         id
         name
@@ -87,6 +89,7 @@ export const listPhotos = /* GraphQL */ `
           width
           height
         }
+        labels
         album {
           id
           name
@@ -127,6 +130,7 @@ export const listPhotosByAlbum = /* GraphQL */ `
           width
           height
         }
+        labels
         album {
           id
           name
@@ -135,6 +139,46 @@ export const listPhotosByAlbum = /* GraphQL */ `
         owner
       }
       nextToken
+    }
+  }
+`;
+export const searchPhotos = /* GraphQL */ `
+  query SearchPhotos(
+    $filter: SearchablePhotoFilterInput
+    $sort: SearchablePhotoSortInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    searchPhotos(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        albumId
+        bucket
+        fullsize {
+          key
+          width
+          height
+        }
+        thumbnail {
+          key
+          width
+          height
+        }
+        labels
+        album {
+          id
+          name
+          owner
+        }
+        owner
+      }
+      nextToken
+      total
     }
   }
 `;

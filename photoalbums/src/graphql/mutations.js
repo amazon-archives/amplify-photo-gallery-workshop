@@ -15,6 +15,7 @@ export const createAlbum = /* GraphQL */ `
           id
           albumId
           bucket
+          labels
           owner
         }
         nextToken
@@ -36,6 +37,7 @@ export const updateAlbum = /* GraphQL */ `
           id
           albumId
           bucket
+          labels
           owner
         }
         nextToken
@@ -57,6 +59,7 @@ export const deleteAlbum = /* GraphQL */ `
           id
           albumId
           bucket
+          labels
           owner
         }
         nextToken
@@ -83,6 +86,7 @@ export const createPhoto = /* GraphQL */ `
         width
         height
       }
+      labels
       album {
         id
         name
@@ -114,6 +118,7 @@ export const updatePhoto = /* GraphQL */ `
         width
         height
       }
+      labels
       album {
         id
         name
@@ -145,6 +150,7 @@ export const deletePhoto = /* GraphQL */ `
         width
         height
       }
+      labels
       album {
         id
         name
