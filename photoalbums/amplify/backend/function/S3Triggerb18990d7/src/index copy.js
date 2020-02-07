@@ -28,10 +28,18 @@ const Sharp = require('sharp');
 const THUMBNAIL_WIDTH = parseInt(process.env.THUMBNAIL_WIDTH || 80, 10);
 const THUMBNAIL_HEIGHT = parseInt(process.env.THUMBNAIL_HEIGHT || 80, 10);
 
-let client = null
 
+async function storePhotoInfo(item, jwtToken) {
+  const client = new AWSAppSyncClient({
+    url: process.env.API_PHOTOALBUMS_GRAPHQLAPIENDPOINTOUTPUT,
+    region: process.env.REGION,
+    auth: {
+      type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
+      jwtToken
+    },
+    disableOffline: true
+  });
 
-async function storePhotoInfo(item) {
   console.log('storePhotoItem', JSON.stringify(item))
   const createPhoto = gql`
     mutation CreatePhoto(
@@ -40,7 +48,6 @@ async function storePhotoInfo(item) {
     ) {
       createPhoto(input: $input, condition: $condition) {
         id
-        albumId
         owner
         bucket
         fullsize {
@@ -73,36 +80,41 @@ async function storePhotoInfo(item) {
   return result
   }
 
-function thumbnailKey(keyPrefix, filename) {
-	return `${keyPrefix}/resized/${filename}`;
+async function getMetadata(bucketName, key) {
+	const headResult = await S3.headObject({Bucket: bucketName, Key: key }).promise();
+	return headResult.Metadata;
 }
 
-function fullsizeKey(keyPrefix, filename) {
-	return `${keyPrefix}/fullsize/${filename}`;
+function thumbnailKey(filename) {
+	return `public/resized/${filename}`;
+}
+
+function fullsizeKey(filename) {
+	return `public/${filename}`;
 }
 
 function makeThumbnail(photo) {
 	return Sharp(photo).resize(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT).toBuffer();
 }
 
-async function resize(photoBody, bucketName, key) {
-  const keyPrefix = key.substr(0, key.indexOf('/upload/'))
-  const originalPhotoName = key.substr(key.lastIndexOf('/') + 1)
-  const originalPhotoDimensions = await Sharp(photoBody).metadata();
-  
-  const thumbnail = await makeThumbnail(photoBody);
+async function resize(bucketName, key) {
+	const originalPhoto = (await S3.getObject({ Bucket: bucketName, Key: key }).promise()).Body;
+	const originalPhotoName = key.replace('uploads/', '');
+	const originalPhotoDimensions = await Sharp(originalPhoto).metadata();
+
+	const thumbnail = await makeThumbnail(originalPhoto);
 
 	await Promise.all([
 		S3.putObject({
 			Body: thumbnail,
 			Bucket: bucketName,
-			Key: thumbnailKey(keyPrefix, originalPhotoName),
+			Key: thumbnailKey(originalPhotoName),
 		}).promise(),
 
 		S3.copyObject({
 			Bucket: bucketName,
 			CopySource: bucketName + '/' + key,
-			Key: fullsizeKey(keyPrefix, originalPhotoName),
+			Key: fullsizeKey(originalPhotoName),
 		}).promise(),
 	]);
 
@@ -115,13 +127,13 @@ async function resize(photoBody, bucketName, key) {
 		photoId: originalPhotoName,
 		
 		thumbnail: {
-			key: thumbnailKey(keyPrefix, originalPhotoName),
+			key: thumbnailKey(originalPhotoName),
 			width: THUMBNAIL_WIDTH,
 			height: THUMBNAIL_HEIGHT
 		},
 
 		fullsize: {
-			key: fullsizeKey(keyPrefix, originalPhotoName),
+			key: fullsizeKey(originalPhotoName),
 			width: originalPhotoDimensions.width,
 			height: originalPhotoDimensions.height
 		}
@@ -130,24 +142,21 @@ async function resize(photoBody, bucketName, key) {
 
 async function processRecord(record) {
 	const bucketName = record.s3.bucket.name;
-  const key = decodeURIComponent(record.s3.object.key.replace(/\+/g, " "));
-
-  console.log('processRecord', JSON.stringify(record))
-
-  if (record.eventName !== "ObjectCreated:Put") { console.log('Is not a new file'); return; }
-  if (! key.includes('upload/')) { console.log('Does not look like an upload from user'); return; }
-
-  const originalPhoto = await S3.getObject({ Bucket: bucketName, Key: key }).promise()
+	const key = record.s3.object.key;
   
-	const metadata = originalPhoto.Metadata
+  console.log('processRecord', JSON.stringify(record))
+  if (key.indexOf('uploads') !== 0) return;
+  if (record.eventName !== "ObjectCreated:Put") return
+  
+  console.log('get metadata')
+	const metadata = await getMetadata(bucketName, key);
   console.log('metadata', JSON.stringify(metadata))
   console.log('resize')
-	const sizes = await resize(originalPhoto.Body, bucketName, key);    
+	const sizes = await resize(bucketName, key);    
   console.log('sizes', JSON.stringify(sizes))
 	const id = uuidv4();
 	const item = {
 		id: id,
-		owner: metadata.owner,
 		albumId: metadata.albumid,
     bucket: bucketName,
     thumbnail: {
@@ -163,23 +172,13 @@ async function processRecord(record) {
   }
 
   console.log(JSON.stringify(metadata), JSON.stringify(sizes), JSON.stringify(item))
-	await storePhotoInfo(item);
+	await storePhotoInfo(item, metadata.jwtToken);
 }
 
 
 exports.handler = async (event, context, callback) => {
   console.log('Received S3 event:', JSON.stringify(event, null, 2));
 
-  client = new AWSAppSyncClient({
-    url: process.env.API_PHOTOALBUMS_GRAPHQLAPIENDPOINTOUTPUT,
-    region: process.env.REGION,
-    auth: {
-      type: AUTH_TYPE.AWS_IAM,
-      credentials: AWS.config.credentials
-    },
-    disableOffline: true
-  });
- 
 	try {
 		event.Records.forEach(processRecord);
 		callback(null, { status: 'Photo Processed' });

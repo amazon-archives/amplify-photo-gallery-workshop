@@ -204,8 +204,8 @@ const S3ImageUpload = (props) => {
       fileName, 
       file, 
       {
-        metadata: {
-          albumid: props.albumId,
+        metadata: { 
+          albumid: props.albumId, 
           owner: user.username,
         }
       }
