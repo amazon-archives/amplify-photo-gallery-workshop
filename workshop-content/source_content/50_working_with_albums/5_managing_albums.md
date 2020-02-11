@@ -29,11 +29,9 @@ Let's update our front-end to:
 Usually, we'd create separate files for each of our components, but here we'll just keep everything together so we can see all of the front end code in one place.
 {{% /notice %}}
 
-**➡️ Replace `src/App.js` with** ___CLIPBOARD_BUTTON 5dcbde52fab822d160f65b3e20fef2086fe2291b:photoalbums/src/App.js|
+**➡️ Replace `src/App.js` with** ___CLIPBOARD_BUTTON 99edf3026b8d736dfff5a4bbf39a53e752702a0a:photoalbums/src/App.js|
 
 ### What we changed in src/App.js
-
-- Imported the *Connect* component from aws-amplify-react
 
 - Imported more presentational components from *semantic-ui-react*
 
@@ -43,9 +41,9 @@ Usually, we'd create separate files for each of our components, but here we'll j
 
 - Added *makeComparator* to allow us to sanely sort strings in JS
 
-- Added new components: *NewAlbum*, *AlbumsList*, *AlbumsDetailsLoader*, *AlbumDetails*, *AlbumsListLoader*
+- Added new components for creating and listing albums
 
-- Added GraphQL queries and mutations: *ListAlbums*, *SubscribeToNewAlbums*, *GetAlbum*
+- Imported GraphQL queries, mutations, and subscriptions for our new components to use
 
 - Updated the App component to present different components based on the current URL route
 
@@ -62,7 +60,7 @@ Check out the app now and try out the new features:
 - When viewing an Album, click 'Back to Albums list' to go home
 
 {{% notice tip %}}
-The loading magic here comes from [AWS Amplify's *Connect* component](https://aws-amplify.github.io/docs/js/api#connect) (which we imported from the *aws-amplify-react* package). All we need to do is pass this component a GraphQL query operation in its query prop. It takes care of running that query when the component mounts, and it passes information down to a child function via the data, loading, and errors arguments. We use those values to render appropriately, either showing some loading text or passing the successfully fetched data to our *AlbumsList* component.
+What makes a lot of this really convenient is that Amplify took care of generating common GraphQL query, mutation, and subscription statements for us, which we imported and used in our new React components. These are just pre-generated GraphQL operations represented as strings that we use to interact with the API that Amplify generated for us based on the `@model` annotations we supplied in the `schema.graphql` file.
 {{% /notice %}}
 
 {{% notice info %}}
@@ -73,11 +71,8 @@ The *listAlbums* query we're above using passes in a very high limit argument. T
 Also worth noting is how we're leveraging an AppSync real-time subscription to automatically refresh the list of albums whenever a new album is created.
 <br/>
 <br/>
-Our GraphQL schema contains a *Subscription* type with a bunch of subscriptions that were auto-generated back when we had AWS AppSync create the resources (like the DynamoDB table and the AWS AppSync resolvers) for our *Album* type. One of these the _onCreateAlbum_ subscription.
+Our GraphQL schema contains a *Subscription* type with a bunch of subscriptions that were auto-generated back when we had AWS AppSync create the resources (like the DynamoDB table and the AWS AppSync resolvers) for our *Album* type. One of these is the _onCreateAlbum_ subscription.
 <br/>
 <br/>
-The _subscription_ and _onSubscriptionMsg_ properties on the _Connect_ component tell it to subscribe to the _onCreateAlbum_ event data and update the data for AlbumsList accordingly. 
-<br/>
-<br/>
-The content for the subscription property looks very similar to what we provided for the query property previously; it just contains a query specifying the subscription we want to listen to and what fields we'd like back when new data arrives. The only slightly tricky bit is that we also need to define a handler function to react to new data from the subscription, and that function needs to return a new set of data that the _Connect_ component will use to refresh our _ListAlbums_ component. This is what we've done above.
+The content for the subscription property looks very similar to what we provided for the query property previously; it just contains a query specifying the subscription we want to listen to and what fields we'd like back when new data arrives. The only slightly tricky bit is that we also need to define a handler function to react to new data from the subscription, which is what we use to refresh our _AlbumsList_ component with new data from the backend. This is what we've done above.
 {{% /notice %}}
