@@ -59,7 +59,71 @@ Finally, **open another terminal window**. We'll leave this first terminal alone
 
 Next, we'll want to start with a clean slate.
 
-➡️ **Replace `src/App.js` with** ___CLIPBOARD_BUTTON 6c0bff7c33c87c1117890501a772279cf876fb41:photoalbums/src/App.js|
+➡️ **Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+{{< expand "Click to view diff" >}} {{< safehtml >}}
+<div id="diff-id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs">commit 6c0bff7c33c87c1117890501a772279cf876fb41
+Author: Gabe Hollombe <gabehol@amazon.com>
+Date:   Tue Feb 11 13:53:16 2020 +0800
+
+    hello world App.js
+
+diff --git a/photoalbums/src/App.js b/photoalbums/src/App.js
+index ce9cbd2..4b68c37 100644
+--- a/photoalbums/src/App.js
++++ b/photoalbums/src/App.js
+@@ -1,26 +1,13 @@
+ import React from 'react';
+-import logo from './logo.svg';
+-import './App.css';
++
++import { Header } from 'semantic-ui-react';
+ 
+ function App() {
+   return (
+-    <div className="App">
+-      <header className="App-header">
+-        <img src={logo} className="App-logo" alt="logo" />
+-        <p>
+-          Edit <code>src/App.js</code> and save to reload.
+-        </p>
+-        <a
+-          className="App-link"
+-          href="https://reactjs.org"
+-          target="_blank"
+-          rel="noopener noreferrer"
+-        >
+-          Learn React
+-        </a>
+-      </header>
+-    </div>
+-  );
++    <Header as="h1">
++      Hello World!
++    </Header>
++  )
+ }
+ 
+-export default App;
++export default App
+</script>
+{{< /safehtml >}} {{< /expand >}}
+{{< safehtml >}}
+<textarea id="id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs" style="position: relative; left: -1000px; width: 1px; height: 1px;">import React from 'react';
+
+import { Header } from 'semantic-ui-react';
+
+function App() {
+  return (
+    <Header as="h1">
+      Hello World!
+    </Header>
+  )
+}
+
+export default App
+
+</textarea>
+{{< /safehtml >}}
 
 {{% notice note %}}
 At this point, the browser should automatically refresh and show a much simpler page, with just some text that says 'Hello World'. It's not much to look at yet, but it's good to start with as little markup as possible.

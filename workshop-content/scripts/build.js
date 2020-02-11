@@ -21,7 +21,7 @@ const showFileAtSha = (sha, path) => {
 }
 
 const templatize = (str, match) => {
-    const CLIPBOARD_BUTTON_TAG_TEMPLATE = '<span class="clipBtn clipboard" data-clipboard-target="#__TARGET_ID__">this content</span> (click the gray button to copy to clipboard). ' // trailing space important
+    const CLIPBOARD_BUTTON_TAG_TEMPLATE = '<span class="clipBtn clipboard" data-clipboard-target="#__TARGET_ID__"><strong>this content</strong></span> (click the gray button to copy to clipboard). ' // trailing space important
     const CLIPBOARD_PRE_TAG_TEMPLATE = '{{< safehtml >}}\n<textarea id="__TARGET_ID__" style="position: relative; left: -1000px; width: 1px; height: 1px;">__FILE_CONTENT__</textarea>\n{{< /safehtml >}}'
     const DIFF_HTML_TEMPLATE = '{{< expand "Click to view diff" >}} {{< safehtml >}}\n<div id="diff-__TARGET_ID__"></div> <script type="text/template" data-diff-for="diff-__TARGET_ID__">__DIFF_CONTENT__</script>\n{{< /safehtml >}} {{< /expand >}}'
 

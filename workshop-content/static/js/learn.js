@@ -173,15 +173,50 @@ jQuery(document).ready(function() {
         }
     }
 
+    // gabehol customization -------------------------------------
+    // show diffs
+    jQuery(function() {
+        $('[data-diff-for]').each(function(index, el) {
+        const diffHtml = Diff2Html.getPrettyHtml(
+            el.innerHTML,
+            {
+                outputFormat: 'side-by-side',
+            }
+        )
+        document.getElementById(el.dataset.diffFor).innerHTML = diffHtml;
+        })
+    })
+
+     // additional clipboarding from buttons
+     var clipboardJS = new ClipboardJS('span.clipboard');
+     clipboardJS.on('success', function(e) {
+         e.clearSelection();
+         inPre = $(e.trigger).parent().prop('tagName') == 'PRE';
+         $(e.trigger).attr('aria-label', 'Copied to clipboard!').addClass('tooltipped tooltipped-' + (inPre ? 'w' : 's'));
+     });
+     
+     clipboardJS.on('error', function(e) {
+         console.error('Action:', e.action);
+         console.error('Trigger:', e.trigger);
+ 
+         inPre = $(e.trigger).parent().prop('tagName') == 'PRE';
+         $(e.trigger).attr('aria-label', fallbackMessage(e.action)).addClass('tooltipped tooltipped-' + (inPre ? 'w' : 's'));
+         $(document).one('copy', function(){
+             $(e.trigger).attr('aria-label', 'Copied to clipboard!').addClass('tooltipped tooltipped-' + (inPre ? 'w' : 's'));
+         });
+     });
+    // -------------------------------------------------------------
+
+
     // clipboard
     var clipInit = false;
     $('code').each(function() {
         var code = $(this),
             text = code.text();
 
-        if (text.length > 5) {
+        if (text.length > 5 && text.includes(' ')) {
             if (!clipInit) {
-                var text, clip = new Clipboard('.copy-to-clipboard', {
+                var text, clip = new ClipboardJS('.copy-to-clipboard', {
                     text: function(trigger) {
                         text = $(trigger).prev('code').text();
                         return text.replace(/^\$\s/gm, '');
@@ -223,6 +258,13 @@ jQuery(document).ready(function() {
         });
     });
 
+    jQuery('input, textarea').keydown(function (e) {
+         //  left and right arrow keys
+         if (e.which == '37' || e.which == '39') {
+             e.stopPropagation();
+         }
+     });
+    
     jQuery(document).keydown(function(e) {
       // prev links - left arrow key
       if(e.which == '37') {

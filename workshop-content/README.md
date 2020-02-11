@@ -40,19 +40,23 @@ git submodule update --checkout --recursive
 
 #### Install node packages:
 
-`npm install`
+`npm install && cd scripts; && npm install && cd ..`
 
 #### Run Hugo locally:
 
-`npm run server`
-or
-`npm run test` to see stubbed in draft pages.
+`hugo server --disableFastRender`
 
 #### View Hugo locally:
 Visit http://localhost:1313/ to see the site.
 
-#### Making Edits:
-As you save edits to a page, the site will live-reload to show your changes.
+#### 6. Making Edits:
+In order to create the nice copy-to-clipboard and 'click to view diff' features, we're using a strategy of pre-processing markdown files to generate source content that is then read by Hugo.
+
+0. Start the hugo server using the step above
+1. `cd website/scripts`
+2. `onchange "../source_content/**/*" -- npm run buildAndRefresh`
+3. Edit files in `workshop-content/source_content`
+4. Check for updated content in the browser. 
 
 note: shift-reload may be necessary in your browser to reflect the latest changes.
 

@@ -14,6 +14,10 @@ pygmentsCodeFences = true
 [blackfriday]
 hrefTargetBlank = true
 
+[markup.goldmark.renderer]
+unsafe = true # Optional, allows HTML inside your CommonMark content
+
+
 [params]
 themeVariant = "mine"
 showVisitedLinks = false
