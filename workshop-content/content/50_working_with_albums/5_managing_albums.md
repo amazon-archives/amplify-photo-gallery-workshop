@@ -29,9 +29,9 @@ Let's update our front-end to:
 Usually, we'd create separate files for each of our components, but here we'll just keep everything together so we can see all of the front end code in one place.
 {{% /notice %}}
 
-**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id99edf3026b8d736dfff5a4bbf39a53e752702a0aphotoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
-<div id="diff-id99edf3026b8d736dfff5a4bbf39a53e752702a0aphotoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id99edf3026b8d736dfff5a4bbf39a53e752702a0aphotoalbumssrcAppjs">commit 99edf3026b8d736dfff5a4bbf39a53e752702a0a
+<div id="diff-id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs">commit 9740b2f7f2994b689a053d8c9e9ad3c62337ed93
 Author: Gabe Hollombe <gabe@avantbard.com>
 Date:   Thu Feb 6 11:30:53 2020 +0800
 
@@ -223,7 +223,7 @@ index 8cbceb0..147c98e 100644
 </script>
 {{< /safehtml >}} {{< /expand >}}
 {{< safehtml >}}
-<textarea id="id99edf3026b8d736dfff5a4bbf39a53e752702a0aphotoalbumssrcAppjs" style="position: relative; left: -1000px; width: 1px; height: 1px;">import React, {useState, useEffect} from 'react';
+<textarea id="id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs" style="position: relative; left: -1000px; width: 1px; height: 1px;">import React, {useState, useEffect} from 'react';
 
 import Amplify, {Auth} from 'aws-amplify'
 import API, {graphqlOperation} from '@aws-amplify/api'

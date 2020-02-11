@@ -49,11 +49,9 @@ Please manually edit the file created at /home/ec2-user/environment/photoalbums/
 
 Below is a schema that will suit our needs for storing and querying Albums and Photos. 
 
-850e727807851182f33ac5bb4c8843ea29ebfd9f
-
-**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#id850e727807851182f33ac5bb4c8843ea29ebfd9fphotoalbumsamplifybackendapiphotoalbumsschemagraphql"><strong>this content</strong></span> (click the gray button to copy to clipboard).  And, **remember to save the file**.
+**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql"><strong>this content</strong></span> (click the gray button to copy to clipboard).  And, **remember to save the file**.
 {{< expand "Click to view diff" >}} {{< safehtml >}}
-<div id="diff-id850e727807851182f33ac5bb4c8843ea29ebfd9fphotoalbumsamplifybackendapiphotoalbumsschemagraphql"></div> <script type="text/template" data-diff-for="diff-id850e727807851182f33ac5bb4c8843ea29ebfd9fphotoalbumsamplifybackendapiphotoalbumsschemagraphql">commit 850e727807851182f33ac5bb4c8843ea29ebfd9f
+<div id="diff-idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql"></div> <script type="text/template" data-diff-for="diff-idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql">commit f850682000ab9849d33104522d99df80c04c86e3
 Author: Gabe Hollombe <gabe@avantbard.com>
 Date:   Thu Feb 6 10:38:37 2020 +0800
 
@@ -61,7 +59,7 @@ Date:   Thu Feb 6 10:38:37 2020 +0800
 
 diff --git a/photoalbums/amplify/backend/api/photoalbums/schema.graphql b/photoalbums/amplify/backend/api/photoalbums/schema.graphql
 new file mode 100644
-index 0000000..a9d7fde
+index 0000000..06044a4
 --- /dev/null
 +++ b/photoalbums/amplify/backend/api/photoalbums/schema.graphql
 @@ -0,0 +1,25 @@
@@ -75,7 +73,7 @@ index 0000000..a9d7fde
 +
 +type Photo 
 +@model 
-+@key(name: "byAlbum", fields: ["albumId"])
++@key(name: "byAlbum", fields: ["albumId"], queryField: "listPhotosByAlbum")
 +@auth(rules: [{allow: owner}]) {
 +    id: ID!
 +    albumId: ID!
@@ -94,7 +92,7 @@ index 0000000..a9d7fde
 </script>
 {{< /safehtml >}} {{< /expand >}}
 {{< safehtml >}}
-<textarea id="id850e727807851182f33ac5bb4c8843ea29ebfd9fphotoalbumsamplifybackendapiphotoalbumsschemagraphql" style="position: relative; left: -1000px; width: 1px; height: 1px;">type Album 
+<textarea id="idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql" style="position: relative; left: -1000px; width: 1px; height: 1px;">type Album 
 @model 
 @auth(rules: [{allow: owner}]) {
     id: ID!
@@ -104,7 +102,7 @@ index 0000000..a9d7fde
 
 type Photo 
 @model 
-@key(name: "byAlbum", fields: ["albumId"])
+@key(name: "byAlbum", fields: ["albumId"], queryField: "listPhotosByAlbum")
 @auth(rules: [{allow: owner}]) {
     id: ID!
     albumId: ID!

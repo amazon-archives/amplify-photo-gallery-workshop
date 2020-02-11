@@ -49,9 +49,7 @@ Please manually edit the file created at /home/ec2-user/environment/photoalbums/
 
 Below is a schema that will suit our needs for storing and querying Albums and Photos. 
 
-850e727807851182f33ac5bb4c8843ea29ebfd9f
-
-**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** ___CLIPBOARD_BUTTON 850e727807851182f33ac5bb4c8843ea29ebfd9f:photoalbums/amplify/backend/api/photoalbums/schema.graphql| And, **remember to save the file**.
+**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** ___CLIPBOARD_BUTTON f850682000ab9849d33104522d99df80c04c86e3:photoalbums/amplify/backend/api/photoalbums/schema.graphql| And, **remember to save the file**.
 
 Note: in Cloud9 you can mouse-over the file name in the terminal, click it, and select 'Open'.
 

@@ -29,7 +29,7 @@ Let's update our front-end to:
 Usually, we'd create separate files for each of our components, but here we'll just keep everything together so we can see all of the front end code in one place.
 {{% /notice %}}
 
-**➡️ Replace `src/App.js` with** ___CLIPBOARD_BUTTON 99edf3026b8d736dfff5a4bbf39a53e752702a0a:photoalbums/src/App.js|
+**➡️ Replace `src/App.js` with** ___CLIPBOARD_BUTTON 9740b2f7f2994b689a053d8c9e9ad3c62337ed93:photoalbums/src/App.js|
 
 ### What we changed in src/App.js
 
