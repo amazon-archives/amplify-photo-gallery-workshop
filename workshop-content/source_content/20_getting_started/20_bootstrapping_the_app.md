@@ -15,33 +15,23 @@ This will give us a sample React app with a local auto-reloading web server and 
 You can learn more about create-react-app at [https://github.com/facebook/create-react-app](https://github.com/facebook/create-react-app).
 {{% /notice %}}
 
-**In the Cloud9 terminal, run** `npx create-react-app photoalbums`.
+**➡️ In the Cloud9 terminal, run** `npx create-react-app photoalbums`.
 
-**Then, navigate to the newly created directory with** `cd photoalbums`.
+**➡️ Then, navigate to the newly created directory with** `cd photoalbums`.
 
 
 ### Adding Semantic UI React
 
 Before we start writing our UI, we'll also include Semantic UI components for React to give us components that will help make our interface look a bit nicer.
 
-**In the photoalbums directory, run** `npm install --save semantic-ui-react`
+**➡️ In the photoalbums directory, run** `npm install --save semantic-ui-react`
 
-Then, **edit public/index.html** and add this stylesheet link:
-
-```html
-<head>
-    <!-- ... --> 
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css"></link>
-
-    <!-- ... --> 
-</head>
-```
+**➡️ Replace `public/index.html` with** ___CLIPBOARD_BUTTON 0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5:photoalbums/public/index.html|
 
 ### Starting the App
 Now let's start our development server so we can make changes and see them refreshed live in the browser.
 
-**In the photoalbums directory, run** `npm start`. 
+**➡️ In the photoalbums directory, run** `npm start`. 
 
 Once the web server has started, click the **Preview** menu and **select Preview Running Application**
 
@@ -59,7 +49,7 @@ Finally, **open another terminal window**. We'll leave this first terminal alone
 
 Next, we'll want to start with a clean slate.
 
-➡️ **Replace `src/App.js` with** ___CLIPBOARD_BUTTON 6c0bff7c33c87c1117890501a772279cf876fb41:photoalbums/src/App.js|
+**➡️ Replace `src/App.js` with** ___CLIPBOARD_BUTTON 6c0bff7c33c87c1117890501a772279cf876fb41:photoalbums/src/App.js|
 
 {{% notice note %}}
 At this point, the browser should automatically refresh and show a much simpler page, with just some text that says 'Hello World'. It's not much to look at yet, but it's good to start with as little markup as possible.

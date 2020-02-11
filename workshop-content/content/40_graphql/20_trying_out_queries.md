@@ -5,9 +5,9 @@ weight = 20
 +++
 
 
-**Open the AWS Console**, browse to AppSync, make sure you're in your chosen region and **click into the photoalbums-master API**. Now we can start poking around with the API.
+**➡️ Open the AWS Console**, browse to AppSync, make sure you're in your chosen region and **click into the photoalbums-master API**. Now we can start poking around with the API.
 
-**Click Queries** in the sidebar on the left.
+**➡️ Click Queries** in the sidebar on the left.
 
 ![appsync queries](/images/appsync_queries.png?classes=border)
 
@@ -21,23 +21,23 @@ This area is AWS AppSync's interactive query explorer. We can write queries and 
 Before we can issue queries, we'll need to authenticate (because our AppSync API is configured to authenticate users via the Amazon Cognito User Pool we set up when we configured the authentication for our app.
 {{% /notice %}}
 
-1. **Click the Login with User Pools button** at the top of the query editor.
+1. **➡️ Click the Login with User Pools button** at the top of the query editor.
 
-1. Look up the value for the **ClientId** field
+1. ➡️ Look up the value for the **ClientId** field
     1.  In Cloud9, **open photoalbums/src/aws-exports.js**
     2.  **Copy** the value of the **aws_user_pools_web_client_id** property
 
-1. **Paste** the value into the **ClientId** field
+1. **➡️ Paste** the value into the **ClientId** field
 
-1. **Enter your credentials** for the user you created when we added authentication
+1. **➡️ Enter your credentials** for the user you created when we added authentication
 
-1. **Click Login**
+1. **➡️ Click Login**
 
 ### Trying out some queries
 
 You should now be able to try out the following mutations and queries. Press the orange 'play' button to execute queries and mutations.
 
-**Add a new album** by copy/pasting the following and running the query:
+**➡️ Add a new album** by copy/pasting the following and running the query:
 
     mutation {
         createAlbum(input:{name:"First Album"}) {
@@ -46,7 +46,7 @@ You should now be able to try out the following mutations and queries. Press the
         }
     }
 
-**Add another album** by editing and re-running your createAlbum mutation with another album name:
+**➡️ Add another album** by editing and re-running your createAlbum mutation with another album name:
 
     mutation {
         createAlbum(input:{name:"Second Album"}) {
@@ -55,7 +55,7 @@ You should now be able to try out the following mutations and queries. Press the
         }
     }
 
-**List all albums** by running this query:
+**➡️ List all albums** by running this query:
 
     query {
         listAlbums {

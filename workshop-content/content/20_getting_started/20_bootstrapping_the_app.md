@@ -15,33 +15,94 @@ This will give us a sample React app with a local auto-reloading web server and 
 You can learn more about create-react-app at [https://github.com/facebook/create-react-app](https://github.com/facebook/create-react-app).
 {{% /notice %}}
 
-**In the Cloud9 terminal, run** `npx create-react-app photoalbums`.
+**➡️ In the Cloud9 terminal, run** `npx create-react-app photoalbums`.
 
-**Then, navigate to the newly created directory with** `cd photoalbums`.
+**➡️ Then, navigate to the newly created directory with** `cd photoalbums`.
 
 
 ### Adding Semantic UI React
 
 Before we start writing our UI, we'll also include Semantic UI components for React to give us components that will help make our interface look a bit nicer.
 
-**In the photoalbums directory, run** `npm install --save semantic-ui-react`
+**➡️ In the photoalbums directory, run** `npm install --save semantic-ui-react`
 
-Then, **edit public/index.html** and add this stylesheet link:
+**➡️ Replace `public/index.html` with** <span class="clipBtn clipboard" data-clipboard-target="#id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+{{< expand "Click to view diff" >}} {{< safehtml >}}
+<div id="diff-id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml"></div> <script type="text/template" data-diff-for="diff-id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml">commit 0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5
+Author: Gabe Hollombe <gabe@avantbard.com>
+Date:   Thu Feb 6 10:20:18 2020 +0800
 
-```html
-<head>
-    <!-- ... --> 
+    add semantic ui react
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css"></link>
+diff --git a/photoalbums/public/index.html b/photoalbums/public/index.html
+index aa069f2..fa245c8 100644
+--- a/photoalbums/public/index.html
++++ b/photoalbums/public/index.html
+@@ -15,6 +15,8 @@
+       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+     -->
+     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
++    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
++
+     <!--
+       Notice the use of %PUBLIC_URL% in the tags above.
+       It will be replaced with the URL of the `public` folder during the build.
+</script>
+{{< /safehtml >}} {{< /expand >}}
+{{< safehtml >}}
+<textarea id="id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml" style="position: relative; left: -1000px; width: 1px; height: 1px;"><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
 
-    <!-- ... --> 
-</head>
-```
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
+
+</textarea>
+{{< /safehtml >}}
 
 ### Starting the App
 Now let's start our development server so we can make changes and see them refreshed live in the browser.
 
-**In the photoalbums directory, run** `npm start`. 
+**➡️ In the photoalbums directory, run** `npm start`. 
 
 Once the web server has started, click the **Preview** menu and **select Preview Running Application**
 
@@ -59,7 +120,7 @@ Finally, **open another terminal window**. We'll leave this first terminal alone
 
 Next, we'll want to start with a clean slate.
 
-➡️ **Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs">commit 6c0bff7c33c87c1117890501a772279cf876fb41
 Author: Gabe Hollombe <gabehol@amazon.com>

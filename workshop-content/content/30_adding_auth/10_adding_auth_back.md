@@ -15,7 +15,7 @@ Here's what the sign-in screen will look like:
 
 ### Initializing Amplify
 
-**On the command line, in the photoalbums directory**:
+**➡️ On the command line, in the photoalbums directory**:
 
 1. **Be sure to be in photoalbums directory** `cd photoalbums`
 
@@ -41,17 +41,17 @@ This will create a new local configuration for us which we can use to set up an 
 
 ### Adding authentication
 
-1. **Run** `amplify add auth` to add authentication to the app
+1. **➡️ Run** `amplify add auth` to add authentication to the app
 
-1. **Select Default Configuration** when asked if you'd like to use the default authentication and security configuration
+1. **➡️ Select Default Configuration** when asked if you'd like to use the default authentication and security configuration
    
-1. **Select Username** when asked how you want users to sign in
+1. **➡️ Select Username** when asked how you want users to sign in
    
-1. **Select "No, I am done."** when asked about advanced settings.
+1. **➡️ Select "No, I am done."** when asked about advanced settings.
 
-2. **Run** `amplify push` to create these changes in the cloud
+2. **➡️ Run** `amplify push` to create these changes in the cloud
 
-2. Confirm you want Amplify to make changes in the cloud for you.
+2. **➡️ Confirm** you want Amplify to make changes in the cloud for you.
 
 3. Wait for the provisioning to complete. This will take a few minutes.
 

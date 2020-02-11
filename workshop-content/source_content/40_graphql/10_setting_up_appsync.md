@@ -14,7 +14,7 @@ To build our API we'll use [AWS AppSync](https://aws.amazon.com/appsync/), a man
 
 ### Adding an AWS AppSync API
 
-**From the photoalbums directory, run** `amplify add api` and respond to the prompts like this:
+**➡️ From the photoalbums directory, run** `amplify add api` and respond to the prompts like this:
 ```text
 $ amplify add api 
 
@@ -49,39 +49,19 @@ Please manually edit the file created at /home/ec2-user/environment/photoalbums/
 
 Below is a schema that will suit our needs for storing and querying Albums and Photos. 
 
-1. **Paste this into photoalbums/amplify/backend/api/photoalbums/schema.graphql**, replacing the example schema content. Remember to save the file. Note: in Cloud9 you can mouse-over the file name in the terminal, click it, and select 'Open'.
+850e727807851182f33ac5bb4c8843ea29ebfd9f
 
-    ```graphql
-    # amplify/backend/api/photoalbums/schema.graphql
+**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** ___CLIPBOARD_BUTTON 850e727807851182f33ac5bb4c8843ea29ebfd9f:photoalbums/amplify/backend/api/photoalbums/schema.graphql| And, **remember to save the file**.
 
-    type Album @model @auth(rules: [{allow: owner}]) {
-        id: ID!
-        name: String!
-        photos: [Photo] @connection(name: "AlbumPhotos")
-    }
+Note: in Cloud9 you can mouse-over the file name in the terminal, click it, and select 'Open'.
 
-    type Photo @model @auth(rules: [{allow: owner}]) {
-        id: ID!
-        album: Album @connection(name: "AlbumPhotos")
-        bucket: String!
-        fullsize: PhotoS3Info!
-        thumbnail: PhotoS3Info!
-    }
+1. ➡️ Return to your command prompt and **press Enter once** to continue
 
-    type PhotoS3Info {
-        key: String!
-        width: Int!
-        height: Int!
-    }
-    ```
+1. **➡️ Run** `amplify push` and confirm you'd like to continue with the updates
 
-1. Return to your command prompt and **press Enter once** to continue
+1. ➡️ When prompted about code generation, **select 'Yes'**, then **choose 'javascript'**, and accept the defaults for the remaining prompts.
 
-1. **Run** `amplify push` and confirm you'd like to continue with the updates
-
-1. When prompted about code generation, **select 'No'**
-
-1. Wait a few minutes while Amplify takes care of provisioning new resources for us.
+1. ➡️ Wait a few minutes while Amplify takes care of provisioning new resources for us.
 
 {{% notice info %}}
 At this point, without having to write any code, we now have a GraphQL API that will let us perform CRUDL operations on our Album and Photo data types!

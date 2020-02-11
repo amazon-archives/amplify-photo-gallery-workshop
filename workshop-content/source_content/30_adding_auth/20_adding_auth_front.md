@@ -10,33 +10,9 @@ Now that we have our backend set up for managing registrations and sign-in, all 
 
 We haven't yet added the *aws-amplify* and *aws-amplify-react* modules to our app, so let's add them.
 
-1. **Run** `npm install --save aws-amplify aws-amplify-react`
+**➡️ Run** `npm install --save aws-amplify aws-amplify-react`
 
-1. **Replace the contents of src/App.js with the following:**
-{{< highlight jsx "hl_lines=6-9 22">}}
-// src/App.js
-
-import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
-
-import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
-import { withAuthenticator } from 'aws-amplify-react';
-Amplify.configure(aws_exports);
-
-
-class App extends Component { 
-    render() { 
-        return (
-            <div>
-                <Header as='h1'>Hello World!</Header>
-            </div>
-        );
-    }
-}
-
-export default withAuthenticator(App, {includeGreetings: true});
-{{< /highlight >}}
+**➡️ Replace `src/App.js` with** ___CLIPBOARD_BUTTON daa4069beb70d721535869f7078c9ad1c27b03c0:photoalbums/src/App.js|
 
 Take a look at the web app now and you should have a sign-up / sign-in form!
 
@@ -50,13 +26,13 @@ Take a look at the web app now and you should have a sign-up / sign-in form!
 
 ### Creating an account
 
-**Create an account in the app** by providing a username, password, and a **valid email address** (to receive a confirmation code at).
+**➡️ Create an account in the app's web interface** by providing a username, password, and a **valid email address** (to receive a confirmation code at).
 
 {{% notice info %}}
 You'll be taken to a screen asking you to confirm a code. This is because Amazon Cognito wants to verify a user's email address before it lets them sign in. 
 {{% /notice %}}
 
-**Check your email**. You should have received a confirmation code message. **Copy and paste the confirmation code** into your app and you should then be able to log in with the username and password you entered during sign up. 
+**➡️ Check your email**. You should have received a confirmation code message. **Copy and paste the confirmation code** into your app and you should then be able to log in with the username and password you entered during sign up. 
 
 Once you sign in, the form disappears and you can see our App component rendered below a header bar that contains your username and a 'Sign Out' button.
 
