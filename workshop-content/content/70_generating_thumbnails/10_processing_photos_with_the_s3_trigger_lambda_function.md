@@ -1,5 +1,5 @@
 +++
-title = "Creating a Photo Processor Lambda function"
+title = "Processing photos with the S3 Trigger Lambda function"
 chapter = false
 weight = 10
 +++

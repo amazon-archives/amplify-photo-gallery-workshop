@@ -8,455 +8,441 @@ With all of the back-end work completed, now we just need to update our web app 
 
 Let's create a new *Search* component and add it to the *App* component to be rendered on the root path. For rendering all of the matching photos in the *Search* component, we'll re-use the *PhotosList* component we already created.
 
-**Replace photoalbums/src/App.js** with the following:
-<div style="height: 595px; overflow-y: scroll;">
-{{< highlight jsx "hl_lines=67-144 408">}}
-// photoalbums/src/App.js
+**➡️ Replace `photoalbums/src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+{{< expand "Click to view diff" >}} {{< safehtml >}}
+<div id="diff-id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs">commit 1957013992344ecb1f1a16456fe6a062fce6bc73
+Author: Gabe Hollombe <gabe@avantbard.com>
+Date:   Fri Feb 7 18:28:08 2020 +0800
 
-import React, { Component } from 'react';
+    update graphql schema for search and frontend
+
+diff --git a/photoalbums/src/App.js b/photoalbums/src/App.js
+index e93bdb9..9806b55 100644
+--- a/photoalbums/src/App.js
++++ b/photoalbums/src/App.js
+@@ -267,6 +267,49 @@ const PhotosList = React.memo((props) => {
+ })
+ 
+ 
++const Search = () => {
++  const [photos, setPhotos] = useState([])
++  const [label, setLabel] = useState('')
++  const [hasResults, setHasResults] = useState(false)
++  const [searched, setSearched] = useState(false)
++
++  const getPhotosForLabel = async (e) => {
++      setPhotos([])
++      const result = await API.graphql(graphqlOperation(queries.searchPhotos, { filter: { labels: { match: label }} }));
++      if (result.data.searchPhotos.items.length !== 0) {
++          setHasResults(result.data.searchPhotos.items.length > 0)
++          setPhotos(p => p.concat(result.data.searchPhotos.items))
++      }
++      setSearched(true)
++  }
++
++  const NoResults = () => {
++    return !searched
++      ? ''
++      : <Header as='h4' color='grey'>No photos found matching '{label}'</Header>
++  }
++
++  return (
++      <Segment>
++        <Input
++          type='text'
++          placeholder='Search for photos'
++          icon='search'
++          iconPosition='left'
++          action={{ content: 'Search', onClick: getPhotosForLabel }}
++          name='label'
++          value={label}
++          onChange={(e) => { setLabel(e.target.value); setSearched(false);} }
++        />
++        {
++            hasResults
++            ? <PhotosList photos={photos} />
++            : <NoResults />
++        }
++      </Segment>
++  );
++}
++
+ function App() {
+   return (
+     <Router>
+@@ -274,6 +317,7 @@ function App() {
+         <Grid.Column>
+           <Route path="/" exact component={NewAlbum}/>
+           <Route path="/" exact component={AlbumsList}/>
++          <Route path="/" exact component={Search}/>
+ 
+           <Route
+             path="/albums/:albumId"
+</script>
+{{< /safehtml >}} {{< /expand >}}
+{{< safehtml >}}
+<textarea id="id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs" style="position: relative; left: -1000px; width: 1px; height: 1px;">import React, {useState, useEffect} from 'react';
+
+import Amplify, {Auth} from 'aws-amplify'
+import API, {graphqlOperation} from '@aws-amplify/api'
+import Storage from '@aws-amplify/storage'
+import aws_exports from './aws-exports'
+
+import {S3Image, withAuthenticator} from 'aws-amplify-react'
+import {Divider, Form, Grid, Header, Input, List, Segment} from 'semantic-ui-react'
 
 import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
-import { Divider, Form, Grid, Header, Input, List, Segment } from 'semantic-ui-react';
+
 import {v4 as uuid} from 'uuid';
 
-import { Connect, S3Image, withAuthenticator } from 'aws-amplify-react';
-import Amplify, { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
+import * as queries from './graphql/queries'
+import * as mutations from './graphql/mutations'
+import * as subscriptions from './graphql/subscriptions'
 
-import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
 
-function makeComparator(key, order='asc') {
+function makeComparator(key, order = 'asc') {
   return (a, b) => {
-    if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) return 0; 
-
-    const aVal = (typeof a[key] === 'string') ? a[key].toUpperCase() : a[key];
-    const bVal = (typeof b[key] === 'string') ? b[key].toUpperCase() : b[key];
+    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) 
+      return 0;
+    
+    const aVal = (typeof a[key] === 'string')
+      ? a[key].toUpperCase()
+      : a[key];
+    const bVal = (typeof b[key] === 'string')
+      ? b[key].toUpperCase()
+      : b[key];
 
     let comparison = 0;
-    if (aVal > bVal) comparison = 1;
-    if (aVal < bVal) comparison = -1;
-
-    return order === 'desc' ? (comparison * -1) : comparison
+    if (aVal > bVal) 
+      comparison = 1;
+    if (aVal < bVal) 
+      comparison = -1;
+    
+    return order === 'desc'
+      ? (comparison * -1)
+      : comparison
   };
 }
 
+const NewAlbum = () => {
+  const [name,
+    setName] = useState('')
 
-const ListAlbums = `query ListAlbums {
-    listAlbums(limit: 9999) {
-        items {
-            id
-            name
-        }
-    }
-}`;
-
-const SubscribeToNewAlbums = `
-  subscription OnCreateAlbum {
-    onCreateAlbum {
-      id
-      name
-    }
-  }
-`;
-
-const GetAlbum = `query GetAlbum($id: ID!, $nextTokenForPhotos: String) {
-    getAlbum(id: $id) {
-        id
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    await API.graphql(graphqlOperation(mutations.createAlbum, {input: {
         name
-        photos(sortDirection: DESC, nextToken: $nextTokenForPhotos) {
-            nextToken
-            items {
-                thumbnail {
-                    width
-                    height
-                    key
-                }
-            }
+      }}))
+    setName('')
+  }
+
+  return (
+    <Segment>
+      <Header as='h3'>Add a new album</Header>
+      <Input
+        type='text'
+        placeholder='New Album Name'
+        icon='plus'
+        iconPosition='left'
+        action={{
+        content: 'Create',
+        onClick: handleSubmit
+      }}
+        name='name'
+        value={name}
+        onChange={(e) => setName(e.target.value)}/>
+    </Segment>
+  )
+}
+
+const AlbumsList = () => {
+  const [albums,
+    setAlbums] = useState([])
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await API.graphql(graphqlOperation(queries.listAlbums, {limit: 999}))
+      setAlbums(result.data.listAlbums.items)
+    }
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    let subscription
+    async function setupSubscription() {
+      const user = await Auth.currentAuthenticatedUser()
+      subscription = API.graphql(graphqlOperation(subscriptions.onCreateAlbum, {owner: user.username})).subscribe({
+        next: (data) => {
+          const album = data.value.data.onCreateAlbum
+          setAlbums(a => a.concat([album].sort(makeComparator('name'))))
         }
+      })
     }
-}
-`;
+    setupSubscription()
 
-const SearchPhotos = `query SearchPhotos($label: String!) {
-  searchPhotos(filter: { labels: { match: $label }}) {
-    items {
-      id
-      bucket
-      thumbnail {
-          key
-          width
-          height
-      }
-      fullsize {
-          key
-          width
-          height
-      }
-    }
-  }
-}`;
+    return () => subscription.unsubscribe();
+  }, [])
 
-
-class Search extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          photos: [],
-          album: null,
-          label: '',
-          hasResults: false,
-          searched: false
-      }
+  const albumItems = () => {
+    return albums
+      .sort(makeComparator('name'))
+      .map(album => <List.Item key={album.id}>
+        <NavLink to={`/albums/${album.id}`}>{album.name}</NavLink>
+      </List.Item>);
   }
 
-  updateLabel = (e) => {
-      this.setState({ label: e.target.value, searched: false });
-  }
-
-  getPhotosForLabel = async (e) => {
-      const result = await API.graphql(graphqlOperation(SearchPhotos, {label: this.state.label}));
-      let photos = [];
-      let label = '';
-      let hasResults = false;
-      if (result.data.searchPhotos.items.length !== 0) {
-          hasResults = true;
-          photos = result.data.searchPhotos.items;
-          label = this.state.label;
-      }
-      const searchResults = { label, photos }
-      this.setState({ searchResults, hasResults, searched: true });
-  }
-
-  noResults() {
-    return !this.state.searched
-      ? ''
-      : <Header as='h4' color='grey'>No photos found matching '{this.state.label}'</Header>
-  }
-
-  render() {
-      return (
-          <Segment>
-            <Input
-              type='text'
-              placeholder='Search for photos'
-              icon='search'
-              iconPosition='left'
-              action={{ content: 'Search', onClick: this.getPhotosForLabel }}
-              name='label'
-              value={this.state.label}
-              onChange={this.updateLabel}
-            />
-            {
-                this.state.hasResults 
-                ? <PhotosList photos={this.state.searchResults.photos} />
-                : this.noResults()
-            }
-          </Segment>
-      );
-  }
+  return (
+    <Segment>
+      <Header as='h3'>My Albums</Header>
+      <List divided relaxed>
+        {albumItems()}
+      </List>
+    </Segment>
+  );
 }
 
+const AlbumDetails = (props) => {
+  const [album, setAlbum] = useState({name: 'Loading...', photos: []})
+  const [photos, setPhotos] = useState([])
+  const [hasMorePhotos, setHasMorePhotos] = useState(true)
+  const [fetchingPhotos, setFetchingPhotos] = useState(false)
+  const [nextPhotosToken, setNextPhotosToken] = useState(null)
 
-class S3ImageUpload extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { uploading: false }
+  useEffect(() => {
+    const loadAlbumInfo = async() => {
+      const results = await API.graphql(graphqlOperation(queries.getAlbum, {id: props.id}))
+      setAlbum(results.data.getAlbum)
+    }
+
+    loadAlbumInfo()
+  }, [props.id])
+
+  useEffect(() => {
+    fetchNextPhotos()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    let subscription
+    async function setupSubscription() {
+      const user = await Auth.currentAuthenticatedUser()
+      subscription = API.graphql(graphqlOperation(subscriptions.onCreatePhoto, {owner: user.username})).subscribe({
+        next: (data) => {
+          const photo = data.value.data.onCreatePhoto
+          if (photo.albumId !== props.id) return
+            setPhotos(p => p.concat([photo]))
+        }
+      })
+    }
+    setupSubscription()
+
+    return () => subscription.unsubscribe();
+  }, [props.id])
+
+
+  const fetchNextPhotos = async () => {
+    const FETCH_LIMIT = 20
+    setFetchingPhotos(true)
+    let queryArgs = {
+      albumId: props.id,
+      limit: FETCH_LIMIT, 
+      nextToken: nextPhotosToken
+    }
+    if (! queryArgs.nextToken) delete queryArgs.nextToken
+    const results = await API.graphql(graphqlOperation(queries.listPhotosByAlbum, queryArgs))
+    setPhotos(p => p.concat(results.data.listPhotosByAlbum.items))
+    setNextPhotosToken(results.data.listPhotosByAlbum.nextToken)
+    setHasMorePhotos(results.data.listPhotosByAlbum.items.length === FETCH_LIMIT)
+    setFetchingPhotos(false)
   }
+
+  return (
+    <Segment>
+      <Header as='h3'>{album.name}</Header>
+      <S3ImageUpload albumId={album.id} />
+      <PhotosList photos={photos} />
+      {
+          hasMorePhotos && 
+          <Form.Button
+            onClick={() => fetchNextPhotos()}
+            icon='refresh'
+            disabled={fetchingPhotos}
+            content={fetchingPhotos ? 'Loading...' : 'Load more photos'}
+          />
+      }
+    </Segment>
+  )
+}
+
+
+const S3ImageUpload = (props) => {
+  const [uploading, setUploading] = useState(false)
   
-  uploadFile = async (file) => {
-    const fileName = uuid();
+  const uploadFile = async (file) => {
+    const fileName = 'upload/'+uuid();
     const user = await Auth.currentAuthenticatedUser();
 
-    const result = await Storage.put(
+    const result = await Storage.vault.put(
       fileName, 
       file, 
       {
-        customPrefix: { public: 'uploads/' },
-        metadata: { albumid: this.props.albumId, owner: user.username }
+        metadata: { 
+          albumid: props.albumId, 
+          owner: user.username,
+        }
       }
     );
 
     console.log('Uploaded file: ', result);
   }
 
-  onChange = async (e) => {
-    this.setState({uploading: true});
+  const onChange = async (e) => {
+    setUploading(true)
     
     let files = [];
     for (var i=0; i<e.target.files.length; i++) {
       files.push(e.target.files.item(i));
     }
-    await Promise.all(files.map(f => this.uploadFile(f)));
+    await Promise.all(files.map(f => uploadFile(f)));
 
-    this.setState({uploading: false});
+    setUploading(false)
   }
 
-  render() {
-    return (
-      <div>
-        <Form.Button
-          onClick={() => document.getElementById('add-image-file-input').click()}
-          disabled={this.state.uploading}
-          icon='file image outline'
-          content={ this.state.uploading ? 'Uploading...' : 'Add Images' }
-        />
-        <input
-          id='add-image-file-input'
-          type="file"
-          accept='image/*'
-          multiple
-          onChange={this.onChange}
-          style={{ display: 'none' }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Form.Button
+        onClick={() => document.getElementById('add-image-file-input').click()}
+        disabled={uploading}
+        icon='file image outline'
+        content={ uploading ? 'Uploading...' : 'Add Images' }
+      />
+      <input
+        id='add-image-file-input'
+        type="file"
+        accept='image/*'
+        multiple
+        onChange={onChange}
+        style={{ display: 'none' }}
+      />
+    </div>
+  );
 }
 
-
-class PhotosList extends React.Component {
-  photoItems() {
-    return this.props.photos.map(photo =>
+const PhotosList = React.memo((props) => {
+  const PhotoItems = (props) => {
+    return props.photos.map(photo =>
       <S3Image 
         key={photo.thumbnail.key} 
-        imgKey={photo.thumbnail.key.replace('public/', '')} 
+        imgKey={'resized/' + photo.thumbnail.key.replace(/.+resized\//, '')}
+        level="private"
         style={{display: 'inline-block', 'paddingRight': '5px'}}
       />
     );
   }
 
-  render() {
-    return (
-      <div>
-        <Divider hidden />
-        {this.photoItems()}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Divider hidden />
+      <PhotoItems photos={props.photos} />
+    </div>
+  );
+})
 
 
-class NewAlbum extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      albumName: ''
-      };
-    }
+const Search = () => {
+  const [photos, setPhotos] = useState([])
+  const [label, setLabel] = useState('')
+  const [hasResults, setHasResults] = useState(false)
+  const [searched, setSearched] = useState(false)
 
-  handleChange = (event) => {
-    let change = {};
-    change[event.target.name] = event.target.value;
-    this.setState(change);
-  }
-
-  handleSubmit = async (event) => {
-    event.preventDefault();
-    const NewAlbum = `mutation NewAlbum($name: String!) {
-      createAlbum(input: {name: $name}) {
-        id
-        name
+  const getPhotosForLabel = async (e) => {
+      setPhotos([])
+      const result = await API.graphql(graphqlOperation(queries.searchPhotos, { filter: { labels: { match: label }} }));
+      if (result.data.searchPhotos.items.length !== 0) {
+          setHasResults(result.data.searchPhotos.items.length > 0)
+          setPhotos(p => p.concat(result.data.searchPhotos.items))
       }
-    }`;
-    
-    const result = await API.graphql(graphqlOperation(NewAlbum, { name: this.state.albumName }));
-    console.info(`Created album with id ${result.data.createAlbum.id}`);
-    this.setState({ albumName: '' })
+      setSearched(true)
   }
 
-  render() {
-    return (
+  const NoResults = () => {
+    return !searched
+      ? ''
+      : <Header as='h4' color='grey'>No photos found matching '{label}'</Header>
+  }
+
+  return (
       <Segment>
-        <Header as='h3'>Add a new album</Header>
-          <Input
+        <Input
           type='text'
-          placeholder='New Album Name'
-          icon='plus'
+          placeholder='Search for photos'
+          icon='search'
           iconPosition='left'
-          action={{ content: 'Create', onClick: this.handleSubmit }}
-          name='albumName'
-          value={this.state.albumName}
-          onChange={this.handleChange}
-          />
-        </Segment>
-      )
-    }
-}
-
-
-class AlbumsList extends React.Component {
-  albumItems() {
-    return this.props.albums.sort(makeComparator('name')).map(album =>
-      <List.Item key={album.id}>
-        <NavLink to={`/albums/${album.id}`}>{album.name}</NavLink>
-      </List.Item>
-    );
-  }
-
-  render() {
-    return (
-      <Segment>
-        <Header as='h3'>My Albums</Header>
-        <List divided relaxed>
-          {this.albumItems()}
-        </List>
+          action={{ content: 'Search', onClick: getPhotosForLabel }}
+          name='label'
+          value={label}
+          onChange={(e) => { setLabel(e.target.value); setSearched(false);} }
+        />
+        {
+            hasResults
+            ? <PhotosList photos={photos} />
+            : <NoResults />
+        }
       </Segment>
-    );
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Grid padded>
+        <Grid.Column>
+          <Route path="/" exact component={NewAlbum}/>
+          <Route path="/" exact component={AlbumsList}/>
+          <Route path="/" exact component={Search}/>
+
+          <Route
+            path="/albums/:albumId"
+            render={() => <div>
+            <NavLink to='/'>Back to Albums list</NavLink>
+          </div>}/>
+          <Route
+            path="/albums/:albumId"
+            render={props => <AlbumDetails id={props.match.params.albumId}/>}/>
+        </Grid.Column>
+      </Grid>
+    </Router>
+  )
+}
+
+export default withAuthenticator(App, {
+  includeGreetings: true,
+  signUpConfig: {
+    hiddenDefaults: ['phone_number']
   }
-}
+})
 
-
-class AlbumDetailsLoader extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            nextTokenForPhotos: null,
-            hasMorePhotos: true,
-            album: null,
-            loading: true
-        }
-    }
-
-    async loadMorePhotos() {
-        if (!this.state.hasMorePhotos) return;
-
-        this.setState({ loading: true });
-        const { data } = await API.graphql(graphqlOperation(GetAlbum, {id: this.props.id, nextTokenForPhotos: this.state.nextTokenForPhotos}));
-
-        let album;
-        if (this.state.album === null) {
-            album = data.getAlbum;
-        } else {
-            album = this.state.album;
-            album.photos.items = album.photos.items.concat(data.getAlbum.photos.items);
-        }
-        this.setState({ 
-            album: album,
-            loading: false,
-            nextTokenForPhotos: data.getAlbum.photos.nextToken,
-            hasMorePhotos: data.getAlbum.photos.nextToken !== null
-        });
-    }
-
-    componentDidMount() {
-        this.loadMorePhotos();
-    }
-
-    render() {
-        return (
-            <AlbumDetails 
-                loadingPhotos={this.state.loading} 
-                album={this.state.album} 
-                loadMorePhotos={this.loadMorePhotos.bind(this)} 
-                hasMorePhotos={this.state.hasMorePhotos} 
-            />
-        );
-    }
-}
-
-
-class AlbumDetails extends Component {
-    render() {
-        if (!this.props.album) return 'Loading album...';
-        
-        return (
-            <Segment>
-            <Header as='h3'>{this.props.album.name}</Header>
-            <S3ImageUpload albumId={this.props.album.id}/>        
-            <PhotosList photos={this.props.album.photos.items} />
-            {
-                this.props.hasMorePhotos && 
-                <Form.Button
-                onClick={this.props.loadMorePhotos}
-                icon='refresh'
-                disabled={this.props.loadingPhotos}
-                content={this.props.loadingPhotos ? 'Loading...' : 'Load more photos'}
-                />
-            }
-            </Segment>
-        )
-    }
-}
-
-
-
-class AlbumsListLoader extends React.Component {
-    onNewAlbum = (prevQuery, newData) => {
-        // When we get data about a new album, we need to put in into an object 
-        // with the same shape as the original query results, but with the new data added as well
-        let updatedQuery = Object.assign({}, prevQuery);
-        updatedQuery.listAlbums.items = prevQuery.listAlbums.items.concat([newData.onCreateAlbum]);
-        return updatedQuery;
-    }
-
-    render() {
-        return (
-            <Connect 
-                query={graphqlOperation(ListAlbums)}
-                subscription={graphqlOperation(SubscribeToNewAlbums)} 
-                onSubscriptionMsg={this.onNewAlbum}
-            >
-                {({ data, loading, errors }) => {
-                    if (loading) { return <div>Loading...</div>; }
-                    if (errors.length > 0) { return <div>{JSON.stringify(errors)}</div>; }
-                    if (!data.listAlbums) return;
-
-                return <AlbumsList albums={data.listAlbums.items} />;
-                }}
-            </Connect>
-        );
-    }
-}
-
-
-
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Grid padded>
-          <Grid.Column>
-            <Route path="/" exact component={NewAlbum}/>
-            <Route path="/" exact component={AlbumsListLoader}/>
-            <Route path="/" exact component={Search}/>
-
-            <Route
-              path="/albums/:albumId"
-              render={ () => <div><NavLink to='/'>Back to Albums list</NavLink></div> }
-            />
-            <Route
-              path="/albums/:albumId"
-              render={ props => <AlbumDetailsLoader id={props.match.params.albumId}/> }
-            />
-          </Grid.Column>
-        </Grid>
-      </Router>
-    );
-  }
-}
-
-export default withAuthenticator(App, {includeGreetings: true});
-{{< /highlight >}}
-</div>
+</textarea>
+{{< /safehtml >}}
 
 ### What we changed
-
-- Added a *SearchPhotos* query to find photos for a given label. 
 
 - Added a *Search* component that uses the *SearchPhotos* query to get a list of matching photos for a given label and renders the photos using the pre-existing *PhotosList* component.
 
 - Added the *SearchPhotos* component to render as part of the root '/' path.
 
 ### Testing the photos search
-With that done, you should be able to go back to the root path '/' in the web app and try out the search. 
+With that done, you should be able to go back to the root path '/' in the web app and try out the search.
 
 Note that when Amplify sets up the Amazon Elasticsearch Service integration, it will only index new data because it doesn't pass the existing data from DynamoDB at the time of creation. You'll need to upload a few more photos to an album before you'll see search results.
 
 Give it a shot!
 
 {{% notice note %}}
-Before trying to search for a photo, please make sure that the `amplify push` from the previous page has finished.
+Before trying to search for a photo, please make sure that the `amplify push` from the previous page has finished. 
+<br/><br/>
+If you see an error like `Attempted import error: 'searchPhotos' is not exported from './graphql/queries' (imported as 'queries')` don't worry. It just means that the `amplify push` from the previous step isn't finished yet. When it finishes, it will re-generate the GraphQL queries file that `photoalbums/src/App.js` is looking for and this error will go away.
 <br/>
 <br/>
 To test out the photo search, look in the Photos table in DynamoDB for some valid labels to use as search terms. You must enter a label that matches exactly with one that was detected by Rekognition.

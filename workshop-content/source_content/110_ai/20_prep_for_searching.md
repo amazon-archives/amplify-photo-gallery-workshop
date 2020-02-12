@@ -4,50 +4,26 @@ chapter = false
 weight = 20
 +++
 
-<div style="text-align: left; border: 2px solid red; background-color: #FFDDDD; padding: 20px; font-size: 130%;">
-<strong>Attention</strong>
-<p style="text-align: left">
-  Due to an AWS Lambda runtime environment change, this part of the workshop will not work without performing some manual work to update the generated Lambda function to use a new Lambda Layer. We recommend you skip this section for now. More information is available here:
-   <a href="https://github.com/aws-amplify/amplify-cli/issues/2385#issuecomment-534359510">https://github.com/aws-amplify/amplify-cli/issues/2385#issuecomment-534359510</a>
-</p>
-</div>
-
 #### Updating the GraphQL Schema
 
-Now that we are storing labels for each photo, we're ready to move on and expose this data via our AppSync API.
+Now that we are attempting to store labels for each photo, we need to update our GraphQL API to accept this data as part of the input to a `CreatePhoto` mutation and to allow this data to be searchable via queries.
 
-While it's possible to perform some level of searching via DynamoDB Query operations, a more flexible and performant approach is to use the Amazon Elasticsearch Service to index data and handle our search queries. Fortunately, the Amplify CLI makes creating an Amazon Elasticsearch Service endpoint, and connecting it to our app's data, very easy.
+A flexible and very performant approach is to use the Amazon Elasticsearch Service to index our Photos data and handle our search queries. Fortunately, the Amplify CLI makes creating an Amazon Elasticsearch Service endpoint, and connecting it to our app's data, very easy.
 
 
-1. **Replace /photoalbums/amplify/backend/api/photoalbums/schema.graphql** with the following:
-{{< highlight graphql "hl_lines=9 15">}}
-# amplify/backend/api/photoalbums/schema.graphql
+**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** ___CLIPBOARD_BUTTON 1957013992344ecb1f1a16456fe6a062fce6bc73:photoalbums/amplify/backend/api/photoalbums/schema.graphql|
 
-type Album @model @auth(rules: [{allow: owner}]) {
-    id: ID!
-    name: String!
-    photos: [Photo] @connection(name: "AlbumPhotos")
-}
+**➡️ From the photoalbums directory, run:** `amplify push`.
 
-type Photo @model @auth(rules: [{allow: owner}]) @searchable {
-    id: ID!
-    album: Album @connection(name: "AlbumPhotos")
-    bucket: String!
-    fullsize: PhotoS3Info!
-    thumbnail: PhotoS3Info!
-    labels: [String!]
-}
+**➡️ Select 'yes'** when asked if you want to update code for your updated GraphQL API.
 
-type PhotoS3Info {
-    key: String!
-    width: Int!
-    height: Int!
-}
-{{< /highlight >}}
+**➡️ Select 'yes'** to confirm you're OK with overwriting the Amplify-generated query/mutation/subscription JS files.
 
-2. **From the photoalbums directory, run:** `amplify push` to provision our new resources.
+➡️ Wait for the update to finish. Creating a new Amazon Elasticsearch Service endpoint can take a while. **This step usually takes 8 to 12 minutes to complete.**
 
-3. Wait for the update to finish. Creating a new Amazon Elasticsearch Service endpoint can take several minutes. **This step usually takes 8 to 12 minutes to complete.**
+{{% notice note %}}
+If you notice any timeout errors after the `amplify push` above, it may be taking longer than usual to provision an Amazon Elasticsearch Service endpoint. Usually just issuing another `amplify push` and waiting a few more minutes will resolve the problem.
+{{% /notice %}}
 
 {{% notice tip %}}
 You can learn more about Amplify's *@searchable* GraphQL directive in [Amplify's GraphQL Transform documentation](https://aws-amplify.github.io/docs/cli/graphql?sdk=js).
