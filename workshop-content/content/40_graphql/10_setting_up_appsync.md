@@ -14,6 +14,10 @@ To build our API we'll use [AWS AppSync](https://aws.amazon.com/appsync/), a man
 
 ### Adding an AWS AppSync API
 
+{{% notice warning %}}
+In the steps below you will be prompted to enter a name when creating a new AppSync API. **You must enter _photoalbums_ as the API name.** There are code samples later on in this workshop that depend on variables that are automatically generated based on this API name.
+{{% /notice %}}
+
 **➡️ From the photoalbums directory, run** `amplify add api` and respond to the prompts like this:
 ```text
 $ amplify add api 
