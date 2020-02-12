@@ -480,9 +480,6 @@ index 1cf57e6..74d2f66 100644
 </textarea>
 {{< /safehtml >}}
 
-4. **From the photoalbums directory, run:** `amplify function build` and press Enter to confirm. This will take care of installing the dependencies in our Lambda function's package.json.
-
-
 With these steps done, our Lambda function's code is ready to go, but we'll have to make a few more changes to how things are configured before it will work. When Amplify first created our S3 Trigger function to handle our uploads, it created an AWS Lambda function with Identity and Access Management permissions that would let it access files in the S3 bucket, but by default it isn't able to talk to our API. Let's have Amplify re-configure the function so that it has permissions to talk to our API as well.
 
 **➡️ From the `photoalbums` directory, run:** `amplify update function`
