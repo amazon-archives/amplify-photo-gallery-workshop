@@ -131,6 +131,34 @@ a:hover {
     border-color: var(--MENU-SECTION-HR-color);
 }
 
+#sidebar .callout {
+    margin-top: 20px;
+    border: 1px solid #416493;
+    background-color: #283e5b;
+    padding: 5px 10px;
+    color: white;
+}
+
+#sidebar .callout h2 {
+    border-top: none;
+    color: #ccc !important;
+    font-size: 14px;
+    margin: 10px 0px 5px;
+    padding: 0px;
+    text-transform: uppercase;
+    letter-spacing: .15px;
+}
+
+#sidebar .callout p {
+    margin-bottom: 5px;
+}
+
+#sidebar .callout a {
+    text-decoration: underline;
+    color: #fd9827;
+    font-weight: bold;
+}
+
 #navigation a.nav-prev, #navigation a.nav-next {
     color: #f19e39 !important;
 }
@@ -170,3 +198,5 @@ div.notices p:first-child:before {
 	position:relative;
 	top:1px;
 }
+
+
