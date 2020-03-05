@@ -104,6 +104,13 @@ TARGET_FILE="amplify/backend/function/$S3_TRIGGER_NAME/$S3_TRIGGER_NAME-cloudfor
 LINE=$(grep -n 'AmplifyResourcesPolicy' $TARGET_FILE | cut -d ":" -f 1)
 { head -n $(($LINE-1)) $TARGET_FILE; cat rekognition_policy_for_s3_trigger; tail -n +$LINE $TARGET_FILE; } > updated_s3_trigger_cf
 rm $TARGET_FILE; mv updated_s3_trigger_cf $TARGET_FILE
+
+# Rename the amplify-generated policy name in the trigger function cf template to prevent conflicts
+sed -i -e "s/amplify-lambda-execution-policy/amplify-lambda-execution-policy-api/" $TARGET_FILE
+
+# Rename the amplify-generated policy name in the s3 cf template to prevent conflicts
+STORAGE_NAME=$(jq -r '.storage | to_entries[] | .key' amplify/backend/amplify-meta.json)
+sed -i -e "s/amplify-lambda-execution-policy/amplify-lambda-execution-policy-storage/" amplify/backend/storage/$STORAGE_NAME/s3-cloudformation-template.json
 ```
 
 Finally, we're ready to push these updates to our cloud environment.
@@ -118,6 +125,8 @@ Finally, we're ready to push these updates to our cloud environment.
 - Created a Lambda function that will receive records describing each photo that gets uploaded to our S3 bucket. For each photo, it creates a thumbnail and then stores the S3 paths for the fullsize and thumbnail photos directly into the API using a CreatePhoto mutation.
 
 - Added a *RekognitionDetectLabels* IAM policy to grant the function's role permission to use the detectLabels API from Amazon Rekognition. This policy isn't used yet, but we're going to add it here for convenience while we're working with this file so we won't need to come back and add it when we get to the next section that involves automatically tagging our photos with AI.
+
+- Did a small bit of role naming string surgery in the Amplify-generated CloudFormation templates to ensure that the generated IAM policies don't have a naming conflict.
 
 {{% notice warning %}}
 The AWS Amplify CLI manages the cloud resources in our project by generating CloudFormation templates for us. CloudFormation templates are very helpful, because they specify all of our project's infrastrucutre as code in the form of JSON and/or YAML files.
