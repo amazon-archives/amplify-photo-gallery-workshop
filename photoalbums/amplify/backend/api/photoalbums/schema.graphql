@@ -1,0 +1,49 @@
+type Album 
+@model 
+@auth(rules: [
+  {allow: owner},
+  {allow: private, provider: iam}
+]) {
+    id: ID!
+    name: String!
+    photos: [Photo] @connection(keyName: "byAlbum", fields: ["id"])
+}
+
+type Photo 
+@model 
+@key(name: "byAlbum", fields: ["albumId"], queryField: "listPhotosByAlbum")
+@auth(rules: [
+  {allow: owner},
+  {allow: private, provider: iam}
+])
+@searchable {
+    id: ID!
+    albumId: ID!
+    album: Album @connection(fields: ["albumId"])
+    bucket: String!
+    fullsize: PhotoS3Info!
+    thumbnail: PhotoS3Info!
+    labels: [String]
+}
+
+type PhotoS3Info {
+    key: String!
+    width: Int!
+    height: Int!
+}
+
+input CreatePhotoInput {
+	id: ID
+    owner: String
+	albumId: ID!
+	bucket: String!
+	fullsize: PhotoS3InfoInput!
+	thumbnail: PhotoS3InfoInput!
+  labels: [String]
+}
+
+input PhotoS3InfoInput {
+	key: String!
+	width: Int!
+	height: Int!
+}

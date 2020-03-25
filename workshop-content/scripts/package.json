@@ -1,0 +1,17 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "buildAndRefresh": "node build.js && pushd .. && npm run build && popd"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodegit": "^0.26.2",
+    "onchange": "^6.1.0",
+    "uuid": "^3.3.3"
+  }
+}
