@@ -20,9 +20,10 @@
 		"deployothers": "aws s3 sync public/ s3://amplify-workshop.go-aws.com/ --delete --cache-control \"max-age=86400, public\" --exclude \"*.html\" --exclude \"*.xml\""
 	},
 	"dependencies": {
+		"discharge": "^0.7.1",
 		"hugo-cli": "^0.7.0",
 		"hugo-lunr": "0.0.4",
-		"discharge": "^0.7.1",
+		"minimist": "^1.2.5",
 		"qs": "^6.5.2"
 	}
 }
