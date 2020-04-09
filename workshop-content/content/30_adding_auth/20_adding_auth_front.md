@@ -10,7 +10,7 @@ Now that we have our backend set up for managing registrations and sign-in, all 
 
 We haven't yet added the *aws-amplify* and *aws-amplify-react* modules to our app, so let's add them.
 
-**➡️ Run** `npm install --save aws-amplify aws-amplify-react`
+**➡️ Run** `npm install --save aws-amplify@3.0.7 aws-amplify-react@3.1.9`
 
 **➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#iddaa4069beb70d721535869f7078c9ad1c27b03c0photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
