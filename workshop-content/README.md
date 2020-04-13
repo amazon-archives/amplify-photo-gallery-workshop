@@ -53,7 +53,7 @@ Visit http://localhost:1313/ to see the site.
 In order to create the nice copy-to-clipboard and 'click to view diff' features, we're using a strategy of pre-processing markdown files to generate source content that is then read by Hugo.
 
 0. Start the hugo server using the step above
-1. `cd website/scripts`
+1. `npm install -g onchange`
 2. `onchange "../source_content/**/*" -- npm run buildAndRefresh`
 3. Edit files in `workshop-content/source_content`
 4. Check for updated content in the browser. 
