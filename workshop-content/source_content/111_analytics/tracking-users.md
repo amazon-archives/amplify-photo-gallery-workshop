@@ -5,7 +5,7 @@ draft: false
 weight: 130
 ---
 
-One advantage of Amazon Pinpoint is it simplifies customer engagements. So let's extend our Pinpoint setup to be able to run such campains. 
+One advantage of Amazon Pinpoint is it simplifies customer engagements. So let's extend our Pinpoint setup to be able to run such campaigns. 
 
 First of all we need to enable email sending for our Pinpoint Service.
 
@@ -24,7 +24,7 @@ First of all we need to enable email sending for our Pinpoint Service.
 You'll receive an email with your verification link. after verifying your address you're ready to use Pinpoints Email sending function. 
 
 
-Next we need to extend our code to track our Users and collect data to generate campains or other fancy stuff. 
+Next we need to extend our code to track our Users and collect data to generate campaigns or other fancy stuff. 
 
 edit **src/App.js** once again and add something like: 
 
