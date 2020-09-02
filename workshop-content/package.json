@@ -21,6 +21,7 @@
 	},
 	"dependencies": {
 		"discharge": "^0.7.1",
+		"dot-prop": ">=4.2.1",
 		"hugo-cli": "^0.7.0",
 		"hugo-lunr": "0.0.4",
 		"minimist": "^1.2.5",
