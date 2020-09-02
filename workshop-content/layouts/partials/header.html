@@ -39,6 +39,13 @@
     <script src="{{"js/diff2html-ui.min.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
     <link href="{{"css/diff2html.min.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
 
+    <script src="{{"js/shortbreadv1.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
+
+    <script type="text/javascript">
+      const shortbread = AWSCShortbread();
+      shortbread.checkForCookieConsent();
+    </script>
+
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
           display:none !important;
