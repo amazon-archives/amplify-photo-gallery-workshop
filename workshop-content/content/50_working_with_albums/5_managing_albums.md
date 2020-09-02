@@ -428,7 +428,7 @@ What makes a lot of this really convenient is that Amplify took care of generati
 {{% /notice %}}
 
 {{% notice info %}}
-The *listAlbums* query we're above using passes in a very high limit argument. This is because we can just load all of the albums in one request and sort the albums alphabetically on the client-side (instead of dealing with paginated DynamoDB responses). This keeps the *AlbumsList* code pretty simple, so it's probably worth the trade off in terms of performance or network cost.
+The *listAlbums* query we're using above passes in a very high limit argument. This is because we can just load all of the albums in one request and sort the albums alphabetically on the client-side (instead of dealing with paginated DynamoDB responses). This keeps the *AlbumsList* code pretty simple, so it's probably worth the trade-off in terms of performance or network cost.
 {{% /notice %}}
 
 {{% notice info %}}

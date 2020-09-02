@@ -305,7 +305,7 @@ exports.handler = async (event, context, callback) => {
 
 - Added the *getLabelNames* function to use *Rekognition.detectLabels* to return a list of appropriate labels for a given photo on S3
 
-- Updated the *processPrcord* function to use the *getLabelNames* function to get labels for the photo and include them in the item record it persists to DynamoDB
+- Updated the *processRecord* function to use the *getLabelNames* function to get labels for the photo and include them in the item record it persists to DynamoDB
 
 Our Photo Processor code now uses Amazon Rekognition's detectLabels API. But because we already added permissions for this action in the previous section, we won't need to update the CloudFormation template again.
 
@@ -314,4 +314,4 @@ Our Photo Processor code now uses Amazon Rekognition's detectLabels API. But bec
 
 **➡️ From the photoalbums directory, run:** `amplify push` to deploy this updated version of the S3 Trigger Lambda function.
 
-After the deploy finishes, our S3 Trigger function is ready to insert `labels` as a new property when it issues a `CreatePhoto` mution, but the API doesn't yet accept this field in its input. Continue on to the next section to address this.
+After the deploy finishes, our S3 Trigger function is ready to insert `labels` as a new property when it issues a `CreatePhoto` mutation, but the API doesn't yet accept this field in its input. Continue on to the next section to address this.

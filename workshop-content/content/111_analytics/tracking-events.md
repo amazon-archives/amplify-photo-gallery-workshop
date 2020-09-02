@@ -42,6 +42,6 @@ Browse to the Amazon Pinpoint Service in your Console to check the Events we're 
 it takes **about 2-3 Minutes** until the first events will be shown at your Amazon Pinpoint Dashboard
 {{% /notice %}}
 
-By default Pinpoint also grabs some demographis of our users.
+By default Pinpoint also grabs some demographics of our users.
 
 ![pinpoint demographic](/images/pinpoint_demographics.png)

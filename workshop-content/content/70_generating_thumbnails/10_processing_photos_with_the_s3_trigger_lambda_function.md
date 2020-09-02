@@ -485,7 +485,7 @@ With these steps done, our Lambda function's code is ready to go, but we'll have
 **➡️ From the `photoalbums` directory, run:** `amplify update function`
 1. **Select S3Triggerxxxxxxx**
 
-2. **Select Yes** to update the permissions granded to this Lambda function
+2. **Select Yes** to update the permissions granted to this Lambda function
 
 3. **Select `api`** and press Enter. (Use the arrow keys to move down to `api` and press Space to toggle the setting.)
 
@@ -512,7 +512,7 @@ Similarly, back when we first configured our AppSync GraphQL API, we configured 
 
 
 
-This takes care of enabling IAM authorization as a secondary option for our API, but by default it will still authenticate all requests via its confgured default authoriziation method: Amazon Cognito User Pools. To let the S3 Trigger Lambda function communicate with the API via IAM, we can configure specific data types or queries/mutastions/subscriptions to authenticate with IAM as an additional authorization method via Amplify's GraphQL Transform directives.
+This takes care of enabling IAM authorization as a secondary option for our API, but by default it will still authenticate all requests via its configured default authoriziation method: Amazon Cognito User Pools. To let the S3 Trigger Lambda function communicate with the API via IAM, we can configure specific data types or queries/mutations/subscriptions to authenticate with IAM as an additional authorization method via Amplify's GraphQL Transform directives.
 
 **➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendapiphotoalbumsschemagraphql"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
