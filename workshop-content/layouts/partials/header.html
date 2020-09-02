@@ -42,7 +42,9 @@
     <script src="{{"js/shortbreadv1.js"| relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}"></script>
 
     <script type="text/javascript">
-      const shortbread = AWSCShortbread();
+      const shortbread = AWSCShortbread({
+        domain: 'amplify-workshop.go-aws.com'
+      });
       shortbread.checkForCookieConsent();
     </script>
 
