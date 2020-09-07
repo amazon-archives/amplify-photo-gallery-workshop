@@ -27,5 +27,8 @@
 		"hugo-lunr": "0.0.4",
 		"minimist": "^1.2.5",
 		"qs": "^6.5.2"
+	},
+	"devDependencies": {
+		"bl": ">=2.2.1"
 	}
 }
