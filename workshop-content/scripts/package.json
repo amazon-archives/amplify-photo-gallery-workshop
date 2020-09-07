@@ -14,5 +14,8 @@
     "nodegit": "^0.26.2",
     "onchange": "^6.1.0",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "bl": ">=2.2.1"
   }
 }
