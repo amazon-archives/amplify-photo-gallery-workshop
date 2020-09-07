@@ -5,7 +5,7 @@
   "main": "build.js",
   "scripts": {
     "build": "node build.js",
-    "buildAndRefresh": "node build.js && pushd .. && npm run build && popd"
+    "buildAndRefresh": "node build.js && pushd .. && npm run buildHugo && popd"
   },
   "author": "",
   "license": "ISC",
