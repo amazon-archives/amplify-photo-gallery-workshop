@@ -11,5 +11,8 @@
         "minimist": "^1.2.5",
         "sharp": "^0.24.0",
         "uuid": "^3.3.2"
+    },
+    "devDependencies": {
+        "node-fetch": ">=2.6.1"
     }
 }
