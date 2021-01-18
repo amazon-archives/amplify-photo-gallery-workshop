@@ -29,7 +29,7 @@ Let's update our front-end to:
 Usually, we'd create separate files for each of our components, but here we'll just keep everything together so we can see all of the front end code in one place.
 {{% /notice %}}
 
-**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id9740b2f7f2994b689a053d8c9e9ad3c62337ed93photoalbumssrcAppjs">commit 9740b2f7f2994b689a053d8c9e9ad3c62337ed93
 Author: Gabe Hollombe <gabe@avantbard.com>

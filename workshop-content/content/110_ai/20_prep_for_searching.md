@@ -11,7 +11,7 @@ Now that we are attempting to store labels for each photo, we need to update our
 A flexible and very performant approach is to use the Amazon Elasticsearch Service to index our Photos data and handle our search queries. Fortunately, the Amplify CLI makes creating an Amazon Elasticsearch Service endpoint, and connecting it to our app's data, very easy.
 
 
-**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumsamplifybackendapiphotoalbumsschemagraphql"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumsamplifybackendapiphotoalbumsschemagraphql">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumsamplifybackendapiphotoalbumsschemagraphql"></div> <script type="text/template" data-diff-for="diff-id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumsamplifybackendapiphotoalbumsschemagraphql">commit 1957013992344ecb1f1a16456fe6a062fce6bc73
 Author: Gabe Hollombe <gabe@avantbard.com>

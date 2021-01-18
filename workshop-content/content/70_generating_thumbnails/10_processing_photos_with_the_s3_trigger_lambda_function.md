@@ -22,7 +22,7 @@ one match for each of the items mentioned below.
 
 First, we'll paste in the code to implement resizing photos and associating them with their album and owner.
 
-**➡️ Replace `photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/index.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/index.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs"></div> <script type="text/template" data-diff-for="diff-id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs">commit 260bdddb1669b10e2e1011a5ddaaaf036e091b0d
 Author: Gabe Hollombe <gabe@avantbard.com>
@@ -427,7 +427,7 @@ exports.handler = async (event, context, callback) => {
 
 The JavaScript code we just pasted to implement our Lambda function has some dependencies. In standard JS fashion, we'll need to update the code's `package.json` file accordingly.
 
-**➡️ Replace `photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/package.json` with** <span class="clipBtn clipboard" data-clipboard-target="#id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcpackagejson"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/package.json` with** <span class="clipBtn clipboard" data-clipboard-target="#id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcpackagejson">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcpackagejson"></div> <script type="text/template" data-diff-for="diff-id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendfunctionS3Triggerb18990d7srcpackagejson">commit 260bdddb1669b10e2e1011a5ddaaaf036e091b0d
 Author: Gabe Hollombe <gabe@avantbard.com>
@@ -514,7 +514,7 @@ Similarly, back when we first configured our AppSync GraphQL API, we configured 
 
 This takes care of enabling IAM authorization as a secondary option for our API, but by default it will still authenticate all requests via its configured default authoriziation method: Amazon Cognito User Pools. To let the S3 Trigger Lambda function communicate with the API via IAM, we can configure specific data types or queries/mutations/subscriptions to authenticate with IAM as an additional authorization method via Amplify's GraphQL Transform directives.
 
-**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendapiphotoalbumsschemagraphql"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendapiphotoalbumsschemagraphql">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendapiphotoalbumsschemagraphql"></div> <script type="text/template" data-diff-for="diff-id260bdddb1669b10e2e1011a5ddaaaf036e091b0dphotoalbumsamplifybackendapiphotoalbumsschemagraphql">commit 260bdddb1669b10e2e1011a5ddaaaf036e091b0d
 Author: Gabe Hollombe <gabe@avantbard.com>

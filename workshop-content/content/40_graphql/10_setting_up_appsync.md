@@ -53,7 +53,7 @@ Please manually edit the file created at /home/ec2-user/environment/photoalbums/
 
 Below is a schema that will suit our needs for storing and querying Albums and Photos. 
 
-**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql"><strong>this content</strong></span> (click the gray button to copy to clipboard).  And, **remember to save the file**.
+**➡️ Replace `photoalbums/amplify/backend/api/photoalbums/schema.graphql` with** <span class="clipBtn clipboard" data-clipboard-target="#idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql">this content</span> (click the gray button to copy to clipboard).  And, **remember to save the file**.
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql"></div> <script type="text/template" data-diff-for="diff-idf850682000ab9849d33104522d99df80c04c86e3photoalbumsamplifybackendapiphotoalbumsschemagraphql">commit f850682000ab9849d33104522d99df80c04c86e3
 Author: Gabe Hollombe <gabe@avantbard.com>

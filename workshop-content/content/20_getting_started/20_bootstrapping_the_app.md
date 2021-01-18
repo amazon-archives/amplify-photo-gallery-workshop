@@ -26,7 +26,7 @@ Before we start writing our UI, we'll also include Semantic UI components for Re
 
 **➡️ In the photoalbums directory, run** `npm install --save semantic-ui-react`
 
-**➡️ Replace `public/index.html` with** <span class="clipBtn clipboard" data-clipboard-target="#id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `public/index.html` with** <span class="clipBtn clipboard" data-clipboard-target="#id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml"></div> <script type="text/template" data-diff-for="diff-id0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5photoalbumspublicindexhtml">commit 0ce4b3e780ae9cbb429b4d2a6ac625a057a5fed5
 Author: Gabe Hollombe <gabe@avantbard.com>
@@ -120,7 +120,7 @@ Finally, **open another terminal window**. We'll leave this first terminal alone
 
 Next, we'll want to start with a clean slate.
 
-**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id6c0bff7c33c87c1117890501a772279cf876fb41photoalbumssrcAppjs">commit 6c0bff7c33c87c1117890501a772279cf876fb41
 Author: Gabe Hollombe <gabehol@amazon.com>

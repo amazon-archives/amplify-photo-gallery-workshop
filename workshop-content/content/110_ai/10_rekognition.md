@@ -25,7 +25,7 @@ For each object, scene, and concept the API returns one or more labels. Each lab
 
 Let's add Amazon Rekognition integration in to our S3 Trigger Lambda function.
 
-**➡️ Replace `photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/index.js` with** <span class="clipBtn clipboard" data-clipboard-target="#ida8e8e30858c8fb9c532fe80c910f22b895778561photoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `photoalbums/amplify/backend/function/S3Triggerxxxxxxx/src/index.js` with** <span class="clipBtn clipboard" data-clipboard-target="#ida8e8e30858c8fb9c532fe80c910f22b895778561photoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-ida8e8e30858c8fb9c532fe80c910f22b895778561photoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs"></div> <script type="text/template" data-diff-for="diff-ida8e8e30858c8fb9c532fe80c910f22b895778561photoalbumsamplifybackendfunctionS3Triggerb18990d7srcindexjs">commit a8e8e30858c8fb9c532fe80c910f22b895778561
 Author: Gabe Hollombe <gabe@avantbard.com>

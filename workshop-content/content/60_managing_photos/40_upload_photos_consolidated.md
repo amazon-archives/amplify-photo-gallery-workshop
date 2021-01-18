@@ -17,7 +17,7 @@ Our upload event handler will need to upload the file to S3 with some metadata a
 Now we'll update our app by adding some imports, creating an S3ImageUpload component, and including the S3ImageUpload component in the AlbumDetails component. 
  
 
-**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#idafdc9f598ebf84023a317f7cc81a5933f566e39ephotoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#idafdc9f598ebf84023a317f7cc81a5933f566e39ephotoalbumssrcAppjs">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-idafdc9f598ebf84023a317f7cc81a5933f566e39ephotoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-idafdc9f598ebf84023a317f7cc81a5933f566e39ephotoalbumssrcAppjs">commit afdc9f598ebf84023a317f7cc81a5933f566e39e
 Author: Gabe Hollombe <gabe@avantbard.com>

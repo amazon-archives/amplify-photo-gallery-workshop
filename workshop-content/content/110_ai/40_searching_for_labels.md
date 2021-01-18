@@ -8,7 +8,7 @@ With all of the back-end work completed, now we just need to update our web app 
 
 Let's create a new *Search* component and add it to the *App* component to be rendered on the root path. For rendering all of the matching photos in the *Search* component, we'll re-use the *PhotosList* component we already created.
 
-**➡️ Replace `photoalbums/src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs"><strong>this content</strong></span> (click the gray button to copy to clipboard). 
+**➡️ Replace `photoalbums/src/App.js` with** <span class="clipBtn clipboard" data-clipboard-target="#id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs">this content</span> (click the gray button to copy to clipboard). 
 {{< expand "Click to view diff" >}} {{< safehtml >}}
 <div id="diff-id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs"></div> <script type="text/template" data-diff-for="diff-id1957013992344ecb1f1a16456fe6a062fce6bc73photoalbumssrcAppjs">commit 1957013992344ecb1f1a16456fe6a062fce6bc73
 Author: Gabe Hollombe <gabe@avantbard.com>
